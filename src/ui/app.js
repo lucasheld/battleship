@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../../assets/images/logo.svg';
+import logo from '../assets/images/logo.svg';
 import './app.css';
 
 function App() {
@@ -18,6 +18,9 @@ function App() {
         >
           Learn React
         </a>
+        <h1>Important!</h1>
+        Here we have to inject the pages from pages folder <br/>
+        In the pages we inject the components from components folder
       </header>
     </div>
   );
