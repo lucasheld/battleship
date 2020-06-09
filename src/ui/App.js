@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
+import logo from '../assets/images/logo.svg';
 import './App.css';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Edit <code>src/ui/App.js</code> and save to reload.
         </p>
         <a
           className="App-link"
@@ -17,6 +17,11 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+        </a>
+        <a style={{color: "red"}} >
+          <h1>Important!</h1>
+          Here we have to inject the pages from pages folder <br/>
+          In the pages we inject the components from components folder
         </a>
       </header>
     </div>
