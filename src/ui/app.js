@@ -18,9 +18,11 @@ function App() {
         >
           Learn React
         </a>
-        <h1>Important!</h1>
-        Here we have to inject the pages from pages folder <br/>
-        In the pages we inject the components from components folder
+        <a style={{color: "red"}} >
+          <h1>Important!</h1>
+          Here we have to inject the pages from pages folder <br/>
+          In the pages we inject the components from components folder
+        </a>
       </header>
     </div>
   );
