@@ -13,8 +13,4 @@ export default class Ship {
         this.hitPoints = size;
     }
 
-    set position(position) {
-        this.position = position;
-    }
-
 }
