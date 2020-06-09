@@ -1,12 +1,15 @@
 import React from 'react';
-import logo from '../assets/images/logo.svg';
 import './App.css';
+import Identicon from 'react-identicons';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        {/*
+        string is the seed for the random image
+        */}
+        <Identicon string={Math.random().toString(36).substring(7)} />
         <p>
           Edit <code>src/ui/App.js</code> and save to reload.
         </p>
