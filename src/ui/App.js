@@ -1,33 +1,28 @@
 import React from 'react';
+import "bulma/css/bulma.min.css";
 import './App.css';
-import Identicon from 'react-identicons';
+import { BrowserRouter, Route } from 'react-router-dom';
+import StartScreen from "./pages/StartScreen";
+import PlayerProfileScreen from "./pages/PlayerProfileScreen";
+import FightModeScreen from "./pages/FightModeScreen";
+import LockScreen from "./pages/LockScreen";
+import SetupScreen from "./pages/SetupScreen";
+import StrategyModeScreen from "./pages/StrategyModeScreen";
+import EndScreen from "./pages/EndScreen";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        {/*
-        string is the seed for the random image
-        */}
-        <Identicon string={Math.random().toString(36).substring(7)} />
-        <p>
-          Edit <code>src/ui/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <a style={{color: "red"}} >
-          <h1>Important!</h1>
-          Here we have to inject the pages from pages folder <br/>
-          In the pages we inject the components from components folder
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+          <main className="App">
+              <Route exact path="/" component={StartScreen} />
+              <Route path="/end" component={EndScreen} />
+              <Route path="/fight-mode" component={FightModeScreen} />
+              <Route path="/lock" component={LockScreen} />
+              <Route path="/player-profile" component={PlayerProfileScreen} />
+              <Route path="/setup" component={SetupScreen} />
+              <Route path="/strategy-mode" component={StrategyModeScreen} />
+          </main>
+      </BrowserRouter>
   );
 }
 
