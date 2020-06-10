@@ -1,4 +1,5 @@
 import React from 'react';
+import "bulma/css/bulma.min.css";
 import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import StartScreen from "./pages/StartScreen";
