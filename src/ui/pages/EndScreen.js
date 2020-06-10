@@ -4,7 +4,9 @@ export default class EndScreen extends Component {
     render() {
         return (
             <div>
-                EndScreen
+                <h1 className="title">Glückwunsch!</h1>
+                <h2 className="subtitle">Hey {this.props.winner}, du hast gewonnen.</h2>
+                <button className="button is-primary" onClick={() => this.props.history.push('/playerProfile')}>Neues Spiel?</button>
             </div>
         );
     }
