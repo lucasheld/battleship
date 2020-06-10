@@ -14,7 +14,7 @@ export default class Playground extends Component {
         }
         rows.push(<tr key={0} id={0}>{cells}</tr>)
 
-        let fields = this.props.player.Playground().fields();
+        let fields = this.props.player.playground.fields;
 
         for (let i = 1; i < 11; i++){
             cells = []
