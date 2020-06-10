@@ -7,7 +7,9 @@ export default class PlayerProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            identiconSeed: Math.floor((Math.random() * 100) + 1)
+            identiconSeed: Math.floor((Math.random() * 100) + 1),  // random int between 1 and 100
+            playerName: "",
+            playerPin: ""
         }
     }
 
@@ -23,6 +25,19 @@ export default class PlayerProfileScreen extends Component {
         })
     }
 
+    saveProfile = () => {
+        alert("playerName: " + this.state.playerName + ", playerPin: " + this.state.playerPin + ", identiconSeed: " + this.state.identiconSeed)
+    }
+
+    handleInputChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        this.setState({
+            [name]: value
+        });
+    }
+
     render() {
         return (
             <table className="table">
@@ -35,13 +50,13 @@ export default class PlayerProfileScreen extends Component {
                 <tr>
                     <th className="is-vcentered">Nick</th>
                     <td>
-                        <input className="input" type="text" placeholder="Enter your name" value={this.props.playerName}/>
+                        <input className="input" type="text" name="playerName" placeholder="Enter your name" value={this.state.playerName} onChange={this.handleInputChange}/>
                     </td>
                 </tr>
                 <tr>
                     <th className="is-vcentered">Pin</th>
                     <td>
-                        <input className="input" type="password" placeholder="Enter your pin" value={this.props.playerPin}/>
+                        <input className="input" type="password" name="playerPin" placeholder="Enter your pin" value={this.state.playerPin} onChange={this.handleInputChange}/>
                     </td>
                 </tr>
                 <tr>
@@ -68,7 +83,7 @@ export default class PlayerProfileScreen extends Component {
                 <tfoot>
                 <tr>
                     <td colSpan="2">
-                        <button className="button is-dark">Speichern</button>
+                        <button className="button is-dark" onClick={() => this.saveProfile()}>Speichern</button>
                     </td>
                 </tr>
                 </tfoot>
