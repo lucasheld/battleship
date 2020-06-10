@@ -8,10 +8,8 @@ export default class SetupScreen extends Component {
     render() {
         return (
             <div>
-                <h1 className="title has-text-centered">Setup</h1>
-
                 <div className="columns is-centered has-text-centered">
-                    <div className="column is-one-third">
+                    <div className="column is-one-quarter">
                         <div className="card">
                             <div className="card-image">
                                 <figure className="image is-1by1">
@@ -24,7 +22,7 @@ export default class SetupScreen extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="column is-one-third">
+                    <div className="column is-one-quarter">
                         <div className="card">
                             <div className="card-image">
                                 <figure className="image is-1by1">
@@ -38,7 +36,7 @@ export default class SetupScreen extends Component {
                         </div>
                     </div>
                 </div>
-
+                <button className="button is-dark is-large" onClick={() => this.props.history.push('/strategy-mode')}>Seeschlacht beginnen</button>
             </div>
         );
     }
