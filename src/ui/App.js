@@ -16,11 +16,11 @@ function App() {
           <main className="App">
               <Route exact path="/" component={StartScreen} />
               <Route path="/end" component={EndScreen} />
-              <Route path="/fightMode" component={FightModeScreen} />
+              <Route path="/fight-mode" component={FightModeScreen} />
               <Route path="/lock" component={LockScreen} />
-              <Route path="/playerProfile" component={PlayerProfileScreen} />
+              <Route path="/player-profile" component={PlayerProfileScreen} />
               <Route path="/setup" component={SetupScreen} />
-              <Route path="/strategyMode" component={StrategyModeScreen} />
+              <Route path="/strategy-mode" component={StrategyModeScreen} />
           </main>
       </BrowserRouter>
   );
