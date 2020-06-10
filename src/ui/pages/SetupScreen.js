@@ -1,42 +1,40 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Identicon from 'react-identicons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import "./SetupScreen.css";
+import SetupCardComponent from "../components/SetupCardComponent";
 
 export default class SetupScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            player1Ready: false,
+            player2Ready: true,
+        }
+    }
+
+    setPlayer1Ready = () => {
+        this.setState({
+            player1Ready: true
+        })
+    }
+
+    setPlayer2Ready = () => {
+        this.setState({
+            player2Ready: true
+        })
+    }
+
     render() {
         return (
             <div>
                 <div className="columns is-centered has-text-centered">
-                    <div className="column is-one-quarter">
-                        <div className="card">
-                            <div className="card-image">
-                                <figure className="image is-1by1">
-                                    <Identicon string="1" size="200" />
-                                </figure>
-                            </div>
-                            <div className="card-content">
-                                <h1 className="title">Keanu</h1>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="column is-one-quarter">
-                        <div className="card">
-                            <div className="card-image">
-                                <figure className="image is-1by1">
-                                    <Identicon string="2" size="200" />
-                                </figure>
-                            </div>
-                            <div className="card-content">
-                                <h1 className="title">Lucas</h1>
-                                <FontAwesomeIcon icon={faCheck} />
-                            </div>
-                        </div>
-                    </div>
+                    <SetupCardComponent playerName="Keanu" playerReady={this.state.player1Ready} identiconSeed="1"/>
+                    <SetupCardComponent playerName="Lucas" playerReady={this.state.player2Ready} identiconSeed="2"/>
                 </div>
-                <button className="button is-dark is-large" onClick={() => this.props.history.push('/strategy-mode')}>Seeschlacht beginnen</button>
+                <button className="button is-dark is-large"
+                        disabled={!this.state.player1Ready || !this.state.player2Ready}
+                        onClick={() => this.props.history.push('/fight-mode')}>Seeschlacht beginnen
+                </button>
             </div>
         );
     }
