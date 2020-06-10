@@ -3,11 +3,13 @@ import Identicon from 'react-identicons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import "./PlayerProfileScreen.css"
+import Redirect from "react-router-dom/es/Redirect";
 
 export default class PlayerProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            redirect: false,
             identiconSeed: Math.floor((Math.random() * 100) + 1),  // random int between 1 and 100
             playerName: "",
             playerPin: ""
@@ -26,8 +28,10 @@ export default class PlayerProfileScreen extends Component {
         })
     }
 
-    saveProfile = () => {
-        alert("playerName: " + this.state.playerName + ", playerPin: " + this.state.playerPin + ", identiconSeed: " + this.state.identiconSeed)
+    triggerRedirect = () => {
+        this.setState({
+            redirect: true
+        })
     }
 
     handleInputChange = (event) => {
@@ -40,6 +44,10 @@ export default class PlayerProfileScreen extends Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect push to="/setup" />;
+        }
+
         return (
             <table className="table">
                 <thead>
@@ -67,12 +75,12 @@ export default class PlayerProfileScreen extends Component {
                         <div className="columns">
                             <div className="column is-one-quarter"/>
                             <div className="column">
-                                <button className="button is-small" onClick={() => this.decreaseSeed()}>
+                                <button className="button is-small" onClick={this.decreaseSeed}>
                                     <FontAwesomeIcon icon={faAngleLeft} />
                                 </button>
                             </div>
                             <div className="column">
-                                <button className="button is-small" onClick={() => this.increaseSeed()}>
+                                <button className="button is-small" onClick={this.increaseSeed}>
                                     <FontAwesomeIcon icon={faAngleRight} />
                                 </button>
                             </div>
@@ -84,7 +92,7 @@ export default class PlayerProfileScreen extends Component {
                 <tfoot>
                 <tr>
                     <td colSpan="2">
-                        <button className="button is-dark" onClick={() => this.saveProfile()}>Speichern</button>
+                        <button className="button is-dark" onClick={this.triggerRedirect}>Speichern</button>
                     </td>
                 </tr>
                 </tfoot>

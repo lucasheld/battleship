@@ -1,15 +1,22 @@
 import React, {Component} from "react";
-import Identicon from 'react-identicons';
 import "./SetupScreen.css";
 import SetupCardComponent from "../components/SetupCardComponent";
+import Redirect from "react-router-dom/es/Redirect";
 
 export default class SetupScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            redirect: false,
             player1Ready: false,
             player2Ready: true,
         }
+    }
+
+    triggerRedirect = () => {
+        this.setState({
+            redirect: true
+        })
     }
 
     setPlayer1Ready = () => {
@@ -25,6 +32,10 @@ export default class SetupScreen extends Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect push to="/fight-mode" />;
+        }
+
         return (
             <div>
                 <div className="columns is-centered has-text-centered">
@@ -33,7 +44,7 @@ export default class SetupScreen extends Component {
                 </div>
                 <button className="button is-dark is-large"
                         disabled={!this.state.player1Ready || !this.state.player2Ready}
-                        onClick={() => this.props.history.push('/fight-mode')}>Seeschlacht beginnen
+                        onClick={this.triggerRedirect}>Seeschlacht beginnen
                 </button>
             </div>
         );
