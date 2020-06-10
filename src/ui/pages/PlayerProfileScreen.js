@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Identicon from 'react-identicons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import "./PlayerProfileScreen.css"
 
 export default class PlayerProfileScreen extends Component {
     constructor(props) {
