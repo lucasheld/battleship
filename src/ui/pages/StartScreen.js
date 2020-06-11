@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom"
-import Player from "../../cross-cutting/data-classes/player";
+import Player from "../../redux/data-classes/player";
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/start-mapper";
 
@@ -8,13 +8,12 @@ class StartScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            redirect: false
+            redirect: false,
+            doitonce: true // TODO delete this later on
         }
     }
 
     triggerRedirect = () => {
-        this.props.setActivePlayer(new Player("1"));
-        this.props.setInactivePlayer(new Player("2"));
         this.setState({
             redirect: true
         })
@@ -24,6 +23,15 @@ class StartScreen extends Component {
         if (this.state.redirect) {
             return <Redirect push to="/player-profile" />;
         }
+
+        // Example TODO delete later
+        if(this.state.doitonce){
+            this.state.doitonce = false;
+            this.props.addPlayer(new Player("1", "hi", "ho", "hu"));
+            this.props.addPlayer(new Player("2", "hi2", "ho2", "hu2"));
+            this.props.changePlayer(new Player("2", "hdbvfihuabgriu", "sekjngf", "wjnrg"));
+        }
+        console.log(this.props.players);
 
         return (
             <div>
