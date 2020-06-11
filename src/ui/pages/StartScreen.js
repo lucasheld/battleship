@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom"
+import Player from "../../cross-cutting/data-classes/player";
+import {connect} from "react-redux";
+import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/start-mapper";
 
-export default class StartScreen extends Component {
+class StartScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,10 +13,12 @@ export default class StartScreen extends Component {
     }
 
     triggerRedirect = () => {
+        this.props.setActivePlayer(new Player("1"));
+        this.props.setInactivePlayer(new Player("2"));
         this.setState({
             redirect: true
         })
-    }
+    };
 
     render() {
         if (this.state.redirect) {
@@ -31,3 +36,5 @@ export default class StartScreen extends Component {
         );
     }
 }
+
+export default connect(mapStateToProps, matchDispatchToProps)(StartScreen);

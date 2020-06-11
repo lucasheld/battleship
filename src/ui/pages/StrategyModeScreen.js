@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import Playground from "../components/Playground";
-import {player0} from "../../cross-cutting/game";
 import Ship from "../components/Ship";
 import {Redirect} from "react-router-dom";
 
@@ -26,7 +25,7 @@ export default class StrategyModeScreen extends Component {
         return (
             <div className="columns">
                 <div className="column">
-                    <Playground player={player0}/>
+                    <Playground player={null/*this.props.activePlayer*/}/>
                     <br/>
                     <div className="control">
                         <label className="label">

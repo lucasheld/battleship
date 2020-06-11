@@ -1,8 +1,8 @@
 import Player from "./data-classes/player";
 
-export var player0 = new Player();
+export var player0;
 
-export var player1 = new Player();
+export var player1;
 
 export var inactivePlayer;
 

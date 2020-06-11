@@ -2,8 +2,10 @@ import React, {Component} from "react";
 import "./SetupScreen.css";
 import SetupCardComponent from "../components/SetupCardComponent";
 import { Redirect } from "react-router-dom"
+import {connect} from "react-redux";
+import {mapStateToProps} from "../../redux/mapper/setup-mapper";
 
-export default class SetupScreen extends Component {
+class SetupScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -36,11 +38,13 @@ export default class SetupScreen extends Component {
             return <Redirect push to="/fight-mode" />;
         }
 
+        // {this.props.activePlayer !== null && this.props.activePlayer.name}
+
         return (
             <div>
                 <div className="columns is-centered has-text-centered">
-                    <SetupCardComponent playerName="Keanu" playerReady={this.state.player1Ready} identiconSeed="1"/>
-                    <SetupCardComponent playerName="Lucas" playerReady={this.state.player2Ready} identiconSeed="2"/>
+                    <SetupCardComponent playerName={this.props.activePlayer !== null && this.props.activePlayer.nick} playerReady={this.state.player1Ready} identiconSeed="1"/>
+                    <SetupCardComponent playerName={this.props.inactivePlayer !== null && this.props.inactivePlayer.nick} playerReady={this.state.player2Ready} identiconSeed="2"/>
                 </div>
                 <button className="button is-dark is-large"
                         disabled={!this.state.player1Ready || !this.state.player2Ready}
@@ -50,3 +54,5 @@ export default class SetupScreen extends Component {
         );
     }
 }
+
+export default connect(mapStateToProps)(SetupScreen);

@@ -3,8 +3,10 @@ import Identicon from 'react-identicons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from "react-router-dom"
+import {connect} from "react-redux";
+import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/player-profile-mapper";
 
-export default class PlayerProfileScreen extends Component {
+class PlayerProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,6 +30,7 @@ export default class PlayerProfileScreen extends Component {
     }
 
     triggerRedirect = () => {
+        this.props.activePlayer.setAttributes(this.state.playerName, this.state.playerPin, this.state.identiconSeed);
         this.setState({
             redirect: true
         })
@@ -47,11 +50,13 @@ export default class PlayerProfileScreen extends Component {
             return <Redirect push to="/setup" />;
         }
 
+        // onClick={ () => this.props.setActivePlayer(this.props.test[0])}
+
         return (
             <table className="table">
                 <thead>
                 <tr>
-                    <th colSpan="2">Spieler {this.props.playerNumber}</th>
+                    <th colSpan="2">Spieler {this.props.activePlayer !== null && this.props.activePlayer.id}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -107,3 +112,5 @@ export default class PlayerProfileScreen extends Component {
         );
     }
 }
+
+export default connect(mapStateToProps, matchDispatchToProps)(PlayerProfileScreen);
