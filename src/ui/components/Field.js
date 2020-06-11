@@ -12,7 +12,7 @@ export default class Field extends Component {
                 ?
                 <th className={this.props.className + " field-ship"} key={this.props.id} id={this.props.id}>{this.props.text}</th>
                 :
-                <td className={this.props.className + " field-ship"} key={this.props.id} id={this.props.id}>{this.props.text}</td>
+                <td className={this.props.className + " field-ship"} key={this.props.id} id={this.props.id}/>
         )
     }
 }

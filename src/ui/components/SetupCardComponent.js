@@ -20,7 +20,7 @@ export default class SetupCardComponent extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/strategy-mode" />;
+            return <Redirect push to="/strategy-mode/0" />;
         }
 
         return (

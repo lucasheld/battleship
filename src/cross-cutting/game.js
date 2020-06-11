@@ -1,5 +1,3 @@
-import Player from "./data-classes/player";
-
 export var player0;
 
 export var player1;

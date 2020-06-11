@@ -20,9 +20,13 @@ function App() {
                       <Route path="/end" component={EndScreen} />
                       <Route path="/fight-mode" component={FightModeScreen} />
                       <Route path="/lock" component={LockScreen} />
-                      <Route path="/player-profile" component={PlayerProfileScreen} />
+                      <Route path="/player-profile/:playerId" render={(props) => (
+                          <PlayerProfileScreen key={props.match.params.playerId} {...props} />)
+                      } />
                       <Route path="/setup" component={SetupScreen} />
-                      <Route path="/strategy-mode" component={StrategyModeScreen} />
+                      <Route path="/strategy-mode/:playerId" render={(props) => (
+                          <StrategyModeScreen key={props.match.params.playerId} {...props} />)
+                      } />
                   </div>
               </div>
           </section>

@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import Playground from "../components/Playground";
-import {player0, player1} from "../../cross-cutting/game";
 import {Redirect} from "react-router-dom";
 
 export default class FightModeScreen extends Component {
@@ -27,7 +26,7 @@ export default class FightModeScreen extends Component {
                 <h2>Kampfmodus</h2>
                 <br/>
                 <p>
-                    Hallo {player0.nick}
+                    Hallo {null/*.nick TODO*/}
                     <br/>
                     Willkommen zurück in der Kommandozentrale
                     <br/>
@@ -35,10 +34,10 @@ export default class FightModeScreen extends Component {
                 <div className="columns">
                     <div className="column">
                         <p>
-                            Das Meer von {player1.nick}
+                            Das Meer von {null/*.nick TODO*/}
                         </p>
                         <br/>
-                        <Playground player={player1}/>
+                        <Playground player={null/*TODO*/}/>
                         <br/>
                     </div>
                     <div className="column">
@@ -47,7 +46,7 @@ export default class FightModeScreen extends Component {
                                 Dein Meer
                             </p>
                             <br/>
-                            <Playground player={player0}/>
+                            <Playground player={null/*TODO*/}/>
                             <br/>
                         </div>
                     </div>

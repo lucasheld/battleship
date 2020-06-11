@@ -1,17 +1,15 @@
 import {bindActionCreators} from "redux";
-import {activePlayerAction, inactivePlayerAction} from "../actions/player-action"
+import {addPlayerAction, changePlayerAction} from "../actions/player-action"
 
 export function mapStateToProps(state) {
     return {
-        test: state.testState,
-        activePlayer: state.activePlayerState,
-        inactivePlayer: state.inactivePlayerState
+        players: state.playerReducer
     }
 }
 
 export function matchDispatchToProps(dispatch) {
     return bindActionCreators({
-        setActivePlayer: activePlayerAction,
-        setInactivePlayer: inactivePlayerAction
+        addPlayer: addPlayerAction,
+        changePlayer: changePlayerAction
     }, dispatch);
 }

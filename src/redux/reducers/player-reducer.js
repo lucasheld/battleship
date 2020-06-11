@@ -1,13 +1,20 @@
-export const activePlayerReducer = (state = null, action) => {
-    if (action.type === "ACTIVE_PLAYER") {
-        return action.data;
-    }
-    return state;
-};
+import {ADD_PLAYER, CHANGE_PLAYER} from "../actions/player-action";
 
-export const inactivePlayerReducer = (state = null, action) => {
-    if (action.type === "INACTIVE_PLAYER") {
-        return action.data;
+export function playerReducer(state = [], action) {
+    switch (action.type) {
+        case ADD_PLAYER:
+            return [
+                ...state,
+                action.data
+            ];
+        case CHANGE_PLAYER:
+            return state.players.map(player => {
+                if (player.id === action.data.id) {
+                    player = action.data
+                }
+                return player
+            });
+        default:
+            return state
     }
-    return state;
-};
+}

@@ -5,6 +5,7 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from "react-router-dom"
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/player-profile-mapper";
+import Player from "../../redux/data-classes/player";
 
 class PlayerProfileScreen extends Component {
     constructor(props) {
@@ -15,26 +16,28 @@ class PlayerProfileScreen extends Component {
             playerName: "",
             playerPin: ""
         }
+        this.playerId = Number(this.props.match.params.playerId)
     }
 
     decreaseSeed = () => {
         this.setState({
             identiconSeed: this.state.identiconSeed - 1
         })
-    }
+    };
 
     increaseSeed = () => {
         this.setState({
             identiconSeed: this.state.identiconSeed + 1
         })
-    }
+    };
 
     triggerRedirect = () => {
-        this.props.activePlayer.setAttributes(this.state.playerName, this.state.playerPin, this.state.identiconSeed);
+        this.props.addPlayer(new Player(this.playerId, this.state.playerName, this.state.playerPin, this.state.identiconSeed))
+
         this.setState({
             redirect: true
         })
-    }
+    };
 
     handleInputChange = (event) => {
         const target = event.target;
@@ -43,20 +46,22 @@ class PlayerProfileScreen extends Component {
         this.setState({
             [name]: value
         });
-    }
+    };
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/setup" />;
+            if (this.playerId === 0) {
+                return <Redirect push to="/player-profile/1" />;
+            } else {
+                return <Redirect push to="/setup" />;
+            }
         }
-
-        // onClick={ () => this.props.setActivePlayer(this.props.test[0])}
 
         return (
             <table className="table">
                 <thead>
                 <tr>
-                    <th colSpan="2">Spieler {this.props.activePlayer !== null && this.props.activePlayer.id}</th>
+                    <th colSpan="2">Spieler {this.playerId}</th>
                 </tr>
                 </thead>
                 <tbody>
