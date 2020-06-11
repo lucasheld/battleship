@@ -45,6 +45,7 @@ class PlayerProfileScreen extends Component {
     }
 
     render() {
+        console.log("rendering player profile!");
         if (this.state.redirect) {
             return <Redirect push to="/setup" />;
         }
