@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Redirect from "react-router-dom/es/Redirect";
+import { Redirect } from "react-router-dom"
 
 export default class PasswordProtectionDialog extends Component {
     constructor(props) {
@@ -43,7 +43,7 @@ export default class PasswordProtectionDialog extends Component {
             <div className="columns is-centered">
                 <div className="column card is-one-third">
                     <h2 className="subtitle">Hallo {this.props.playerName}!</h2>
-                    {this.props.firstRound && <h2 className="subtitle">Die &#127922; &#127922; sind gefallen. Du darfst beginnen!</h2>}
+                    {this.props.firstRound && <h2 className="subtitle">Die <span role="img">&#127922; &#127922;</span> sind gefallen. Du darfst beginnen!</h2>}
                     <h2 className="subtitle">Um fortzufahren, gib hier deinen PIN ein</h2>
                     <div className="field">
                         <div className="control">

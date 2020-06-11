@@ -3,7 +3,7 @@ import Identicon from 'react-identicons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import "./PlayerProfileScreen.css"
-import Redirect from "react-router-dom/es/Redirect";
+import { Redirect } from "react-router-dom"
 
 export default class PlayerProfileScreen extends Component {
     constructor(props) {

@@ -1,24 +1,30 @@
 import React, {Component} from "react";
-import "./Ship.css"
 import Field from "./Field";
 
 export default class Ship extends Component {
     render() {
-        let row = [];
         let cells = [];
-
         for (let i = 0; i < this.props.shipLength; i++) {
-            cells.push(<Field/>)
+            let key = this.props.id + "-" + i;
+            cells.push(<Field key={key} id={key}/>)
         }
-        row.push(<tr id={this.props.id}>{cells}</tr>);
+
         return (
-            <div>
-                <text>{this.props.shipName}</text>
-                <table>
-                    <tbody>
-                        {row}
-                    </tbody>
-                </table>
+            <div className="columns is-centered">
+                <div className="column has-text-right">
+                    <div className="field">
+                        <div className="control">
+                            <label className="label">{this.props.shipName}</label>
+                        </div>
+                    </div>
+                </div>
+                <div className="column has-text-left">
+                    <table>
+                        <tbody>
+                            <tr id={this.props.id}>{cells}</tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }
