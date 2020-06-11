@@ -3,13 +3,15 @@ import {GameManager} from "../../logic/game-manager";
 
 export default class Player {
 
+    id;
     nick;
     pin;
     avatar;
     ships;
     playground;
 
-    constructor() {
+    constructor(id) {
+        this.id = id;
         this.playground = new Playground();
         GameManager.initShips(this);
     }

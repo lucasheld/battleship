@@ -34,7 +34,7 @@ export default class Playground extends Component {
         let fields = this.props.player.playground.fields;
 
         for (let i = 1; i < 11; i++){
-            cells = []
+            cells = [];
             cells.push(<th style={styles.th} key={i * 10} id={i * 10}>{i}</th>)
             for (let j = 1; j < 11; j++){
                 let pos = i * 10 + j;

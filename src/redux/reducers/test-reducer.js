@@ -1,4 +1,4 @@
-export default function () {
+export const testReducer = () => {
     return [
         {
             name: "test1"
@@ -7,4 +7,4 @@ export default function () {
             name: "test2"
         }
     ]
-}
+};

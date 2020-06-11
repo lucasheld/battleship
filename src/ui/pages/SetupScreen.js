@@ -38,12 +38,13 @@ class SetupScreen extends Component {
             return <Redirect push to="/fight-mode" />;
         }
 
+        // {this.props.activePlayer !== null && this.props.activePlayer.name}
+
         return (
             <div>
-                {this.props.activePlayer !== null && this.props.activePlayer.name}
                 <div className="columns is-centered has-text-centered">
-                    <SetupCardComponent playerName="Keanu" playerReady={this.state.player1Ready} identiconSeed="1"/>
-                    <SetupCardComponent playerName="Lucas" playerReady={this.state.player2Ready} identiconSeed="2"/>
+                    <SetupCardComponent playerName={this.props.activePlayer !== null && this.props.activePlayer.nick} playerReady={this.state.player1Ready} identiconSeed="1"/>
+                    <SetupCardComponent playerName={this.props.inactivePlayer !== null && this.props.inactivePlayer.nick} playerReady={this.state.player2Ready} identiconSeed="2"/>
                 </div>
                 <button className="button is-dark is-large"
                         disabled={!this.state.player1Ready || !this.state.player2Ready}
