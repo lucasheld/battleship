@@ -72,6 +72,7 @@ export default class PlayerProfileScreen extends Component {
                     <td>
                         <Identicon string={this.state.identiconSeed} size="100" />
                         <div className="columns">
+                            <div className="column is-one-quarter"/>
                             <div className="column">
                                 <button className="button is-small" onClick={this.decreaseSeed}>
                                     <FontAwesomeIcon icon={faAngleLeft} />
@@ -82,6 +83,7 @@ export default class PlayerProfileScreen extends Component {
                                     <FontAwesomeIcon icon={faAngleRight} />
                                 </button>
                             </div>
+                            <div className="column is-one-quarter"/>
                         </div>
                     </td>
                 </tr>
