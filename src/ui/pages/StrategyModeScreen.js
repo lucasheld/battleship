@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Playground from "../components/Playground";
 import {player0} from "../../cross-cutting/game";
 import Ship from "../components/Ship";
