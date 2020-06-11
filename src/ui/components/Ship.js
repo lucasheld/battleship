@@ -14,7 +14,7 @@ export default class Ship extends Component {
                 <div className="column has-text-right">
                     <div className="field">
                         <div className="control">
-                            <label className="label">{this.props.shipName}</label>
+                            <label className="label" style={{textDecoration: this.props.disabled ? 'line-through' : ''}}>{this.props.shipName}</label>
                         </div>
                     </div>
                 </div>

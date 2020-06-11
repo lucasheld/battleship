@@ -18,7 +18,7 @@ export default class StrategyModeScreen extends Component {
                         <Ship id="cruiser0" shipLength="4" shipName="Kreuzer"/>
                     </div>
                     <div className="columns is-centered">
-                        <Ship id="cruiser1" shipLength="4" shipName="Kreuzer"/>
+                        <Ship id="cruiser1" shipLength="4" shipName="Kreuzer" disabled={true}/>
                     </div>
                     <div className="columns is-centered">
                         <Ship id="destroyer0" shipLength="3" shipName="Zerstörer"/>
