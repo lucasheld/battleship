@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import "./Playground.css"
 
 export default class Playground extends Component {
 
@@ -10,7 +11,7 @@ export default class Playground extends Component {
         for (let j = 1; j < 11; j++){
             let number = 64 + j;
             let ascii = String.fromCharCode(number)
-            cells.push(<td key={j} id={j}>{ascii}</td>)
+            cells.push(<th key={j} id={j}>{ascii}</th>)
         }
         rows.push(<tr key={0} id={0}>{cells}</tr>)
 
@@ -18,7 +19,7 @@ export default class Playground extends Component {
 
         for (let i = 1; i < 11; i++){
             cells = []
-            cells.push(<td key={i * 10} id={i * 10}>{i + 1}</td>)
+            cells.push(<th key={i * 10} id={i * 10}>{i}</th>)
             for (let j = 1; j < 11; j++){
                 let pos = i * 10 + j;
                 let cell = <td key={pos} id={pos}></td>
