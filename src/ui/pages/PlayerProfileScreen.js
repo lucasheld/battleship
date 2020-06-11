@@ -58,13 +58,21 @@ export default class PlayerProfileScreen extends Component {
                 <tr>
                     <th className="is-vcentered">Nick</th>
                     <td>
-                        <input className="input" type="text" name="playerName" placeholder="Enter your name" value={this.state.playerName} onChange={this.handleInputChange}/>
+                        <div className="field">
+                            <div className="control">
+                                <input className="input" type="text" name="playerName" placeholder="Enter your name" value={this.state.playerName} onChange={this.handleInputChange}/>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <th className="is-vcentered">Pin</th>
                     <td>
-                        <input className="input" type="password" name="playerPin" placeholder="Enter your pin" value={this.state.playerPin} onChange={this.handleInputChange}/>
+                        <div className="field">
+                            <div className="control">
+                                <input className="input" type="password" name="playerPin" placeholder="Enter your pin" value={this.state.playerPin} onChange={this.handleInputChange}/>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
