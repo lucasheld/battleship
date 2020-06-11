@@ -1,17 +1,18 @@
 import React, {Component} from "react";
+import "./Field.css";
 
 export default class Field extends Component {
-    render() {
-        const styles = {
-            td: {
-                border: '1px solid black',
-                width: '25px',
-                height: '25px'
-            }
-        };
+    /* props
+    className: sets the class for selecting the color defined in Field.css
+     */
 
+    render() {
         return (
-            <td style={styles.td} id={this.props.id}>{this.props.text}</td>
+            this.props.text
+                ?
+                <th className={this.props.className + " field-ship"} key={this.props.id} id={this.props.id}>{this.props.text}</th>
+                :
+                <td className={this.props.className + " field-ship"} key={this.props.id} id={this.props.id}>{this.props.text}</td>
         )
     }
 }
