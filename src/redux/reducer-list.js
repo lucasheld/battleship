@@ -3,8 +3,8 @@ import testReducer from "./reducers/test-reducer"
 import {activePlayerReducer} from "./reducers/active-player-reducer"
 
 const reducers = combineReducers({
-    test: testReducer,
-    aPlayer: activePlayerReducer
+    testState: testReducer,
+    activePlayerState: activePlayerReducer
 });
 
 export default reducers;

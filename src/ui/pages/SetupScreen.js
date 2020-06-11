@@ -3,7 +3,7 @@ import "./SetupScreen.css";
 import SetupCardComponent from "../components/SetupCardComponent";
 import { Redirect } from "react-router-dom"
 import {connect} from "react-redux";
-import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/setup-mapper";
+import {mapStateToProps} from "../../redux/mapper/setup-mapper";
 
 class SetupScreen extends Component {
     constructor(props) {
@@ -40,6 +40,7 @@ class SetupScreen extends Component {
 
         return (
             <div>
+                {this.props.activePlayer !== null && this.props.activePlayer.name}
                 <div className="columns is-centered has-text-centered">
                     <SetupCardComponent playerName="Keanu" playerReady={this.state.player1Ready} identiconSeed="1"/>
                     <SetupCardComponent playerName="Lucas" playerReady={this.state.player2Ready} identiconSeed="2"/>
@@ -53,4 +54,4 @@ class SetupScreen extends Component {
     }
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(SetupScreen);
+export default connect(mapStateToProps)(SetupScreen);

@@ -56,7 +56,7 @@ class PlayerProfileScreen extends Component {
             <table className="table">
                 <thead>
                 <tr>
-                    <th colSpan="2" onClick={ () => this.props.aPlayer(this.props.test[0])}>{this.props.test[0].name} Spieler {this.props.playerNumber}</th>
+                    <th colSpan="2" onClick={ () => this.props.activePlayerAction(this.props.test[0])}>{this.props.activePlayer !== null && this.props.activePlayer.name} Spieler {this.props.playerNumber}</th>
                 </tr>
                 </thead>
                 <tbody>
