@@ -39,7 +39,7 @@ export default class Ship extends Component {
             <div className="columns is-centered" style={{marginBottom: '1px'}}>
                 <div className="column has-text-right">
                     <div className="field">
-                        <div className="control">
+                        <div className="control" style={{whiteSpace: "nowrap"}}>
                             <label className="label"
                                    style={{
                                        textDecoration: this.props.disabled ? 'line-through' : '',

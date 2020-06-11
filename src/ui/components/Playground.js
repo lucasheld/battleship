@@ -14,7 +14,7 @@ export default class Playground extends Component {
         }
         rows.push(<tr key={0} id={0}>{cells}</tr>);
 
-        let fields = this.props.player.playground.fields;
+        //let fields = this.props.player.playground.fields;
 
         for (let i = 1; i < 11; i++){
             cells = [];
@@ -22,7 +22,7 @@ export default class Playground extends Component {
             for (let j = 1; j < 11; j++){
                 let pos = i * 10 + j;
                 let cell = <Field key={pos} id={pos} className="field-unused" />;
-                fields[pos] = cell;
+                //fields[pos] = cell;
                 cells.push(cell)
             }
             rows.push(<tr key={i} id={i}>{cells}</tr>)
