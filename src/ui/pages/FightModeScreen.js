@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Playground from "../components/Playground";
 import {player0, player1} from "../../cross-cutting/game";
-import Redirect from "react-router-dom/es/Redirect";
+import {Redirect} from "react-router-dom";
 
 export default class FightModeScreen extends Component {
     constructor(props) {
@@ -19,7 +19,7 @@ export default class FightModeScreen extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/setup"/>;
+            return <Redirect push to="/setup" />;
         }
 
         return (
