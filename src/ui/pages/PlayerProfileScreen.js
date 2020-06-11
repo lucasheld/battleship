@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Identicon from 'react-identicons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
-import "./PlayerProfileScreen.css"
 import { Redirect } from "react-router-dom"
 
 export default class PlayerProfileScreen extends Component {
@@ -73,7 +72,6 @@ export default class PlayerProfileScreen extends Component {
                     <td>
                         <Identicon string={this.state.identiconSeed} size="100" />
                         <div className="columns">
-                            <div className="column is-one-quarter"/>
                             <div className="column">
                                 <button className="button is-small" onClick={this.decreaseSeed}>
                                     <FontAwesomeIcon icon={faAngleLeft} />
@@ -84,7 +82,6 @@ export default class PlayerProfileScreen extends Component {
                                     <FontAwesomeIcon icon={faAngleRight} />
                                 </button>
                             </div>
-                            <div className="column is-one-quarter"/>
                         </div>
                     </td>
                 </tr>
