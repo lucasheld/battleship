@@ -3,7 +3,7 @@ import "./SetupScreen.css";
 import SetupCardComponent from "../components/SetupCardComponent";
 import { Redirect } from "react-router-dom"
 import {connect} from "react-redux";
-import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/player-profile-mapper";
+import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/setup-mapper";
 
 class SetupScreen extends Component {
     constructor(props) {
@@ -41,7 +41,6 @@ class SetupScreen extends Component {
         return (
             <div>
                 <div className="columns is-centered has-text-centered">
-                    {this.props.test.map(t => t.name + " ")} {this.props.activePlayer.name}
                     <SetupCardComponent playerName="Keanu" playerReady={this.state.player1Ready} identiconSeed="1"/>
                     <SetupCardComponent playerName="Lucas" playerReady={this.state.player2Ready} identiconSeed="2"/>
                 </div>

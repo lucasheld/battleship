@@ -12,6 +12,6 @@ export function mapStateToProps(state) {
 export function matchDispatchToProps(dispatch) {
     console.log("match dispatch called!");
     return bindActionCreators({
-        aPlayer: activePlayerAction
+        activePlayer: activePlayerAction
     }, dispatch);
 }

@@ -4,6 +4,7 @@ export const activePlayerReducer = (state = null, action) => {
             console.log("set data!");
             return action.data;
         default:
+            console.log("no data returning state");
             return state;
     }
 };

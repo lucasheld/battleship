@@ -4,7 +4,7 @@ import {activePlayerReducer} from "./reducers/active-player-reducer"
 
 const reducers = combineReducers({
     test: testReducer,
-    activePlayer: activePlayerReducer
+    aPlayer: activePlayerReducer
 });
 
 export default reducers;
