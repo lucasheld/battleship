@@ -23,7 +23,7 @@ export default class PasswordProtectionDialog extends Component {
         this.setState({
             redirect: true
         })
-    }
+    };
 
     handleInputChange = (event) => {
         const target = event.target;
@@ -32,7 +32,7 @@ export default class PasswordProtectionDialog extends Component {
         this.setState({
             [name]: value
         });
-    }
+    };
 
     render() {
         if (this.state.redirect) {

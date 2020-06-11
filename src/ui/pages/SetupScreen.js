@@ -19,19 +19,19 @@ class SetupScreen extends Component {
         this.setState({
             redirect: true
         })
-    }
+    };
 
     setPlayer1Ready = () => {
         this.setState({
             player1Ready: true
         })
-    }
+    };
 
     setPlayer2Ready = () => {
         this.setState({
             player2Ready: true
         })
-    }
+    };
 
     render() {
         if (this.state.redirect) {

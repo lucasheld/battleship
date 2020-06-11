@@ -32,7 +32,7 @@ class PlayerProfileScreen extends Component {
     };
 
     triggerRedirect = () => {
-        this.props.addPlayer(new Player(this.playerId, this.state.playerName, this.state.playerPin, this.state.identiconSeed))
+        this.props.addPlayer(new Player(this.playerId, this.state.playerName, this.state.playerPin, this.state.identiconSeed));
 
         this.setState({
             redirect: true

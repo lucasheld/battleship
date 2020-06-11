@@ -14,7 +14,7 @@ export default class FightModeScreen extends Component {
         this.setState({
             redirect: true
         })
-    }
+    };
 
     render() {
         if (this.state.redirect) {

@@ -16,7 +16,7 @@ export default class SetupCardComponent extends Component {
         this.setState({
             redirect: true
         })
-    }
+    };
 
     render() {
         if (this.state.redirect) {

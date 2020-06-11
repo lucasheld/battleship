@@ -13,7 +13,7 @@ export default class EndScreen extends Component {
         this.setState({
             redirect: true
         })
-    }
+    };
 
     render() {
         if (this.state.redirect) {

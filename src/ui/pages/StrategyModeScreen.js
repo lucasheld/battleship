@@ -15,7 +15,7 @@ export default class StrategyModeScreen extends Component {
         this.setState({
             redirect: true
         })
-    }
+    };
 
     render() {
         if (this.state.redirect) {
