@@ -36,7 +36,7 @@ export default class PasswordProtectionDialog extends Component {
 
     render() {
         if (this.state.redirect) {
-            return this.props.mode === "strategy" ? <Redirect push to="/strategy-mode" /> : <Redirect push to="/fight-mode" />;
+            return this.props.mode === "strategy" ? <Redirect push to="/strategy-mode/0" /> : <Redirect push to="/fight-mode" />;
         }
 
         return (
