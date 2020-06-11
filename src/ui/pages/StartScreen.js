@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom"
-import Player from "../../redux/data-classes/player";
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/start-mapper";
 
@@ -21,17 +20,8 @@ class StartScreen extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/player-profile" />;
+            return <Redirect push to="/player-profile/0" />;
         }
-
-        // Example TODO delete later
-        if(this.state.doitonce){
-            this.state.doitonce = false;
-            this.props.addPlayer(new Player("1", "hi", "ho", "hu"));
-            this.props.addPlayer(new Player("2", "hi2", "ho2", "hu2"));
-            this.props.changePlayer(new Player("2", "hdbvfihuabgriu", "sekjngf", "wjnrg"));
-        }
-        console.log(this.props.players);
 
         return (
             <div>

@@ -17,7 +17,7 @@ export default class EndScreen extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/player-profile" />;
+            return <Redirect push to="/player-profile/0" />;
         }
 
         return (

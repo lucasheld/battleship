@@ -17,7 +17,6 @@ export default class Playground extends Component {
         //let fields = this.props.player.playground.fields;
 
         for (let i = 1; i < 11; i++){
-            cells = [];
             cells.push(<Field key={i * 10} id={i * 10} className="field-unused" text={i}/>);
             for (let j = 1; j < 11; j++){
                 let pos = i * 10 + j;
@@ -35,5 +34,4 @@ export default class Playground extends Component {
             </table>
         )
     }
-
 }

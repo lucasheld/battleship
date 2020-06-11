@@ -41,8 +41,9 @@ class SetupScreen extends Component {
         return (
             <div>
                 <div className="columns is-centered has-text-centered">
-                    <SetupCardComponent playerName={null} playerReady={this.state.player1Ready} identiconSeed="1"/>
-                    <SetupCardComponent playerName={null} playerReady={this.state.player2Ready} identiconSeed="2"/>
+                    {this.props.players.map((player) => {
+                        return <SetupCardComponent key={"player" + player.id} playerName={player.nick} playerReady={this.state.player1Ready} identiconSeed={player.avatar} />
+                    })}
                 </div>
                 <button className="button is-dark is-large"
                         disabled={!this.state.player1Ready || !this.state.player2Ready}
