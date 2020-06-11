@@ -5,7 +5,7 @@ export default class Ship {
     id;
     name;
     size;
-    shipFields;
+    shipFields = [];
     isVertical;
     htmlElement;
 

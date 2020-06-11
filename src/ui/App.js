@@ -8,6 +8,7 @@ import LockScreen from "./pages/LockScreen";
 import SetupScreen from "./pages/SetupScreen";
 import StrategyModeScreen from "./pages/StrategyModeScreen";
 import EndScreen from "./pages/EndScreen";
+import "./App.css";
 
 function App() {
   return (
