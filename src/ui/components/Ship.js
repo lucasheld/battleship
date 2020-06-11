@@ -1,14 +1,14 @@
 import React, {Component} from "react";
 import "./Ship.css"
+import Field from "./Field";
 
 export default class Ship extends Component {
-
     render() {
         let row = [];
         let cells = [];
 
         for (let i = 0; i < this.props.shipLength; i++) {
-            cells.push(<td></td>)
+            cells.push(<Field/>)
         }
         row.push(<tr id={this.props.id}>{cells}</tr>);
         return (
@@ -22,5 +22,4 @@ export default class Ship extends Component {
             </div>
         )
     }
-
 }

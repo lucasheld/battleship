@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import "./Playground.css"
+import Field from "./Field";
 
 export default class Playground extends Component {
 
     render() {
         let rows = [];
         let cells = [];
-        cells.push(<td key={0} id={0}></td>)
+        cells.push(<Field key={0} id={0}/>)
 
         for (let j = 1; j < 11; j++){
             let number = 64 + j;
@@ -22,7 +23,7 @@ export default class Playground extends Component {
             cells.push(<th key={i * 10} id={i * 10}>{i}</th>)
             for (let j = 1; j < 11; j++){
                 let pos = i * 10 + j;
-                let cell = <td key={pos} id={pos}></td>
+                let cell = <Field key={pos} id={pos}/>
                 fields[pos] = cell;
                 cells.push(cell)
             }
