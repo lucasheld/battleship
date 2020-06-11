@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Playground from "../components/Playground";
 import {player0, player1} from "../../cross-cutting/game";
 import Redirect from "react-router-dom/es/Redirect";
@@ -19,7 +19,7 @@ export default class FightModeScreen extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/setup" />;
+            return <Redirect push to="/setup"/>;
         }
 
         return (
@@ -51,11 +51,12 @@ export default class FightModeScreen extends Component {
                             <br/>
                         </div>
                     </div>
-                </div><div className="control">
-                <label className="label">
-                    <button className="button is-dark" onClick={this.triggerRedirect}>Zug beenden</button>
-                </label>
-            </div>
+                </div>
+                <div className="control">
+                    <label className="label">
+                        <button className="button is-dark" onClick={this.triggerRedirect}>Zug beenden</button>
+                    </label>
+                </div>
 
             </div>
         );
