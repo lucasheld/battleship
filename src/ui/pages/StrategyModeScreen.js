@@ -19,7 +19,7 @@ export default class StrategyModeScreen extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/setup" />;
+            return <Redirect push to="/fight-mode" />;
         }
 
         return (

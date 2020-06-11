@@ -1,0 +1,25 @@
+.field-unused {
+    background-color: #dbe5f1;
+}
+
+.field-valid {
+    background-color: #9bbb59;
+}
+
+.field-invalid {
+    background-color: #c0504d;
+}
+
+.field-blocked {
+    background-color: #8064a2;
+}
+
+.field-nextBlocked {
+    background-color: #e5b8b7;
+}
+
+.field-ship {
+    border: 1px solid black;
+    width: 25px;
+    height: 25px;
+}
