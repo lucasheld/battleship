@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Playground from "../components/Playground";
 import Ship from "../components/Ship";
 import {Redirect} from "react-router-dom";
-import {mapStateToProps} from "../../redux/mapper/strategy-mode-mapper";
+import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/strategy-mode-mapper";
 import {connect} from "react-redux";
 
 class StrategyModeScreen extends Component {
@@ -16,6 +16,7 @@ class StrategyModeScreen extends Component {
     }
 
     triggerRedirect = () => {
+        this.props.setPlayerReady({id: this.playerId});
         this.setState({
             redirect: true
         })
@@ -26,7 +27,7 @@ class StrategyModeScreen extends Component {
     };
 
     render() {
-        if (this.player === undefined || this.state.redirect) {
+        if (this.state.redirect) {
             return <Redirect push to="/setup" />;
         }
 
@@ -78,4 +79,4 @@ class StrategyModeScreen extends Component {
     }
 }
 
-export default connect(mapStateToProps)(StrategyModeScreen);
+export default connect(mapStateToProps, matchDispatchToProps)(StrategyModeScreen);

@@ -1,5 +1,5 @@
 import {bindActionCreators} from "redux";
-import {changePlayerAction, setPlayerReadyAction} from "../actions/player-action"
+import {changePlayerAction} from "../actions/player-action"
 
 export function mapStateToProps(state) {
     return {
@@ -9,7 +9,6 @@ export function mapStateToProps(state) {
 
 export function matchDispatchToProps(dispatch) {
     return bindActionCreators({
-        changePlayer: changePlayerAction,
-        setPlayerReady: setPlayerReadyAction
+        changePlayer: changePlayerAction
     }, dispatch);
 }

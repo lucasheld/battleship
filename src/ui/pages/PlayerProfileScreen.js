@@ -51,7 +51,6 @@ class PlayerProfileScreen extends Component {
     setPlayer = () => {
         let p = new Player(this.playerId, this.state.playerName, this.state.playerPin, this.state.identiconSeed);
         this.props.changePlayer(p);
-        this.props.setPlayerReady({id: this.playerId}); //TODO entfernen
     };
 
     isSaveDisabled = () => {
