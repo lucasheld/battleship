@@ -6,12 +6,14 @@ import { Redirect } from "react-router-dom"
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/player-profile-mapper";
 import Player from "../../redux/data-classes/player";
+import {player0default, player1default} from "../../redux/reducers/player-reducer";
 
 class PlayerProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.playerId = Number(this.props.match.params.playerId);
         this.player = this.getPlayer();
+        this.playerIsDefault = this.player === player0default || this.player === player1default;
         this.state = {
             redirect: false,
             identiconSeed: this.player.avatar,
@@ -62,7 +64,7 @@ class PlayerProfileScreen extends Component {
     };
 
     getOldNick = () => {
-        if (this.player !== undefined) {
+        if (!this.playerIsDefault) {
             return (
                 <tr>
                     <th colSpan={2} className="is-vcentered">Old nick: {this.player.nick}</th>
@@ -72,7 +74,7 @@ class PlayerProfileScreen extends Component {
     };
 
     getOldPin = () => {
-        if (this.player !== undefined) {
+        if (!this.playerIsDefault) {
             return (
                 <tr>
                     <th colSpan={2} className="is-vcentered">Old pin: {this.player.pin.replace(/(?<!^).(?!$)/g, '*')}</th>
