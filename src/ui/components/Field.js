@@ -5,11 +5,15 @@ import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/field-mapper";
 import FieldClass from "../../redux/data-classes/field";
 import {fromEvent} from "rxjs";
+import Ship from "./Ship";
 
 class Field extends Component {
     constructor(props) {
         super(props);
         this.field = {}
+        this.state = {
+            renderElement: false
+        }
         this.eventMouseMove = null;
     }
 
@@ -22,24 +26,30 @@ class Field extends Component {
     };
 
     fireOnMouseDown = () =>  {
+        this.setState({
+            renderElement: true
+        });
         this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
         fromEvent(document, "mouseup").subscribe(this.handleMouseUp);
         console.log(this.props.id + " was clicked")
     };
 
-    handleMouseUp = (e) => {
-        const element = document.getElementsByClassName("ship-current")[0];
-        if (element) {
-            this.eventMouseMove.unsubscribe();
-            element.remove();
-        }
-    }
+    handleMouseUp = () => {
+        this.eventMouseMove.unsubscribe();
+        this.setState({
+            renderElement: false
+        });
+    };
 
-    handleMouseMove = (e) => {
+    handleMouseMove = (event) => {
         const element = document.getElementsByClassName("ship-current")[0];
-        element.style.left = `${e.clientX}px`;
-        element.style.top = `${e.clientY}px`;
-    }
+        if (!element) {
+            this.eventMouseMove.unsubscribe();
+            return;
+        }
+        element.style.left = `${event.clientX}px`;
+        element.style.top = `${event.clientY}px`;
+    };
 
     getOrCreateField = () =>  {
         if(this.props.type !== FIELD_TYPES.TEXT) {
@@ -59,7 +69,9 @@ class Field extends Component {
                 : this.props.type === FIELD_TYPES.PLAYGROUND ?
                 <div className={this.props.className + " field-ship " + this.field.color} id={this.props.id} onMouseUp={this.fireOnMouseUp}/>
                 : // this.props.type equals FIELD_TYPES.SHIP
-                <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown} />
+                <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown}>
+                    {this.state.renderElement && <Ship id="current" shipLength={2} selected={true}/>}
+                </div>
         )
     }
 }
