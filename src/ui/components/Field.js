@@ -6,6 +6,11 @@ import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/field-ma
 import FieldClass from "../../redux/data-classes/field";
 
 class Field extends Component {
+    constructor(props) {
+        super(props);
+        this.field = {}
+    }
+
     /* props
     className: sets the class for selecting the color defined in Field.css
      */
@@ -28,8 +33,11 @@ class Field extends Component {
         }
     };
 
-    render() {
+    async componentDidMount() {
         this.getOrCreateField();
+    }
+
+    render() {
         return (
             this.props.text
                 ? // this.props.type equals FIELD_TYPES.TEXT
