@@ -6,32 +6,35 @@ import { Redirect } from "react-router-dom"
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/player-profile-mapper";
 import Player from "../../redux/data-classes/player";
+import {player0default, player1default} from "../../redux/reducers/player-reducer";
+
+const NICK_MIN_LENGTH = 3;
+const PIN_MIN_LENGTH = 6;
 
 class PlayerProfileScreen extends Component {
+
     constructor(props) {
         super(props);
         this.playerId = Number(this.props.match.params.playerId);
         this.player = this.getPlayer();
+        this.playerIsDefault = this.player === player0default || this.player === player1default;
         this.state = {
             redirect: false,
-            identiconSeed: Math.floor((Math.random() * 100) + 1),  // random int between 1 and 100
+            identiconSeed: this.player.avatar,
             playerName: "",
-            playerPin: "",
-            wasChanged: false
+            playerPin: ""
         };
     }
 
     decreaseSeed = () => {
         this.setState({
-            identiconSeed: this.state.identiconSeed - 1,
-            wasChanged: true
+            identiconSeed: this.state.identiconSeed - 1
         })
     };
 
     increaseSeed = () => {
         this.setState({
-            identiconSeed: this.state.identiconSeed + 1,
-            wasChanged: true
+            identiconSeed: this.state.identiconSeed + 1
         })
     };
 
@@ -52,25 +55,12 @@ class PlayerProfileScreen extends Component {
     };
 
     setPlayer = () => {
-        let p = new Player(this.playerId, this.state.playerName, this.state.playerPin, this.getAvatar());
-        if(this.player !== undefined) {
-            this.props.changePlayer(p);
-            return;
-        }
-        this.props.addPlayer(p);
-        this.props.setPlayerReady({id: this.playerId}); //TODO entfernen
-    };
-
-    getAvatar = () => {
-        let seed = this.state.identiconSeed;
-        if(this.player !== undefined && !this.state.wasChanged) {
-            seed = this.player.avatar;
-        }
-        return seed;
+        let p = new Player(this.playerId, this.state.playerName, this.state.playerPin, this.state.identiconSeed);
+        this.props.changePlayer(p);
     };
 
     isSaveDisabled = () => {
-        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length < 1 || this.state.playerName.length < 1;
+        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length < PIN_MIN_LENGTH || this.state.playerName.length < NICK_MIN_LENGTH;
     };
 
     getPlayer = () => {
@@ -78,7 +68,7 @@ class PlayerProfileScreen extends Component {
     };
 
     getOldNick = () => {
-        if (this.player !== undefined) {
+        if (!this.playerIsDefault) {
             return (
                 <tr>
                     <th colSpan={2} className="is-vcentered">Old nick: {this.player.nick}</th>
@@ -88,7 +78,7 @@ class PlayerProfileScreen extends Component {
     };
 
     getOldPin = () => {
-        if (this.player !== undefined) {
+        if (!this.playerIsDefault) {
             return (
                 <tr>
                     <th colSpan={2} className="is-vcentered">Old pin: {this.player.pin.replace(/(?<!^).(?!$)/g, '*')}</th>
@@ -139,7 +129,7 @@ class PlayerProfileScreen extends Component {
                 <tr>
                     <th className="is-vcentered">Avatar</th>
                     <td>
-                        <Identicon string={this.getAvatar()} size="100" />
+                        <Identicon string={this.state.identiconSeed} size="100" />
                         <div className="columns">
                             <div className="column is-one-quarter"/>
                             <div className="column">
