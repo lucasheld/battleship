@@ -1,7 +1,16 @@
 import React, {Component} from "react";
 import Field from "./Field";
+import ShipDirectionDislog from "./ShipDirectionDislog";
+import "./Ship.css";
 
 export default class Ship extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            displayPopup: false
+        }
+    }
+
     /* props
     id
     shipLength
@@ -10,15 +19,21 @@ export default class Ship extends Component {
     selected: marks ship as selected
      */
 
+    displayPopup = (status) => {
+        this.setState({
+            displayPopup: status
+        })
+    };
+
     render() {
         // define ship background color
-        let backgroundColor;
+        let shipClass = "";
         if (this.props.disabled) {
-            backgroundColor = '#a6a6a6'
+            shipClass = 'ship-disabled'
         } else if (this.props.selected) {
-            backgroundColor = '#9bbb59';
+            shipClass = 'ship-selected';
         } else {
-            backgroundColor = '#8064a2';
+            shipClass = 'ship-normal';
         }
 
         // define ship label color
@@ -36,31 +51,36 @@ export default class Ship extends Component {
         }
 
         return (
-            <div className="columns is-centered" style={{marginBottom: '1px'}}>
-                <div className="column has-text-right">
-                    <div className="field">
-                        <div className="control" style={{whiteSpace: "nowrap"}}>
-                            <label className="label"
-                                   style={{
-                                       textDecoration: this.props.disabled ? 'line-through' : '',
-                                       color: labelColor
-                                   }}
-                            >{this.props.shipName}</label>
-                        </div>
+            <React.Fragment>
+                <div className={"modal" + (this.state.displayPopup === true ? " is-active" : "")}>
+                    <div className="modal-background" onClick={() => this.displayPopup(false)}/>
+                    <div className="modal-content">
+                        <ShipDirectionDislog shipName={this.props.shipName} shipLength={this.props.shipLength} />
                     </div>
                 </div>
-                <div className="column has-text-left">
-                    <table>
-                        <tbody>
-                            <tr id={this.props.id}
-                                style={{
-                                    backgroundColor: backgroundColor
-                                }}
-                            >{cells}</tr>
-                        </tbody>
-                    </table>
+
+                <div className="columns is-centered" style={{marginBottom: '1px'}} onClick={() => this.displayPopup(true)}>
+                    <div className="column has-text-right">
+                        <div className="field">
+                            <div className="control" style={{whiteSpace: "nowrap"}}>
+                                <label className="label"
+                                       style={{
+                                           textDecoration: this.props.disabled ? 'line-through' : '',
+                                           color: labelColor
+                                       }}
+                                >{this.props.shipName}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="column has-text-left">
+                        <table>
+                            <tbody>
+                            <tr id={this.props.id} className={shipClass}>{cells}</tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         )
     }
 }
