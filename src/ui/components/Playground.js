@@ -15,16 +15,13 @@ export default class Playground extends Component {
         }
         rows.push(<tr key={0} id={0}>{cells}</tr>);
 
-        //let fields = this.props.player.playground.fields;
-
         for (let i = 0; i < 10; i++){
             cells = [];
-            let textFieldId = ((i+1) * -1) - 1;
+            let textFieldId = ((i+1) * -10) - 1;
             cells.push(<Field key={textFieldId} id={textFieldId} type={FIELD_TYPES.TEXT} className="field-unused" text={i+1}/>);
             for (let j = 1; j < 11; j++){
                 let pos = i * 10 + j;
                 let cell = <Field key={pos} id={pos} type={FIELD_TYPES.PLAYGROUND} className="field-unused" />;
-                //fields[pos] = cell;
                 cells.push(cell)
             }
             rows.push(<tr key={i+1} id={i+1}>{cells}</tr>)

@@ -32,7 +32,7 @@ class Field extends Component {
         this.getOrCreateField();
         return (
             this.props.text
-                ?
+                ? // this.props.type equals FIELD_TYPES.TEXT
                 <th className={this.props.className + " field-ship"}>{this.props.text}</th>
                 : this.props.type === FIELD_TYPES.PLAYGROUND ?
                 <td className={this.props.className + " field-ship " + this.field.color} id={this.props.id} onDragEnter={this.fireOnDragEnter}/>
