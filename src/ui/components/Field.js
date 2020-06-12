@@ -6,22 +6,16 @@ import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/field-ma
 import FieldClass from "../../redux/data-classes/field";
 
 class Field extends Component {
-    constructor(props) {
-        super(props);
-        this.getOrCreateField();
-    }
     /* props
     className: sets the class for selecting the color defined in Field.css
      */
 
-    fireOnDragOver = (event) =>  {
-        event.preventDefault();
+    fireOnDragEnter = () =>  {
         this.props.setFieldColor({id: this.field.id, color: "field-valid"});
-        console.log("hi")
     };
 
-    fireOnDrop = (event) =>  {
-        event.preventDefault();
+    fireOnMouseDown = () =>  {
+        console.log(this.props.id + " was clicked")
     };
 
     getOrCreateField = () =>  {
@@ -35,14 +29,15 @@ class Field extends Component {
     };
 
     render() {
+        this.getOrCreateField();
         return (
             this.props.text
                 ?
                 <th className={this.props.className + " field-ship"}>{this.props.text}</th>
                 : this.props.type === FIELD_TYPES.PLAYGROUND ?
-                <td className={this.props.className + " field-ship " + this.field.color} id={this.props.id} onDrop={this.fireOnDrop} onDragOver={this.fireOnDragOver}/>
-                :
-                <td className={this.props.className + " field-ship"} id={this.props.id}/>
+                <td className={this.props.className + " field-ship " + this.field.color} id={this.props.id} onDragEnter={this.fireOnDragEnter}/>
+                : // this.props.type equals FIELD_TYPES.SHIP
+                <td className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown} />
         )
     }
 }

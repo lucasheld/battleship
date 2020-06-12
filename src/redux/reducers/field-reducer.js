@@ -10,7 +10,7 @@ export function fieldReducer(state = [], action) {
         case SET_COLOR:
             return state.map(field => {
                 if (field.id === action.data.id) {
-                        console.log("test")
+                        console.log(action.data.color + " " + action.data.id)
                     return Object.assign({}, field, {
                         color: action.data.color
                     })

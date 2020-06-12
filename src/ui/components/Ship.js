@@ -1,8 +1,15 @@
 import React, {Component} from "react";
 import Field from "./Field";
 import {FIELD_TYPES} from "../../redux/actions/field-action";
+import {Redirect} from "react-router-dom";
 
 export default class Ship extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            reload: false
+        }
+    }
     /* props
     id
     shipLength
@@ -10,10 +17,6 @@ export default class Ship extends Component {
     disabled: marks ship as disabled
     selected: marks ship as selected
      */
-
-    fireOnDrag = (event) =>  {
-        event.preventDefault();
-    };
 
     render() {
         // define ship background color
@@ -40,6 +43,10 @@ export default class Ship extends Component {
             cells.push(<Field type={FIELD_TYPES.SHIP} key={key} id={key}/>)
         }
 
+        if (this.state.reload) {
+            return <Redirect to="/strategy-mode/0" />;
+        }
+
         return (
             <div className="columns is-centered" style={{marginBottom: '1px'}}>
                 <div className="column has-text-right">
@@ -57,8 +64,7 @@ export default class Ship extends Component {
                 <div className="column has-text-left">
                     <table>
                         <tbody>
-                            <tr draggable
-                                onDrag={this.fireOnDrag}
+                            <tr draggable onDragStart={this.fireOnDragStart} onDragEnd={this.fireOnDragEnd}
                                 id={this.props.id}
                                 style={{
                                     backgroundColor: backgroundColor
@@ -70,5 +76,13 @@ export default class Ship extends Component {
             </div>
         )
     }
+
+    fireOnDragStart = () =>  {
+        console.log("started dragging " + this.props.shipName)
+    };
+
+    fireOnDragEnd = () =>  {
+        console.log(this.props.shipName + " ended")
+    };
 
 }
