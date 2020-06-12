@@ -15,7 +15,7 @@ class Field extends Component {
     className: sets the class for selecting the color defined in Field.css
      */
 
-    fireOnDragEnter = () =>  {
+    fireOnMouseUp = () =>  {
         this.props.setFieldColor({id: this.field.id, color: "field-valid"});
     };
 
@@ -38,11 +38,11 @@ class Field extends Component {
         return (
             this.props.text
                 ? // this.props.type equals FIELD_TYPES.TEXT
-                <th className={this.props.className + " field-ship"}>{this.props.text}</th>
+                <div className={this.props.className + " field-ship"}>{this.props.text}</div>
                 : this.props.type === FIELD_TYPES.PLAYGROUND ?
-                <td className={this.props.className + " field-ship " + this.field.color} id={this.props.id} onDragEnter={this.fireOnDragEnter}/>
+                <div className={this.props.className + " field-ship " + this.field.color} id={this.props.id} onMouseUp={this.fireOnMouseUp}/>
                 : // this.props.type equals FIELD_TYPES.SHIP
-                <td className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown} />
+                <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown} />
         )
     }
 }

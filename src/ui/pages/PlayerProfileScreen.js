@@ -9,7 +9,7 @@ import Player from "../../redux/data-classes/player";
 import {player0default, player1default} from "../../redux/reducers/player-reducer";
 
 const NICK_MIN_LENGTH = 3;
-const PIN_MIN_LENGTH = 6;
+const PIN_LENGTH = 4;
 
 class PlayerProfileScreen extends Component {
 
@@ -60,7 +60,7 @@ class PlayerProfileScreen extends Component {
     };
 
     isSaveDisabled = () => {
-        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length < PIN_MIN_LENGTH || this.state.playerName.length < NICK_MIN_LENGTH;
+        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length === PIN_LENGTH || this.state.playerName.length < NICK_MIN_LENGTH;
     };
 
     getPlayer = () => {

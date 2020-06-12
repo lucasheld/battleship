@@ -70,16 +70,10 @@ export default class Ship extends Component {
                     </div>
                 </div>
                 <div className="column has-text-left">
-                    <table>
-                        <tbody>
-                            <tr draggable onDragStart={this.fireOnDragStart} onDragEnd={this.fireOnDragEnd}
-                                id={this.props.id}
-                                style={{
-                                    backgroundColor: backgroundColor
-                                }}
-                            >{cells}</tr>
-                        </tbody>
-                    </table>
+                    <div // draggable onDragStart={this.fireOnDragStart} onDragEnd={this.fireOnDragEnd}
+                        id={this.props.id}
+                        style={{backgroundColor: backgroundColor, display: "flex"}}
+                    >{cells}</div>
                 </div>
             </div>
         )
