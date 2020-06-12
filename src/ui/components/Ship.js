@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Field from "./Field";
 import {FIELD_TYPES} from "../../redux/actions/field-action";
 import {Redirect} from "react-router-dom";
+import "./Ship.css";
 
 export default class Ship extends Component {
     constructor(props) {
@@ -55,8 +56,13 @@ export default class Ship extends Component {
             return <Redirect to="/strategy-mode/0" />;
         }
 
+        let className;
+        if (this.props.selected) {
+            className = "ship-current";
+        }
+
         return (
-            <div className="columns is-centered" style={{marginBottom: '1px'}}>
+            <div className={"columns is-centered " + className} style={{marginBottom: '1px'}}>
                 <div className="column has-text-right">
                     <div className="field">
                         <div className="control" style={{whiteSpace: "nowrap"}}>
