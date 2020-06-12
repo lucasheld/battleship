@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom"
 import {connect} from "react-redux";
-import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/start-mapper";
+import {mapStateToProps} from "../../redux/mapper/start-mapper";
 
 class StartScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             redirect: false,
-            doitonce: true // TODO delete this later on
         }
     }
 
@@ -21,6 +20,8 @@ class StartScreen extends Component {
     render() {
         if (this.state.redirect) {
             return <Redirect push to="/player-profile/0" />;
+        } else if (this.props.players.length > 0) {
+            return <Redirect push to="/setup" />;
         }
 
         return (
@@ -35,4 +36,4 @@ class StartScreen extends Component {
     }
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(StartScreen);
+export default connect(mapStateToProps)(StartScreen);

@@ -3,15 +3,14 @@ import "./SetupScreen.css";
 import SetupCardComponent from "../components/SetupCardComponent";
 import { Redirect } from "react-router-dom"
 import {connect} from "react-redux";
-import {mapStateToProps} from "../../redux/mapper/setup-mapper";
+import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/setup-mapper";
+import {MODES} from "../../redux/actions/mode-action";
 
 class SetupScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            redirect: false,
-            player1Ready: false,
-            player2Ready: true,
+            redirect: false
         }
     }
 
@@ -19,34 +18,60 @@ class SetupScreen extends Component {
         this.setState({
             redirect: true
         })
-    }
+    };
 
-    setPlayer1Ready = () => {
-        this.setState({
-            player1Ready: true
-        })
-    }
+    isStartDisabled = () => {
+        return !this.props.players.map(player => player.ready).includes(true) || this.props.players.length !== 2;
+    };
 
-    setPlayer2Ready = () => {
-        this.setState({
-            player2Ready: true
-        })
-    }
+    getHint = () => {
+        return (
+            <div className="column is-one-quarter">
+                <div className="card">
+                    <div className="card-content">
+                        <h1 className="title">Empty</h1>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    hint1 = () => {
+        if (this.props.players.length < 2) {
+            return this.getHint()
+        }
+    };
+
+    hint2 = () => {
+        if (this.props.players.length < 1) {
+            return this.getHint()
+        }
+    };
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/fight-mode" />;
+            this.props.setMode(MODES.BATTLE);
+            this.props.setActivePlayer(Math.round(Math.random()));
+            return <Redirect push to="/lock" />;
         }
 
         return (
             <div>
                 <div className="columns is-centered has-text-centered">
                     {this.props.players.map((player) => {
-                        return <SetupCardComponent key={"player" + player.id} playerName={player.nick} playerReady={this.state.player1Ready} identiconSeed={player.avatar} />
+                        return <SetupCardComponent
+                            key={"player" + player.id}
+                            playerName={player.nick}
+                            playerId={player.id}
+                            playerReady={player.ready}
+                            identiconSeed={player.avatar}
+                        />
                     })}
+                    {this.hint1()}
+                    {this.hint2()}
                 </div>
                 <button className="button is-dark is-large"
-                        disabled={!this.state.player1Ready || !this.state.player2Ready}
+                        disabled={this.isStartDisabled()}
                         onClick={this.triggerRedirect}>Seeschlacht beginnen
                 </button>
             </div>
@@ -54,4 +79,4 @@ class SetupScreen extends Component {
     }
 }
 
-export default connect(mapStateToProps)(SetupScreen);
+export default connect(mapStateToProps, matchDispatchToProps)(SetupScreen);

@@ -1,10 +1,13 @@
 import React, {Component} from "react";
 import Playground from "../components/Playground";
 import {Redirect} from "react-router-dom";
+import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/fight-mode-mapper";
+import {connect} from "react-redux";
 
-export default class FightModeScreen extends Component {
+class FightModeScreen extends Component {
     constructor(props) {
         super(props);
+        this.unsetFirstRound();
         this.state = {
             redirect: false
         }
@@ -14,7 +17,14 @@ export default class FightModeScreen extends Component {
         this.setState({
             redirect: true
         })
-    }
+    };
+
+    unsetFirstRound = () => {
+        if(this.props.isFirstRound) {
+            this.props.setFirstRound(false);
+        }
+        console.log(this.props.isFirstRound)
+    };
 
     render() {
         if (this.state.redirect) {
@@ -61,3 +71,5 @@ export default class FightModeScreen extends Component {
         );
     }
 }
+
+export default connect(mapStateToProps, matchDispatchToProps)(FightModeScreen);
