@@ -10,6 +10,7 @@ export function fieldReducer(state = [], action) {
         case SET_COLOR:
             return state.map(field => {
                 if (field.id === action.data.id) {
+                        console.log("test")
                     return Object.assign({}, field, {
                         color: action.data.color
                     })
@@ -26,7 +27,7 @@ export function fieldReducer(state = [], action) {
 //                             ...
 //                             91 - 100
 
-// Unnecessary field ids:
+// Unnecessary field ids -> nevertheless I won't push them to this reducer -> so there are no problems either way
 // id from text field upper left corner: 0
 // ids from text fields upper row:    -1,  -2, ..., -10
 // ids from text fields side column: -11, -21, ..., -101
