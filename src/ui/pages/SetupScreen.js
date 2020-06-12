@@ -24,30 +24,6 @@ class SetupScreen extends Component {
         return !this.props.players.map(player => player.ready).includes(true) || this.props.players.length !== 2;
     };
 
-    getHint = () => {
-        return (
-            <div className="column is-one-quarter">
-                <div className="card">
-                    <div className="card-content">
-                        <h1 className="title">Empty</h1>
-                    </div>
-                </div>
-            </div>
-        );
-    };
-
-    hint1 = () => {
-        if (this.props.players.length < 2) {
-            return this.getHint()
-        }
-    };
-
-    hint2 = () => {
-        if (this.props.players.length < 1) {
-            return this.getHint()
-        }
-    };
-
     render() {
         if (this.state.redirect) {
             this.props.setMode(MODES.BATTLE);
@@ -67,8 +43,6 @@ class SetupScreen extends Component {
                             identiconSeed={player.avatar}
                         />
                     })}
-                    {this.hint1()}
-                    {this.hint2()}
                 </div>
                 <button className="button is-dark is-large"
                         disabled={this.isStartDisabled()}

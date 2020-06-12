@@ -20,8 +20,6 @@ class StartScreen extends Component {
     render() {
         if (this.state.redirect) {
             return <Redirect push to="/player-profile/0" />;
-        } else if (this.props.players.length > 0) {
-            return <Redirect push to="/setup" />;
         }
 
         return (
