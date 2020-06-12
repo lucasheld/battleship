@@ -8,7 +8,7 @@ export function playerReducer(state = [], action) {
                 action.data
             ];
         case CHANGE_PLAYER:
-            return state.players.map(player => {
+            return state.map(player => {
                 if (player.id === action.data.id) {
                     player = action.data
                 }

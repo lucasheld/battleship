@@ -10,7 +10,7 @@ export default class Field extends Component {
         return (
             this.props.text
                 ?
-                <th className={this.props.className + " field-ship"} key={this.props.id} id={this.props.id}>{this.props.text}</th>
+                <th className={this.props.className + " field-ship"}>{this.props.text}</th>
                 :
                 <td className={this.props.className + " field-ship"} key={this.props.id} id={this.props.id}/>
         )
