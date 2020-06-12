@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Field from "./Field";
+import {FIELD_TYPES} from "../../redux/actions/field-action";
 
 export default class Ship extends Component {
     /* props
@@ -9,6 +10,10 @@ export default class Ship extends Component {
     disabled: marks ship as disabled
     selected: marks ship as selected
      */
+
+    fireOnDrag = (event) =>  {
+        event.preventDefault();
+    };
 
     render() {
         // define ship background color
@@ -32,7 +37,7 @@ export default class Ship extends Component {
         let cells = [];
         for (let i = 0; i < this.props.shipLength; i++) {
             let key = this.props.id + "-" + i;
-            cells.push(<Field key={key} id={key}/>)
+            cells.push(<Field type={FIELD_TYPES.SHIP} key={key} id={key}/>)
         }
 
         return (
@@ -52,7 +57,9 @@ export default class Ship extends Component {
                 <div className="column has-text-left">
                     <table>
                         <tbody>
-                            <tr id={this.props.id}
+                            <tr draggable
+                                onDrag={this.fireOnDrag}
+                                id={this.props.id}
                                 style={{
                                     backgroundColor: backgroundColor
                                 }}
@@ -63,4 +70,5 @@ export default class Ship extends Component {
             </div>
         )
     }
+
 }
