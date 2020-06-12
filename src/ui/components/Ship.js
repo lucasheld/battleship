@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Field from "./Field";
-import ShipDirectionDislog from "./ShipDirectionDislog";
+import ShipDirectionDialog from "./ShipDirectionDialog";
 import "./Ship.css";
 
 export default class Ship extends Component {
@@ -55,7 +55,7 @@ export default class Ship extends Component {
                 <div className={"modal" + (this.state.displayPopup === true ? " is-active" : "")}>
                     <div className="modal-background" onClick={() => this.displayPopup(false)}/>
                     <div className="modal-content">
-                        <ShipDirectionDislog shipName={this.props.shipName} shipLength={this.props.shipLength} />
+                        <ShipDirectionDialog shipName={this.props.shipName} shipLength={this.props.shipLength} />
                     </div>
                 </div>
 

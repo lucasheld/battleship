@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Field from "./Field";
 
-export default class ShipDirectionDislog extends Component {
+export default class ShipDirectionDialog extends Component {
     /* props
     shipName
     shipLength
