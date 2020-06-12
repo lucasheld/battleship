@@ -90,9 +90,9 @@ class PlayerProfileScreen extends Component {
     render() {
         if (this.state.redirect) {
             if (this.playerId === 0) {
-                return <Redirect push to="/player-profile/1" />;
+                return <Redirect to="/player-profile/1" />;
             } else {
-                return <Redirect push to="/setup" />;
+                return <Redirect to="/setup" />;
             }
         }
 

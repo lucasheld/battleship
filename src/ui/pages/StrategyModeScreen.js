@@ -28,7 +28,7 @@ class StrategyModeScreen extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/setup" />;
+            return <Redirect to="/setup" />;
         }
 
         return (

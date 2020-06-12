@@ -41,11 +41,11 @@ class LockScreen extends Component {
         if (this.state.redirect) {
             if (this.state.redirect) {
                 if (this.props.activePlayerId === 0) {
-                    return this.props.mode === MODES.STRATEGY ? <Redirect push to="/strategy-mode/0" /> : <Redirect push to="/fight-mode" />;
+                    return this.props.mode === MODES.STRATEGY ? <Redirect to="/strategy-mode/0" /> : <Redirect to="/fight-mode" />;
                 } else if (this.props.activePlayerId === 1) {
-                    return this.props.mode === MODES.STRATEGY ? <Redirect push to="/strategy-mode/1" /> : <Redirect push to="/fight-mode" />;
+                    return this.props.mode === MODES.STRATEGY ? <Redirect to="/strategy-mode/1" /> : <Redirect to="/fight-mode" />;
                 } else {
-                    return <Redirect push to="/setup" />;
+                    return <Redirect to="/setup" />;
                 }
             }
         }

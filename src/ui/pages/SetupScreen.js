@@ -28,7 +28,7 @@ class SetupScreen extends Component {
         if (this.state.redirect) {
             this.props.setMode(MODES.BATTLE);
             this.props.setActivePlayer(Math.round(Math.random()));
-            return <Redirect push to="/lock" />;
+            return <Redirect to="/lock" />;
         }
 
         return (

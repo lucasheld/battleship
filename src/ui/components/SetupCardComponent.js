@@ -25,7 +25,7 @@ class SetupCardComponent extends Component {
         if (this.state.redirect) {
             this.props.setMode(MODES.STRATEGY);
             this.props.setActivePlayer(this.props.playerId);
-            return <Redirect push to="/lock" />;
+            return <Redirect to="/lock" />;
         }
 
         return (
