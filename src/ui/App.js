@@ -1,6 +1,6 @@
 import React from 'react';
 import "bulma/css/bulma.min.css";
-import { BrowserRouter, Route } from 'react-router-dom';
+import { MemoryRouter, Route } from 'react-router-dom';
 import StartScreen from "./pages/StartScreen";
 import PlayerProfileScreen from "./pages/PlayerProfileScreen";
 import FightModeScreen from "./pages/FightModeScreen";
@@ -12,7 +12,7 @@ import "./App.css";
 
 function App() {
   return (
-      <BrowserRouter>
+      <MemoryRouter>
           <section className="section">
               <div className="container is-fluid">
                   <div className="has-text-centered">
@@ -30,7 +30,7 @@ function App() {
                   </div>
               </div>
           </section>
-      </BrowserRouter>
+      </MemoryRouter>
   );
 }
 
