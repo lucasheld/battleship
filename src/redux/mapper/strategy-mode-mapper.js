@@ -3,7 +3,8 @@ import {setPlayerReadyAction} from "../actions/player-action";
 
 export function mapStateToProps(state) {
     return {
-        players: state.playerReducer
+        players: state.playerReducer,
+        ships: state.shipReducer
     }
 }
 
