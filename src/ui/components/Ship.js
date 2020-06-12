@@ -18,6 +18,14 @@ export default class Ship extends Component {
     selected: marks ship as selected
      */
 
+    fireOnDragStart = () =>  {
+        console.log("started dragging " + this.props.shipName)
+    };
+
+    fireOnDragEnd = () =>  {
+        console.log(this.props.shipName + " ended")
+    };
+
     render() {
         // define ship background color
         let backgroundColor;
@@ -76,13 +84,5 @@ export default class Ship extends Component {
             </div>
         )
     }
-
-    fireOnDragStart = () =>  {
-        console.log("started dragging " + this.props.shipName)
-    };
-
-    fireOnDragEnd = () =>  {
-        console.log(this.props.shipName + " ended")
-    };
 
 }

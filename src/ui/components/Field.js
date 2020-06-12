@@ -24,8 +24,8 @@ class Field extends Component {
     };
 
     getOrCreateField = () =>  {
-        if(this.props.type === FIELD_TYPES.PLAYGROUND) {
-            this.field = this.props.fields.filter( field => field.id === this.props.id)[0];
+        if(this.props.type !== FIELD_TYPES.TEXT) {
+            this.field = this.props.fields.filter( field => field.id === this.props.id && field.type === this.props.type)[0];
             if(this.field === undefined) {
                 this.field = new FieldClass(this.props.id, this.props.type);
                 this.props.addField(this.field);
@@ -33,11 +33,8 @@ class Field extends Component {
         }
     };
 
-    async componentDidMount() {
-        this.getOrCreateField();
-    }
-
     render() {
+        this.getOrCreateField();
         return (
             this.props.text
                 ? // this.props.type equals FIELD_TYPES.TEXT
