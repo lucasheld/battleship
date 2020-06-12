@@ -54,7 +54,7 @@ class LockScreen extends Component {
             <div className="columns is-centered">
                 <div className="column card is-one-third">
                     <h2 className="subtitle">Hallo {this.player.nick}!</h2>
-                    {(this.props.isFirstRound && this.props.mode === MODES.BATTLE) && <h2 className="subtitle">Die <span role="img">&#127922; &#127922;</span> sind gefallen. Du darfst beginnen!</h2>}
+                    {(this.props.isFirstRound && this.props.mode === MODES.BATTLE) && <h2 className="subtitle">Die <span role="img" aria-label="Würfel">&#127922; &#127922;</span> sind gefallen. Du darfst beginnen!</h2>}
                     <h2 className="subtitle">Um fortzufahren, gib hier deinen PIN ein</h2>
                     <div className="field">
                         <div className="control">
