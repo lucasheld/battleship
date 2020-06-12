@@ -30,7 +30,7 @@ class SetupCardComponent extends Component {
 
         return (
             <div className="column is-one-quarter" onClick={this.triggerRedirect}>
-                <div className="card">
+                <div className="card" style={{backgroundColor: this.props.playerReady ? '#d6e3bd' : '#f4d8db'}}>
                     <div className="card-image">
                         <figure className="image is-1by1">
                             <Identicon string={this.props.identiconSeed} size="200"/>
