@@ -14,11 +14,7 @@ export default class ShipDirectionDialog extends Component {
             let cells = []
             for (let j = 0; j < this.props.shipLength + 2; j++) {
                 let className = "";
-
-                if (i === 0 && j !== 1) {
-                    className = "ship-selected"
-                }
-                if (i !== 0 && j === 0) {
+                if ((i === 0 && j !== 1) || (i !== 0 && j === 0)) {
                     className = "ship-selected"
                 }
                 cells.push(<Field className={className}/>)
