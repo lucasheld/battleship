@@ -14,24 +14,21 @@ class PlayerProfileScreen extends Component {
         this.player = this.getPlayer();
         this.state = {
             redirect: false,
-            identiconSeed: Math.floor((Math.random() * 100) + 1),  // random int between 1 and 100
+            identiconSeed: this.player.avatar,
             playerName: "",
-            playerPin: "",
-            wasChanged: false
+            playerPin: ""
         };
     }
 
     decreaseSeed = () => {
         this.setState({
-            identiconSeed: this.state.identiconSeed - 1,
-            wasChanged: true
+            identiconSeed: this.state.identiconSeed - 1
         })
     };
 
     increaseSeed = () => {
         this.setState({
-            identiconSeed: this.state.identiconSeed + 1,
-            wasChanged: true
+            identiconSeed: this.state.identiconSeed + 1
         })
     };
 
@@ -52,21 +49,9 @@ class PlayerProfileScreen extends Component {
     };
 
     setPlayer = () => {
-        let p = new Player(this.playerId, this.state.playerName, this.state.playerPin, this.getAvatar());
-        if(this.player !== undefined) {
-            this.props.changePlayer(p);
-            return;
-        }
-        this.props.addPlayer(p);
+        let p = new Player(this.playerId, this.state.playerName, this.state.playerPin, this.state.identiconSeed);
+        this.props.changePlayer(p);
         this.props.setPlayerReady({id: this.playerId}); //TODO entfernen
-    };
-
-    getAvatar = () => {
-        let seed = this.state.identiconSeed;
-        if(this.player !== undefined && !this.state.wasChanged) {
-            seed = this.player.avatar;
-        }
-        return seed;
     };
 
     isSaveDisabled = () => {
@@ -139,7 +124,7 @@ class PlayerProfileScreen extends Component {
                 <tr>
                     <th className="is-vcentered">Avatar</th>
                     <td>
-                        <Identicon string={this.getAvatar()} size="100" />
+                        <Identicon string={this.state.identiconSeed} size="100" />
                         <div className="columns">
                             <div className="column is-one-quarter"/>
                             <div className="column">

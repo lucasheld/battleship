@@ -1,18 +1,26 @@
-import {ADD_PLAYER, CHANGE_PLAYER, SET_READY} from "../actions/player-action";
+import {CHANGE_PLAYER, SET_READY} from "../actions/player-action";
 
-export function playerReducer(state = [], action) {
+let identiconSeed = Math.floor((Math.random() * 100) + 1)  // random int between 1 and 100
+
+const initialState = [
+    {
+        id: 0,
+        nick: "player1",
+        pin: "",
+        avatar: identiconSeed,
+        ready: false
+    },
+    {
+        id: 1,
+        nick: "player2",
+        pin: "",
+        avatar: identiconSeed + 1,
+        ready: false
+    }
+]
+
+export function playerReducer(state = initialState, action) {
     switch (action.type) {
-        case ADD_PLAYER:
-            return [
-                ...state,
-                {
-                    id: action.data.id,
-                    nick: action.data.nick,
-                    pin: action.data.pin,
-                    avatar: action.data.avatar,
-                    ready: false
-                }
-            ];
         case CHANGE_PLAYER:
             return state.map(player => {
                 if (player.id === action.data.id) {
