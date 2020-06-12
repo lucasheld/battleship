@@ -96,7 +96,7 @@ class PlayerProfileScreen extends Component {
             <table className="table">
                 <thead>
                 <tr>
-                    <th colSpan="2">Spieler {this.playerId}</th>
+                    <th colSpan="2">Spieler {this.playerId + 1}</th>
                 </tr>
                 </thead>
                 <tbody>
