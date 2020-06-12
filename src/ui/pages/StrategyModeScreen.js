@@ -44,34 +44,34 @@ class StrategyModeScreen extends Component {
                 </div>
                 <div className="column">
                     <div className="columns is-centered">
-                        <Ship id="battleship1" shipLength="5" shipName="Schlachtschiff"/>
+                        <Ship id="battleship1" shipLength={5} shipName="Schlachtschiff"/>
                     </div>
                     <div className="columns is-centered">
-                        <Ship id="cruiser0" shipLength="4" shipName="Kreuzer"/>
+                        <Ship id="cruiser0" shipLength={4} shipName="Kreuzer"/>
                     </div>
                     <div className="columns is-centered">
-                        <Ship id="cruiser1" shipLength="4" shipName="Kreuzer" disabled={true}/>
+                        <Ship id="cruiser1" shipLength={4} shipName="Kreuzer" disabled={true}/>
                     </div>
                     <div className="columns is-centered">
-                        <Ship id="destroyer0" shipLength="3" shipName="Zerstörer" selected={true}/>
+                        <Ship id="destroyer0" shipLength={3} shipName="Zerstörer" selected={true}/>
                     </div>
                     <div className="columns is-centered">
-                        <Ship id="destroyer1" shipLength="3" shipName="Zerstörer"/>
+                        <Ship id="destroyer1" shipLength={3} shipName="Zerstörer"/>
                     </div>
                     <div className="columns is-centered">
-                        <Ship id="destroyer2" shipLength="3" shipName="Zerstörer"/>
+                        <Ship id="destroyer2" shipLength={3} shipName="Zerstörer"/>
                     </div>
                     <div className="columns is-centered">
-                        <Ship id="submarine0" shipLength="2" shipName="U-Boot"/>
+                        <Ship id="submarine0" shipLength={2} shipName="U-Boot"/>
                     </div>
                     <div className="columns is-centered">
-                        <Ship id="submarine1" shipLength="2" shipName="U-Boot"/>
+                        <Ship id="submarine1" shipLength={2} shipName="U-Boot"/>
                     </div>
                     <div className="columns is-centered">
-                        <Ship id="submarine2" shipLength="2" shipName="U-Boot"/>
+                        <Ship id="submarine2" shipLength={2} shipName="U-Boot"/>
                     </div>
                     <div className="columns is-centered">
-                        <Ship id="submarine3" shipLength="2" shipName="U-Boot"/>
+                        <Ship id="submarine3" shipLength={2} shipName="U-Boot"/>
                     </div>
                 </div>
             </div>
