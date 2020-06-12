@@ -36,8 +36,7 @@ class Field extends Component {
     render() {
         this.getOrCreateField();
         return (
-            this.props.text
-                ? // this.props.type equals FIELD_TYPES.TEXT
+            this.props.type === FIELD_TYPES.TEXT ?
                 <div className={this.props.className + " field-ship"}>{this.props.text}</div>
                 : this.props.type === FIELD_TYPES.PLAYGROUND ?
                 <div className={this.props.className + " field-ship " + this.field.color} id={this.props.id} onMouseUp={this.fireOnMouseUp}/>
