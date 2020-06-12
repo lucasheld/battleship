@@ -58,6 +58,7 @@ class PlayerProfileScreen extends Component {
             return;
         }
         this.props.addPlayer(p);
+        this.props.setPlayerReady({id: this.playerId}); //TODO entfernen
     };
 
     getAvatar = () => {
@@ -69,7 +70,7 @@ class PlayerProfileScreen extends Component {
     };
 
     isSaveDisabled = () => {
-        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length < 6 || this.state.playerName.length < 3;
+        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length < 1 || this.state.playerName.length < 1;
     };
 
     getPlayer = () => {

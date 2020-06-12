@@ -3,13 +3,16 @@ import Identicon from "react-identicons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCheck, faTimes} from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from "react-router-dom"
+import {connect} from "react-redux";
+import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/setup-mapper";
+import {MODES} from "../../redux/actions/mode-action";
 
-export default class SetupCardComponent extends Component {
+class SetupCardComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             redirect: false
-        }
+        };
     }
 
     triggerRedirect = () => {
@@ -20,7 +23,9 @@ export default class SetupCardComponent extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/strategy-mode/0" />;
+            this.props.setMode(MODES.STRATEGY);
+            this.props.setActivePlayer(this.props.playerId);
+            return <Redirect push to="/lock" />;
         }
 
         return (
@@ -40,3 +45,5 @@ export default class SetupCardComponent extends Component {
         )
     }
 }
+
+export default connect(mapStateToProps, matchDispatchToProps)(SetupCardComponent);

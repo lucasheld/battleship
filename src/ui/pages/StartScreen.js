@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom"
+import {connect} from "react-redux";
+import {mapStateToProps} from "../../redux/mapper/start-mapper";
 
 class StartScreen extends Component {
     constructor(props) {
@@ -18,6 +20,8 @@ class StartScreen extends Component {
     render() {
         if (this.state.redirect) {
             return <Redirect push to="/player-profile/0" />;
+        } else if (this.props.players.length > 0) {
+            return <Redirect push to="/setup" />;
         }
 
         return (
@@ -32,4 +36,4 @@ class StartScreen extends Component {
     }
 }
 
-export default StartScreen;
+export default connect(mapStateToProps)(StartScreen);

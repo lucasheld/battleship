@@ -2,10 +2,14 @@ import React, {Component} from "react";
 import Playground from "../components/Playground";
 import Ship from "../components/Ship";
 import {Redirect} from "react-router-dom";
+import {mapStateToProps} from "../../redux/mapper/strategy-mode-mapper";
+import {connect} from "react-redux";
 
-export default class StrategyModeScreen extends Component {
+class StrategyModeScreen extends Component {
     constructor(props) {
         super(props);
+        this.playerId = Number(this.props.match.params.playerId);
+        this.player = this.getPlayer();
         this.state = {
             redirect: false
         }
@@ -17,15 +21,19 @@ export default class StrategyModeScreen extends Component {
         })
     };
 
+    getPlayer = () => {
+        return this.props.players.filter(player => player.id === this.playerId)[0];
+    };
+
     render() {
-        if (this.state.redirect) {
-            return <Redirect push to="/fight-mode" />;
+        if (this.player === undefined || this.state.redirect) {
+            return <Redirect push to="/setup" />;
         }
 
         return (
             <div className="columns">
                 <div className="column">
-                    <Playground player={null/*this.props.activePlayer*/}/>
+                    <Playground player={this.player}/>
                     <br/>
                     <div className="control">
                         <label className="label">
@@ -69,3 +77,5 @@ export default class StrategyModeScreen extends Component {
         );
     }
 }
+
+export default connect(mapStateToProps)(StrategyModeScreen);
