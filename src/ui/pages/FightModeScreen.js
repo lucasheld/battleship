@@ -42,29 +42,27 @@ class FightModeScreen extends Component {
 
         return (
             <div>
-                <h2>Kampfmodus</h2>
+                <h1 className="title">Kampfmodus</h1>
                 <br/>
-                <p>
+                <h3 className="subtitle">
                     Hallo {this.myPlayer.nick}
                     <br/>
                     Willkommen zurück in der Kommandozentrale
                     <br/>
-                </p>
+                </h3>
                 <div className="columns">
                     <div className="column">
-                        <p>
+                        <h4 className="subtitle">
                             Das Meer von {this.otherPlayer.nick}
-                        </p>
-                        <br/>
+                        </h4>
                         <Playground player={this.otherPlayer}/>
                         <br/>
                     </div>
                     <div className="column">
                         <div className="column">
-                            <p>
+                            <h4 className="subtitle">
                                 Dein Meer
-                            </p>
-                            <br/>
+                            </h4>
                             <Playground player={this.myPlayer}/>
                             <br/>
                         </div>
