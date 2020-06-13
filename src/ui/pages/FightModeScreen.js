@@ -1,20 +1,28 @@
 import React, {Component} from "react";
 import Playground from "../components/Playground";
-import {Redirect} from "react-router-dom";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/fight-mode-mapper";
 import {connect} from "react-redux";
-import {playgroundType} from "../../redux/reducers/field-reducer";
+import {PLAYGROUND_TYPE} from "../../redux/reducers/field-reducer";
+import { Redirect } from "react-router-dom";
 
 class FightModeScreen extends Component {
     constructor(props) {
         super(props);
         this.myPlayer = this.getMyPlayer();
         this.otherPlayer = this.getOtherPlayer();
+        this.props.setActivePlayer(this.myPlayer.id === 0 ? 1 : 0);
         this.unsetFirstRound();
+        this.props.setShipDraggable(false);
+        this.paintEverythingGreen();
         this.state = {
-            redirect: false
+            redirect: false,
         }
     }
+
+    paintEverythingGreen = () => {
+        this.props.setFieldColorGreen(PLAYGROUND_TYPE.PLAYER1FULL);
+        this.props.setFieldColorGreen(PLAYGROUND_TYPE.PLAYER2FULL);
+    };
 
     triggerRedirect = () => {
         this.setState({
@@ -36,13 +44,21 @@ class FightModeScreen extends Component {
         }
     };
 
+    checkWinner = () => {
+        let playground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER2FULL : PLAYGROUND_TYPE.PLAYER1FULL;
+        console.log(this.props.fields[playground].filter(field => field.color === "field-valid" || field.color === "field-blocked"))
+        return !this.props.fields[playground].filter(field => field.color === "field-valid" || field.color === "field-blocked")[0];
+    };
+
     render() {
-        if (this.state.redirect) {
-            return <Redirect to="/setup" />;
+        if(this.checkWinner()) {
+            return <Redirect to="/end" />;
+        } else if (this.state.redirect) {
+            return <Redirect to="/lock" />;
         }
 
-        let myPlayground = this.myPlayer.id === 0 ? playgroundType.PLAYER1FULL : playgroundType.PLAYER2FULL;
-        let otherPlayground = this.myPlayer.id === 0 ? playgroundType.PLAYER2PART : playgroundType.PLAYER1PART;
+        let myPlayground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER1FULL : PLAYGROUND_TYPE.PLAYER2FULL;
+        let otherPlayground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER2PART : PLAYGROUND_TYPE.PLAYER1PART;
 
         return (
             <div>
@@ -74,7 +90,7 @@ class FightModeScreen extends Component {
                 </div>
                 <div className="control">
                     <label className="label">
-                        <button className="button is-dark" onClick={this.triggerRedirect}>Zug beenden</button>
+                        <button className="button is-dark" disabled={!this.props.noFire} onClick={this.triggerRedirect}>Zug beenden</button>
                     </label>
                 </div>
 
