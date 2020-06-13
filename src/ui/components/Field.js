@@ -64,8 +64,13 @@ class Field extends Component {
         }
     };
 
-    paintNextBlocked = () =>  {
-        this.props.fields.filter(field => field.color === "field-blocked").forEach(field => {
+    isNotDraggedFromPlayground = (field, shipInfo) => {
+        let otherShipInfo = parseShip(field.shipIndex);
+        return !(shipInfo.id === otherShipInfo.id && shipInfo.name === otherShipInfo.name);
+    };
+
+    paintNextBlocked = (shipInfo) =>  {
+        this.props.fields.filter(field => field.color === "field-blocked" && field.shipIndex !== -1 && this.isNotDraggedFromPlayground(field, shipInfo)).forEach(field => {
             // if ship horizontal
             if(!(field.id % 10 === 1 && (field.id - 11) % 10 === 0)) this.paintOnlyIfUnused(field.id - 11);
             this.paintOnlyIfUnused(field.id - 10);
@@ -87,20 +92,43 @@ class Field extends Component {
         }
     };
 
+    deleteFromPlayground = (id) => {
+        let shipInfo = parseShip(id);
+        this.props.fields.forEach(field => {
+            if(isNumber(field.id) && field.shipIndex !== -1) {
+                let otherShipInfo = parseShip(field.shipIndex);
+                if(shipInfo.id === otherShipInfo.id && shipInfo.name === otherShipInfo.name) {
+                    this.props.setFieldColor({id: field.id, color: "field-unused"});
+                    this.props.setShipFieldIndex({id: field.id, shipIndex: -1});
+                }
+            }
+        });
+    };
+
     fireOnMouseDown = () =>  {
-
-        let shipInfo = parseShip(this.props.id);
-        let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
-
-        // do not allow using a ship twice
-        if (ship.disabled) {
-            return
+        let id = this.props.id;
+        let isOnPlayground = false;
+        if(isNumber(id)) {
+            id = this.props.fields.filter(field => field.id === id)[0].shipIndex;
+            if(id === -1) {
+                return;
+            }
+            isOnPlayground = true;
+            this.deleteFromPlayground(id);
         }
 
-        this.props.setActiveShip(this.props.id);
+        let shipInfo = parseShip(id);
+        let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
+
+        // do not allow using a ship twice
+        if (ship.disabled && !isOnPlayground) {
+            return;
+        }
+
+        this.props.setActiveShip(id);
         this.props.selectShip(ship);
 
-        this.paintNextBlocked();
+        this.paintNextBlocked(shipInfo);
         this.setState({
             renderElement: true,
             renderLength: ship.size,
@@ -122,6 +150,7 @@ class Field extends Component {
             this.setState({
                 renderElement: false
             });
+            this.repaintNextBlocked();
             if (this.props.activeShip) {
                 let shipInfo = parseShip(this.props.activeShip);
                 let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
@@ -230,5 +259,7 @@ class Field extends Component {
         )
     }
 }
+
+function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Field);
