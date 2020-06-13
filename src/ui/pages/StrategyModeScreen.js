@@ -43,10 +43,9 @@ class StrategyModeScreen extends Component {
 
         return (
             <React.Fragment>
-                <div className={"modal" + (this.props.popupOpen === true ? " is-active" : "")}>
-                    <div className="modal-background" onClick={() => this.displayPopup(false)}/>
-                    <div className="modal-content">
-                        <ShipDirectionDialog playground={this.playground} />
+                <div className={"modal" + (this.props.popupOpen.enabled === true ? " is-active" : "")} style={{pointerEvents: "none"}}>
+                    <div className="modal-content" style={{pointerEvents: "auto", width: "300px"}} >
+                        <ShipDirectionDialog playground={this.playground} enabled={this.props.popupOpen.enabled} ship={this.props.popupOpen.ship} index={this.props.popupOpen.index} />
                     </div>
                 </div>
 

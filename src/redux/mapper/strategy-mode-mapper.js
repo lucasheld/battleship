@@ -1,5 +1,6 @@
 import {bindActionCreators} from "redux";
 import {setPlayerReadyAction} from "../actions/player-action";
+import {openPopupAction} from "../actions/popup-action";
 
 export function mapStateToProps(state) {
     return {
@@ -11,6 +12,7 @@ export function mapStateToProps(state) {
 
 export function matchDispatchToProps(dispatch) {
     return bindActionCreators({
-        setPlayerReady: setPlayerReadyAction
+        setPlayerReady: setPlayerReadyAction,
+        openPopup: openPopupAction
     }, dispatch);
 }

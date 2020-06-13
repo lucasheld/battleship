@@ -143,7 +143,12 @@ class Field extends Component {
     }
 
     onPopupMouseDown = () => {
-        this.props.openPopup(true);
+        // ignore clicks on background
+        if (!isNaN(this.props.id)) return;
+
+        let shipInfo = parseShip(this.props.id);
+        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        this.props.openPopup(true, ship, shipInfo.index);
     }
 
     fireOnMouseDown = () =>  {
@@ -161,6 +166,7 @@ class Field extends Component {
     };
 
     fireOnMouseUp = (event) => {
+        this.props.openPopup(false);
         this.eventMouseMove.unsubscribe();
         let element = document.elementFromPoint(event.x, event.y);
         if(element === null) {

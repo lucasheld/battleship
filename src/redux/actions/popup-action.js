@@ -1,8 +1,12 @@
 export const OPEN_POPUP = "OPEN_POPUP";
 
-export const openPopupAction = (status) => {
+export const openPopupAction = (enabled, ship, index) => {
     return {
         type: OPEN_POPUP,
-        data: status
+        data: {
+            enabled: enabled,
+            ship: ship,
+            index: index
+        }
     }
 };
