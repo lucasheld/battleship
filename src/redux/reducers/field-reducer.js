@@ -1,21 +1,39 @@
 import {ADD_FIELD, SET_COLOR} from "../actions/field-action";
 
-export function fieldReducer(state = [], action) {
+export const playgroundType = {
+    PLAYER1FULL: "PLAYER1FULL",
+    PLAYER2FULL: "PLAYER2FULL",
+    PLAYER1PART: "PLAYER1PART",
+    PLAYER2PART: "PLAYER2PART"
+}
+
+const initialState = {
+    PLAYER1FULL: [],
+    PLAYER2FULL: [],
+    PLAYER1PART: [],
+    PLAYER2PART: []
+}
+
+export function fieldReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_FIELD:
-            return [
-                ...state,
-                action.data
-            ];
+            return Object.assign({}, state, {
+                [action.playground]: [
+                    ...state[action.playground],
+                    action.data
+                ]
+            })
         case SET_COLOR:
-            return state.map(field => {
-                if (field.id === action.data.id) {
-                    return Object.assign({}, field, {
-                        color: action.data.color
-                    })
-                }
-                return field;
-            });
+            return Object.assign({}, state, {
+                [action.playground]: state[action.playground].map(field => {
+                    if (field.id === action.data.id) {
+                        return Object.assign({}, field, {
+                            color: action.data.color
+                        })
+                    }
+                    return field;
+                })
+            })
         default:
             return state;
     }

@@ -1,17 +1,19 @@
 export var SET_COLOR = "SET_COLOR";
 export var ADD_FIELD = "ADD_FIELD";
 
-export const setFieldColorAction = (id) => {
+export const setFieldColorAction = (playground, id) => {
     return {
         type: SET_COLOR,
         data: id,
+        playground: playground
     }
 };
 
-export const addFieldAction = (field) => {
+export const addFieldAction = (playground, field) => {
     return {
         type: ADD_FIELD,
         data: field,
+        playground: playground
     }
 };
 

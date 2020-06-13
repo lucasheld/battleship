@@ -4,6 +4,7 @@ import Ship from "../components/Ship";
 import {Redirect} from "react-router-dom";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/strategy-mode-mapper";
 import {connect} from "react-redux";
+import {playgroundType} from "../../redux/reducers/field-reducer";
 
 class StrategyModeScreen extends Component {
     constructor(props) {
@@ -39,7 +40,7 @@ class StrategyModeScreen extends Component {
         return (
             <div className="columns">
                 <div className="column">
-                    <Playground player={this.player}/>
+                    <Playground player={this.player} playground={playgroundType.PLAYER1FULL}  />
                     <br/>
                     <div className="control">
                         <label className="label">
@@ -50,7 +51,7 @@ class StrategyModeScreen extends Component {
                 <div className="column">
                     {this.props.ships.map(ship =>
                         <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered">
-                            <Ship id={ship.name.toLowerCase() + "-" + ship.id} ship={ship} />
+                            <Ship id={ship.name.toLowerCase() + "-" + ship.id} ship={ship} playground={playgroundType.PLAYER1FULL} />
                         </div>
                     )}
                 </div>
