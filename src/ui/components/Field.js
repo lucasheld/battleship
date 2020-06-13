@@ -58,7 +58,7 @@ class Field extends Component {
             }
         } else {
             // deselect ship in the side
-            if (ship !== null && !ship.disabled) {
+            if (ship && !ship.disabled) {
                 this.props.deselectShip(ship);
             }
         }
