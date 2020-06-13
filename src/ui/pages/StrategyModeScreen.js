@@ -43,9 +43,9 @@ class StrategyModeScreen extends Component {
                     </div>
                 </div>
                 <div className="column">
-                    {this.props.ships.map( ship =>
-                        <div key={ship.name.toLowerCase() + ship.id} className="columns is-centered">
-                            <Ship id={ship.name.toLowerCase() + ship.id} shipLength={ship.size} shipName={ship.name}/>
+                    {this.props.ships.map(ship =>
+                        <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered">
+                            <Ship id={ship.name.toLowerCase() + "-" + ship.id} ship={ship} />
                         </div>
                     )}
                 </div>

@@ -6,7 +6,7 @@ import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/field-ma
 import FieldClass from "../../redux/data-classes/field";
 import {fromEvent} from "rxjs";
 import Ship from "./Ship";
-import {getShipLength} from "../../redux/reducers/ship-reducer";
+import {getShipLength, parseShip} from "../../redux/reducers/ship-reducer";
 
 class Field extends Component {
     constructor(props) {
@@ -30,15 +30,37 @@ class Field extends Component {
     };
 
     paintPlayground = (id) =>  {
-        let shipIndex = Number(this.props.activeShip.slice(-1));
-        let startIndex = id - shipIndex;
-        let endIndex = startIndex + getShipLength(this.props.activeShip);
+        let startIndex;
+        let endIndex;
+        if (this.props.activeShip == null) {
+            startIndex = id;
+            endIndex = startIndex;
+        } else {
+            let shipIndex = Number(this.props.activeShip.slice(-1));
+            startIndex = id - shipIndex;
+            endIndex = startIndex + getShipLength(this.props.activeShip);
+        }
+
+        let ship;
+        if (this.props.activeShip != null) {
+            let shipInfo = parseShip(this.props.activeShip)
+            ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        }
+
         if(this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex)) {
             for (let i = startIndex; i < endIndex; i++) {
                 this.props.setFieldColor({id: i, color: "field-blocked"});
                 this.props.setShipFieldIndex({id: i, shipIndex: i - startIndex});
             }
-            // TODO disable ship on the side
+            // disable ship on the side
+            if (ship) {
+                this.props.disableShip(ship);
+            }
+        } else {
+            // deselect ship in the side
+            if (ship !== null && !ship.disabled) {
+                this.props.deselectShip(ship);
+            }
         }
     };
 
@@ -66,15 +88,24 @@ class Field extends Component {
     };
 
     fireOnMouseDown = () =>  {
-        // TODO set ship active on side
+        let shipInfo = parseShip(this.props.id);
+        let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+
+        // do not allow using a ship twice
+        if (ship.disabled) {
+            return
+        }
+
+        this.props.setActiveShip(this.props.id);
+        this.props.selectShip(ship);
+
         this.paintNextBlocked();
         this.setState({
             renderElement: true,
-            renderLength: getShipLength(this.props.id),
+            renderLength: ship.size,
         });
-        this.props.setActiveShip(this.props.id);
         this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
-        fromEvent(document, "mouseup").subscribe(this.handleMouseUp);
+        fromEvent(document, "mouseup").subscribe(this.fireOnMouseUp);
     };
 
     repaintNextBlocked = () =>  {
@@ -83,20 +114,22 @@ class Field extends Component {
         })
     };
 
-    handleMouseUp = (event) => {
+    fireOnMouseUp = (event) => {
         this.eventMouseMove.unsubscribe();
         if(document.elementFromPoint(event.x, event.y) === null) {
             return;
         }
-        this.paintPlayground(document.elementFromPoint(event.x, event.y).id);
+        let id = Number(document.elementFromPoint(event.x, event.y).id);
+        this.paintPlayground(id);
         this.repaintNextBlocked();
         this.setState({
             renderElement: false
         });
+        this.props.setActiveShip(null);
     };
 
     handleMouseMove = (event) => {
-        const element = document.getElementsByClassName("ship-current")[0];
+        let element = document.getElementsByClassName("ship-current")[0];
         if (!element) {
             this.eventMouseMove.unsubscribe();
             return;
@@ -163,6 +196,15 @@ class Field extends Component {
         if(this.field !== undefined) {
             className = this.field.color;
         }
+
+        let copyShip = {
+            id: 100,
+            name: "",
+            size: this.state.renderLength,
+            selected: true,
+            disabled: false
+        }
+
         return (
             this.props.type === FIELD_TYPES.TEXT ?
                 <div className={this.props.className + " field-ship"}>{this.props.text}</div>
@@ -170,7 +212,7 @@ class Field extends Component {
                 <div className={this.props.className + " field-ship " + className} id={this.props.id}/>
                 : // this.props.type equals FIELD_TYPES.SHIP
                 <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown}>
-                    {this.state.renderElement && <Ship id="current" className={this.state.color} shipLength={this.state.renderLength} selected={true}/>}
+                    {this.state.renderElement && <Ship id="current" className={this.state.color} ship={copyShip} isCopy={true} />}
                 </div>
         )
     }

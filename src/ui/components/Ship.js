@@ -13,19 +13,17 @@ export default class Ship extends Component {
         }
     }
     /* props
-    id
-    shipLength
-    shipName
-    disabled: marks ship as disabled
-    selected: marks ship as selected
+    id: ship id
+    ship: the ship object from the reducer
+    isCopy: if this ship is a floating copy
      */
 
     render() {
         // define ship background color
         let backgroundColor;
-        if (this.props.disabled) {
+        if (this.props.ship.disabled) {
             backgroundColor = '#a6a6a6'
-        } else if (this.props.selected) {
+        } else if (this.props.ship.selected) {
             backgroundColor = '#9bbb59';
         } else {
             backgroundColor = '#8064a2';
@@ -33,14 +31,14 @@ export default class Ship extends Component {
 
         // define ship label color
         let labelColor;
-        if (this.props.selected) {
+        if (this.props.ship.selected) {
             labelColor = '#9bbb59';
         } else {
             labelColor = 'black';
         }
 
         let cells = [];
-        for (let i = 0; i < this.props.shipLength; i++) {
+        for (let i = 0; i < this.props.ship.size; i++) {
             let key = this.props.id + "-" + i;
             if(this.props.id === "current") {
                 cells.push(<div className={this.props.className + " field-ship "} key={key}/>)
@@ -54,7 +52,7 @@ export default class Ship extends Component {
         }
 
         let className;
-        if (this.props.selected) {
+        if (this.props.isCopy) {
             className = "ship-current";
         }
 
@@ -65,10 +63,10 @@ export default class Ship extends Component {
                         <div className="control" style={{whiteSpace: "nowrap"}}>
                             <label className="label"
                                    style={{
-                                       textDecoration: this.props.disabled ? 'line-through' : '',
+                                       textDecoration: this.props.ship.disabled ? 'line-through' : '',
                                        color: labelColor
                                    }}
-                            >{this.props.shipName}</label>
+                            >{this.props.ship.name}</label>
                         </div>
                     </div>
                 </div>
@@ -80,5 +78,4 @@ export default class Ship extends Component {
             </div>
         )
     }
-
 }
