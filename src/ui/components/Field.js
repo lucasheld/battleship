@@ -53,7 +53,7 @@ class Field extends Component {
         if(this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex)) {
             for (let i = startIndex; i < endIndex; i++) {
                 this.props.setFieldColor(this.props.playground, {id: i, color: "field-blocked"});
-                this.props.setShipFieldIndex({id: i, shipIndex: this.props.activeShip.slice(0, -1) + (i - startIndex)});
+                this.props.setShipFieldIndex(this.props.playground, {id: i, shipIndex: this.props.activeShip.slice(0, -1) + (i - startIndex)});
             }
             // disable ship on the side
             if (ship) {
@@ -103,7 +103,7 @@ class Field extends Component {
                 let otherShipInfo = parseShip(field.shipIndex);
                 if(shipInfo.id === otherShipInfo.id && shipInfo.name === otherShipInfo.name) {
                     this.props.setFieldColor({id: field.id, color: "field-unused"});
-                    this.props.setShipFieldIndex({id: field.id, shipIndex: -1});
+                    this.props.setShipFieldIndex(this.props.playground, {id: field.id, shipIndex: -1});
                 }
             }
         });

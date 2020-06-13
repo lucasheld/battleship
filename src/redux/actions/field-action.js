@@ -18,10 +18,11 @@ export const addFieldAction = (playground, field) => {
     }
 };
 
-export const setFieldShipIndexAction = (index) => {
+export const setFieldShipIndexAction = (playground, index) => {
     return {
         type: SET_SHIP_INDEX,
         data: index,
+        playground: playground
     }
 };
 

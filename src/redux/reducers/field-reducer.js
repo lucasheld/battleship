@@ -35,14 +35,16 @@ export function fieldReducer(state = initialState, action) {
                 })
             })
         case SET_SHIP_INDEX:
-            return state.map(field => {
-                if (field.id === action.data.id) {
-                    return Object.assign({}, field, {
-                        shipIndex: action.data.shipIndex
-                    })
-                }
-                return field;
-            });
+            return Object.assign({}, state, {
+                [action.playground]: state[action.playground].map(field => {
+                    if (field.id === action.data.id) {
+                        return Object.assign({}, field, {
+                            shipIndex: action.data.shipIndex
+                        })
+                    }
+                    return field;
+                })
+            })
         default:
             return state;
     }
