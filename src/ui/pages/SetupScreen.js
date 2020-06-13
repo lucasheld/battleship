@@ -21,7 +21,7 @@ class SetupScreen extends Component {
     };
 
     isStartDisabled = () => {
-        return !this.props.players.map(player => player.ready).includes(true) || this.props.players.length !== 2;
+        return this.props.players.filter(player => !player.ready).length !== 0;
     };
 
     render() {
