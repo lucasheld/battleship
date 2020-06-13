@@ -113,7 +113,6 @@ class Field extends Component {
         let id = this.props.id;
         let isOnPlayground = false;
         if(isNumber(id)) {
-            console.log(this.props.fields)
             id = this.props.fields[this.props.playground].filter(field => field.id === id)[0].shipIndex;
             if(id === -1) {
                 return;
