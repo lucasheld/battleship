@@ -6,7 +6,7 @@ import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/field-ma
 import FieldClass from "../../redux/data-classes/field";
 import {fromEvent} from "rxjs";
 import Ship from "./Ship";
-import {getShipLength} from "../../redux/reducers/ship-reducer";
+import {getShipLength, parseShip} from "../../redux/reducers/ship-reducer";
 
 class Field extends Component {
     constructor(props) {
@@ -65,11 +65,14 @@ class Field extends Component {
     };
 
     fireOnMouseDown = () =>  {
-        // TODO set ship active on side
+        const shipInfo = parseShip(this.props.id)
+        const ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        this.props.selectShip(ship);
+
         this.paintNextBlocked();
         this.setState({
             renderElement: true,
-            renderLength: getShipLength(this.props.id),
+            renderLength: ship.size,
         });
         this.props.setActiveShip(this.props.id);
         this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
@@ -162,6 +165,15 @@ class Field extends Component {
         if(this.field !== undefined) {
             className = this.field.color;
         }
+
+        let copyShip = {
+            id: 100,
+            name: "",
+            size: this.state.renderLength,
+            selected: true,
+            disabled: false
+        }
+
         return (
             this.props.type === FIELD_TYPES.TEXT ?
                 <div className={this.props.className + " field-ship"}>{this.props.text}</div>
@@ -169,7 +181,7 @@ class Field extends Component {
                 <div className={this.props.className + " field-ship " + className} id={this.props.id}/>
                 : // this.props.type equals FIELD_TYPES.SHIP
                 <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown}>
-                    {this.state.renderElement && <Ship id="current" className={this.state.color} shipLength={this.state.renderLength} selected={true}/>}
+                    {this.state.renderElement && <Ship id="current" className={this.state.color} ship={copyShip} isCopy={true} />}
                 </div>
         )
     }
