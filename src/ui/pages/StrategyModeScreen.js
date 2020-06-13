@@ -31,7 +31,7 @@ class StrategyModeScreen extends Component {
     isButtonDisabled = () => {
         let enabledShips = this.props.ships[this.playground].filter(ship => !ship.disabled);
         return enabledShips.length > 0;
-    }
+    };
 
     render() {
         if (this.state.redirect) {

@@ -3,7 +3,6 @@ import Playground from "../components/Playground";
 import {Redirect} from "react-router-dom";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/fight-mode-mapper";
 import {connect} from "react-redux";
-import Field from "../components/Field";
 import {playgroundType} from "../../redux/reducers/field-reducer";
 
 class FightModeScreen extends Component {
