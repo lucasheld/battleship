@@ -1,4 +1,5 @@
 import {setFirstRoundAction} from "../actions/first-round-action";
+import {setShipDraggableAction} from "../actions/ship-is-draggable-action";
 import {bindActionCreators} from "redux";
 
 export function mapStateToProps(state) {
@@ -12,6 +13,7 @@ export function mapStateToProps(state) {
 
 export function matchDispatchToProps(dispatch) {
     return bindActionCreators({
-        setFirstRound: setFirstRoundAction
+        setFirstRound: setFirstRoundAction,
+        setShipDraggable: setShipDraggableAction
     }, dispatch);
 }

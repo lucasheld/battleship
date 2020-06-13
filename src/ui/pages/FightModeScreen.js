@@ -1,10 +1,9 @@
 import React, {Component} from "react";
 import Playground from "../components/Playground";
-import {Redirect} from "react-router-dom";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/fight-mode-mapper";
 import {connect} from "react-redux";
-import Field from "../components/Field";
 import {playgroundType} from "../../redux/reducers/field-reducer";
+import Redirect from "react-router-dom/es/Redirect";
 
 class FightModeScreen extends Component {
     constructor(props) {
@@ -12,8 +11,9 @@ class FightModeScreen extends Component {
         this.myPlayer = this.getMyPlayer();
         this.otherPlayer = this.getOtherPlayer();
         this.unsetFirstRound();
+        this.props.setShipDraggable(false);
         this.state = {
-            redirect: false
+            redirect: false,
         }
     }
 

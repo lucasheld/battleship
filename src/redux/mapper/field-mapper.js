@@ -7,7 +7,8 @@ export function mapStateToProps(state) {
     return {
         fields: state.fieldReducer,
         activeShip: state.activeShipReducer,
-        ships: state.shipReducer
+        ships: state.shipReducer,
+        shipIsDraggable: state.shipDraggableReducer
     }
 }
 

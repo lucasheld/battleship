@@ -6,6 +6,7 @@ import {modeReducer} from "./reducers/mode-reducer";
 import {firstRoundReducer} from "./reducers/first-round-reducer";
 import {fieldReducer} from "./reducers/field-reducer";
 import {activeShipReducer} from "./reducers/active-ship-reducer";
+import {shipDraggableReducer} from "./reducers/ship-is-draggable-reducer";
 
 const reducers = combineReducers({
     playerReducer,
@@ -14,7 +15,8 @@ const reducers = combineReducers({
     activeShipReducer,
     modeReducer,
     firstRoundReducer,
-    shipReducer
+    shipReducer,
+    shipDraggableReducer,
 });
 
 export default reducers;

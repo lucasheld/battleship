@@ -110,6 +110,9 @@ class Field extends Component {
     };
 
     fireOnMouseDown = () =>  {
+        if (!this.props.shipIsDraggable) {
+            return;
+        }
         let id = this.props.id;
         let isOnPlayground = false;
         if(isNumber(id)) {

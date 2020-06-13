@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom/";
 import {connect} from "react-redux";
 import {mapStateToProps} from "../../redux/mapper/lock-mapper";
 import {MODES} from "../../redux/actions/mode-action";
