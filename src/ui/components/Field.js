@@ -118,6 +118,16 @@ class Field extends Component {
     fireOnMouseUp = (event) => {
         this.eventMouseMove.unsubscribe();
         if(document.elementFromPoint(event.x, event.y) === null) {
+            // handle cursor outside window
+            this.setState({
+                renderElement: false
+            });
+            if (this.props.activeShip) {
+                let shipInfo = parseShip(this.props.activeShip);
+                let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
+                this.props.deselectShip(ship);
+                this.props.setActiveShip(null);
+            }
             return;
         }
         let id = Number(document.elementFromPoint(event.x, event.y).id);
