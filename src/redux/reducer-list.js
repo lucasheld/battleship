@@ -7,6 +7,7 @@ import {firstRoundReducer} from "./reducers/first-round-reducer";
 import {fieldReducer} from "./reducers/field-reducer";
 import {activeShipReducer} from "./reducers/active-ship-reducer";
 import {shipDraggableReducer} from "./reducers/ship-is-draggable-reducer";
+import {noFireReducer} from "./reducers/no-fire-reducer";
 
 const reducers = combineReducers({
     playerReducer,
@@ -17,6 +18,7 @@ const reducers = combineReducers({
     firstRoundReducer,
     shipReducer,
     shipDraggableReducer,
+    noFireReducer
 });
 
 export default reducers;

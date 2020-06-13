@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import Playground from "../components/Playground";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/fight-mode-mapper";
 import {connect} from "react-redux";
-import {playgroundType} from "../../redux/reducers/field-reducer";
-import Redirect from "react-router-dom/es/Redirect";
+import {PLAYGROUND_TYPE} from "../../redux/reducers/field-reducer";
+import { Redirect } from "react-router-dom";
 
 class FightModeScreen extends Component {
     constructor(props) {
@@ -12,12 +12,19 @@ class FightModeScreen extends Component {
         this.otherPlayer = this.getOtherPlayer();
         this.unsetFirstRound();
         this.props.setShipDraggable(false);
+        this.paintEverythingGreen();
         this.state = {
             redirect: false,
         }
     }
 
+    paintEverythingGreen = () => {
+        this.props.setFieldColorGreen(PLAYGROUND_TYPE.PLAYER1FULL);
+        this.props.setFieldColorGreen(PLAYGROUND_TYPE.PLAYER2FULL);
+    };
+
     triggerRedirect = () => {
+        this.props.setNoFire(false);
         this.setState({
             redirect: true
         })
@@ -42,8 +49,8 @@ class FightModeScreen extends Component {
             return <Redirect to="/setup" />;
         }
 
-        let myPlayground = this.myPlayer.id === 0 ? playgroundType.PLAYER1FULL : playgroundType.PLAYER2FULL;
-        let otherPlayground = this.myPlayer.id === 0 ? playgroundType.PLAYER2PART : playgroundType.PLAYER1PART;
+        let myPlayground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER1FULL : PLAYGROUND_TYPE.PLAYER2FULL;
+        let otherPlayground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER2PART : PLAYGROUND_TYPE.PLAYER1PART;
 
         return (
             <div>
