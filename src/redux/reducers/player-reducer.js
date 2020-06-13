@@ -1,6 +1,6 @@
 import {CHANGE_PLAYER, SET_READY} from "../actions/player-action";
 
-let identiconSeed = Math.floor((Math.random() * 100) + 1)  // random int between 1 and 100
+let identiconSeed = Math.floor((Math.random() * 100) + 1); // random int between 1 and 100
 
 export const player0default = {
     id: 0,
@@ -8,7 +8,7 @@ export const player0default = {
     pin: "",
     avatar: identiconSeed,
     ready: false
-}
+};
 
 export const player1default = {
     id: 1,
@@ -16,9 +16,9 @@ export const player1default = {
     pin: "",
     avatar: identiconSeed + 1,
     ready: false
-}
+};
 
-const initialState = [player0default, player1default]
+const initialState = [player0default, player1default];
 
 export function playerReducer(state = initialState, action) {
     switch (action.type) {
@@ -37,7 +37,7 @@ export function playerReducer(state = initialState, action) {
             return state.map(player => {
                 if (player.id === action.data.id) {
                     return Object.assign({}, player, {
-                        ready: !player.ready
+                        ready: true
                     })
                 }
                 return player;

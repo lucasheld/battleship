@@ -3,6 +3,7 @@ import Playground from "../components/Playground";
 import {Redirect} from "react-router-dom";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/fight-mode-mapper";
 import {connect} from "react-redux";
+import {playgroundType} from "../../redux/reducers/field-reducer";
 
 class FightModeScreen extends Component {
     constructor(props) {
@@ -40,6 +41,9 @@ class FightModeScreen extends Component {
             return <Redirect to="/setup" />;
         }
 
+        let myPlayground = this.myPlayer.id === 0 ? playgroundType.PLAYER1FULL : playgroundType.PLAYER2FULL;
+        let otherPlayground = this.myPlayer.id === 0 ? playgroundType.PLAYER2PART : playgroundType.PLAYER1PART;
+
         return (
             <div>
                 <h1 className="title">Kampfmodus</h1>
@@ -55,7 +59,7 @@ class FightModeScreen extends Component {
                         <h4 className="subtitle">
                             Das Meer von {this.otherPlayer.nick}
                         </h4>
-                        <Playground player={this.otherPlayer}/>
+                        <Playground player={this.otherPlayer} playground={otherPlayground} />
                         <br/>
                     </div>
                     <div className="column">
@@ -63,7 +67,7 @@ class FightModeScreen extends Component {
                             <h4 className="subtitle">
                                 Dein Meer
                             </h4>
-                            <Playground player={this.myPlayer}/>
+                            <Playground player={this.myPlayer} playground={myPlayground} />
                             <br/>
                         </div>
                     </div>

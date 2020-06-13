@@ -9,3 +9,8 @@
 .ship-normal {
     background-color: #8064a2;
 }
+
+.ship-current {
+    position: absolute;
+    pointer-events: none;
+}

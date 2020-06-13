@@ -8,7 +8,11 @@ import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/player-p
 import Player from "../../redux/data-classes/player";
 import {player0default, player1default} from "../../redux/reducers/player-reducer";
 
+const NICK_MIN_LENGTH = 3;
+const PIN_LENGTH = 4;
+
 class PlayerProfileScreen extends Component {
+
     constructor(props) {
         super(props);
         this.playerId = Number(this.props.match.params.playerId);
@@ -56,7 +60,7 @@ class PlayerProfileScreen extends Component {
     };
 
     isSaveDisabled = () => {
-        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length < 1 || this.state.playerName.length < 1;
+        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length !== PIN_LENGTH || this.state.playerName.length < NICK_MIN_LENGTH;
     };
 
     getPlayer = () => {
