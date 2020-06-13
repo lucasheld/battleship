@@ -42,6 +42,9 @@ class FightModeScreen extends Component {
             return <Redirect to="/setup" />;
         }
 
+        let myPlayground = this.myPlayer.id === 0 ? playgroundType.PLAYER1FULL : playgroundType.PLAYER2FULL;
+        let otherPlayground = this.myPlayer.id === 0 ? playgroundType.PLAYER2PART : playgroundType.PLAYER1PART;
+
         return (
             <div>
                 <h1 className="title">Kampfmodus</h1>
@@ -57,7 +60,7 @@ class FightModeScreen extends Component {
                         <h4 className="subtitle">
                             Das Meer von {this.otherPlayer.nick}
                         </h4>
-                        <Playground player={this.otherPlayer} playground={playgroundType.PLAYER2PART} />
+                        <Playground player={this.otherPlayer} playground={otherPlayground} />
                         <br/>
                     </div>
                     <div className="column">
@@ -65,7 +68,7 @@ class FightModeScreen extends Component {
                             <h4 className="subtitle">
                                 Dein Meer
                             </h4>
-                            <Playground player={this.myPlayer} playground={playgroundType.PLAYER1FULL} />
+                            <Playground player={this.myPlayer} playground={myPlayground} />
                             <br/>
                         </div>
                     </div>
