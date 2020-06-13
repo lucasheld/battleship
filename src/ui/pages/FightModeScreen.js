@@ -3,7 +3,7 @@ import Playground from "../components/Playground";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/fight-mode-mapper";
 import {connect} from "react-redux";
 import {PLAYGROUND_TYPE} from "../../redux/reducers/field-reducer";
-import { Redirect } from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 class FightModeScreen extends Component {
     constructor(props) {
@@ -62,8 +62,23 @@ class FightModeScreen extends Component {
 
         return (
             <div>
-                <h1 className="title">Kampfmodus</h1>
-                <br/>
+                <nav className="navbar">
+                    <div className="navbar-menu">
+                        <div className="navbar-start">
+                            <div className="title">Kampfmodus</div>
+                        </div>
+                        <div className="navbar-end">
+                            <div className="navbar-item">
+                                <div className="buttons">
+                                    <Link to={"/player-profile/" + this.myPlayer.id + "/ingame"} className="button is-dark">
+                                        Spielerprofil bearbeiten
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
                 <h3 className="subtitle">
                     Hallo {this.myPlayer.nick}
                     <br/>
