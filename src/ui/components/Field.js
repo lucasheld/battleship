@@ -110,7 +110,7 @@ class Field extends Component {
         });
     };
 
-    onDragMouseDown = () => {
+    fireOnMouseDown = () => {
         let id = this.props.id;
         let isOnPlayground = false;
         if(isNumber(id)) {
@@ -150,14 +150,6 @@ class Field extends Component {
         let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
         this.props.openPopup(true, ship, shipInfo.index);
     }
-
-    fireOnMouseDown = () =>  {
-        if (this.props.allowDrag) {
-            this.onDragMouseDown();
-        } else {
-            this.onPopupMouseDown();
-        }
-    };
 
     repaintNextBlocked = () =>  {
         this.props.fields[this.props.playground].filter(field => field.color === "field-nextBlocked").forEach( field => {
@@ -286,10 +278,12 @@ class Field extends Component {
                 <div className={this.props.className + " field-ship " + className} id={this.props.id} onMouseDown={this.fireOnMouseDown}>
                     {this.state.renderElement && <Ship playground={this.props.playground} id="current" className={this.state.color} ship={copyShip} isCopy={true} />}
                 </div>
-                : // this.props.type equals FIELD_TYPES.SHIP
+                : this.props.type === FIELD_TYPES.OVERLAY ?
                 <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown}>
                     {this.state.renderElement && <Ship playground={this.props.playground} id="current" className={this.state.color} ship={copyShip} isCopy={true} />}
                 </div>
+                : // this.props.type === FIELD_TYPES.SHIP
+                <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.onPopupMouseDown}/>
         )
     }
 }

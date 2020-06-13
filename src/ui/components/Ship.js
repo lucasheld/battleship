@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import Field from "./Field";
-import ShipDirectionDialog from "./ShipDirectionDialog";
 import "./Ship.css";
 import {FIELD_TYPES} from "../../redux/actions/field-action";
 import {Redirect} from "react-router-dom";

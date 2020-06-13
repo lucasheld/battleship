@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Field from "./Field";
+import {FIELD_TYPES} from "../../redux/actions/field-action";
 
 export default class ShipDirectionDialog extends Component {
     /* props
@@ -14,17 +15,18 @@ export default class ShipDirectionDialog extends Component {
         if (this.props.enabled === false) return null;
 
         let rows = [];
+        let keys = 0;
         for (let i = 0; i < this.props.ship.size; i++) {
-            let cells = []
+            let cells = [];
             for (let j = 0; j < this.props.ship.size + 2; j++) {
                 let className = "";
                 if ((i === 0 && j !== 1) || (i !== 0 && j === 0)) {
                     className = "ship-selected"
                 }
                 let id = this.props.ship.name.toLowerCase() + "-" + this.props.ship.id + "-" + this.props.index;
-                cells.push(<Field playground={this.props.playground} id={id} className={className} allowDrag={true} />)
+                cells.push(<Field playground={this.props.playground} id={id} key={++keys} className={className} type={FIELD_TYPES.OVERLAY} />)
             }
-            rows.push(<div style={{display: "flex", justifyContent: "center"}}>{cells}</div>)
+            rows.push(<div style={{display: "flex", justifyContent: "center"}} key={++keys} >{cells}</div>)
         }
 
         return (
