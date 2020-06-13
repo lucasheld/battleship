@@ -115,7 +115,8 @@ class Field extends Component {
 
     fireOnMouseUp = (event) => {
         this.eventMouseMove.unsubscribe();
-        if(document.elementFromPoint(event.x, event.y) === null) {
+        let element = document.elementFromPoint(event.x, event.y);
+        if(element === null) {
             // handle cursor outside window
             this.setState({
                 renderElement: false
@@ -128,7 +129,7 @@ class Field extends Component {
             }
             return;
         }
-        let id = Number(document.elementFromPoint(event.x, event.y).id);
+        let id = Number(element.id);
         this.paintPlayground(id);
         this.repaintNextBlocked();
         this.setState({
