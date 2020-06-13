@@ -36,6 +36,7 @@ class Field extends Component {
         if(this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex)) {
             for (let i = startIndex; i < endIndex; i++) {
                 this.props.setFieldColor({id: i, color: "field-blocked"});
+                this.props.setShipFieldIndex({id: i, shipIndex: i - startIndex});
             }
             // TODO disable ship on the side
         }
