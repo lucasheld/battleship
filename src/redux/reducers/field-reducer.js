@@ -1,4 +1,5 @@
 import {ADD_FIELD, SET_COLOR, SET_COLOR_GREEN, SET_SHIP_INDEX} from "../actions/field-action";
+import {SET_INITIAL_STATE} from "../actions/initial-state-action";
 
 export const PLAYGROUND_TYPE = {
     PLAYER1FULL: "PLAYER1FULL",
@@ -56,6 +57,8 @@ export function fieldReducer(state = initialState, action) {
                     return field;
                 })
             });
+        case SET_INITIAL_STATE:
+            return initialState;
         default:
             return state;
     }

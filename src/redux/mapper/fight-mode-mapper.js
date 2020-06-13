@@ -2,7 +2,7 @@ import {setFirstRoundAction} from "../actions/first-round-action";
 import {setShipDraggableAction} from "../actions/ship-is-draggable-action";
 import {bindActionCreators} from "redux";
 import {setFieldColorGreenAction} from "../actions/field-action";
-import {setNoFireAction} from "../actions/no-fire-action";
+import {setActivePlayerAction} from "../actions/active-player-action";
 
 export function mapStateToProps(state) {
     return {
@@ -10,7 +10,8 @@ export function mapStateToProps(state) {
         activePlayerId: state.activePlayerReducer,
         mode: state.modeReducer,
         isFirstRound: state.firstRoundReducer,
-        fields: state.fieldReducer
+        fields: state.fieldReducer,
+        noFire: state.noFireReducer
     }
 }
 
@@ -19,6 +20,6 @@ export function matchDispatchToProps(dispatch) {
         setFirstRound: setFirstRoundAction,
         setShipDraggable: setShipDraggableAction,
         setFieldColorGreen: setFieldColorGreenAction,
-        setNoFire: setNoFireAction
+        setActivePlayer: setActivePlayerAction
     }, dispatch);
 }

@@ -10,6 +10,7 @@ class FightModeScreen extends Component {
         super(props);
         this.myPlayer = this.getMyPlayer();
         this.otherPlayer = this.getOtherPlayer();
+        this.props.setActivePlayer(this.myPlayer.id === 0 ? 1 : 0);
         this.unsetFirstRound();
         this.props.setShipDraggable(false);
         this.paintEverythingGreen();
@@ -24,7 +25,6 @@ class FightModeScreen extends Component {
     };
 
     triggerRedirect = () => {
-        this.props.setNoFire(false);
         this.setState({
             redirect: true
         })
@@ -44,9 +44,17 @@ class FightModeScreen extends Component {
         }
     };
 
+    checkWinner = () => {
+        let playground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER2FULL : PLAYGROUND_TYPE.PLAYER1FULL;
+        console.log(this.props.fields[playground].filter(field => field.color === "field-valid" || field.color === "field-blocked"))
+        return !this.props.fields[playground].filter(field => field.color === "field-valid" || field.color === "field-blocked")[0];
+    };
+
     render() {
-        if (this.state.redirect) {
-            return <Redirect to="/setup" />;
+        if(this.checkWinner()) {
+            return <Redirect to="/end" />;
+        } else if (this.state.redirect) {
+            return <Redirect to="/lock" />;
         }
 
         let myPlayground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER1FULL : PLAYGROUND_TYPE.PLAYER2FULL;
@@ -82,7 +90,7 @@ class FightModeScreen extends Component {
                 </div>
                 <div className="control">
                     <label className="label">
-                        <button className="button is-dark" onClick={this.triggerRedirect}>Zug beenden</button>
+                        <button className="button is-dark" disabled={!this.props.noFire} onClick={this.triggerRedirect}>Zug beenden</button>
                     </label>
                 </div>
 
