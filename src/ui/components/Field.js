@@ -129,7 +129,7 @@ class Field extends Component {
         if (ship.disabled && !isOnPlayground) {
             return;
         }
-
+        //this.props.openPopup(false); // TODO verschieben
         this.props.setActiveShip(id);
         this.props.selectShip(this.props.playground, ship);
 
@@ -140,7 +140,7 @@ class Field extends Component {
         });
         this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
         this.eventMouseUp = fromEvent(document, "mouseup").subscribe(this.fireOnMouseUp);
-    }
+    };
 
     onPopupMouseDown = () => {
         // ignore clicks on background
@@ -149,7 +149,7 @@ class Field extends Component {
         let shipInfo = parseShip(this.props.id);
         let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
         this.props.openPopup(true, ship, shipInfo.index);
-    }
+    };
 
     repaintNextBlocked = () =>  {
         this.props.fields[this.props.playground].filter(field => field.color === "field-nextBlocked").forEach( field => {
@@ -180,7 +180,7 @@ class Field extends Component {
         this.setState({
             renderElement: false
         });
-        this.props.openPopup(false);
+        this.props.openPopup(false); // TODO verschieben
         this.props.setActiveShip(null);
     };
 
