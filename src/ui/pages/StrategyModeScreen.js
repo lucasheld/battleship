@@ -26,6 +26,11 @@ class StrategyModeScreen extends Component {
         return this.props.players.filter(player => player.id === this.playerId)[0];
     };
 
+    isButtonDisabled = () => {
+        let enabledShips = this.props.ships.filter(ship => !ship.disabled);
+        return enabledShips.length > 0;
+    }
+
     render() {
         if (this.state.redirect) {
             return <Redirect to="/setup" />;
@@ -38,7 +43,7 @@ class StrategyModeScreen extends Component {
                     <br/>
                     <div className="control">
                         <label className="label">
-                            <button className="button is-dark" onClick={this.triggerRedirect}>Fertig</button>
+                            <button className="button is-dark" onClick={this.triggerRedirect} disabled={this.isButtonDisabled()}>Fertig</button>
                         </label>
                     </div>
                 </div>
