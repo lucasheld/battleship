@@ -1,0 +1,4 @@
+.ship-current {
+    position: absolute;
+    pointer-events: none;
+}
