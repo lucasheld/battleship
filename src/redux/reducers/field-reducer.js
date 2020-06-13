@@ -1,4 +1,4 @@
-import {ADD_FIELD, SET_COLOR} from "../actions/field-action";
+import {ADD_FIELD, SET_COLOR, SET_SHIP_INDEX} from "../actions/field-action";
 
 export const playgroundType = {
     PLAYER1FULL: "PLAYER1FULL",
@@ -34,6 +34,15 @@ export function fieldReducer(state = initialState, action) {
                     return field;
                 })
             })
+        case SET_SHIP_INDEX:
+            return state.map(field => {
+                if (field.id === action.data.id) {
+                    return Object.assign({}, field, {
+                        shipIndex: action.data.shipIndex
+                    })
+                }
+                return field;
+            });
         default:
             return state;
     }

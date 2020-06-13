@@ -1,4 +1,4 @@
-import {addFieldAction, setFieldColorAction} from "../actions/field-action";
+import {addFieldAction, setFieldColorAction, setFieldShipIndexAction} from "../actions/field-action";
 import {bindActionCreators} from "redux";
 import {setActiveShipAction} from "../actions/active-ship-action";
 import {deselectShipAction, disableShipAction, selectShipAction} from "../actions/select-ship-action";
@@ -16,6 +16,7 @@ export function matchDispatchToProps(dispatch) {
         addField: addFieldAction,
         setFieldColor: setFieldColorAction,
         setActiveShip: setActiveShipAction,
+        setShipFieldIndex: setFieldShipIndexAction,
         selectShip: selectShipAction,
         deselectShip: deselectShipAction,
         disableShip: disableShipAction

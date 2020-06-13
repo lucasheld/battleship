@@ -1,5 +1,6 @@
 export var SET_COLOR = "SET_COLOR";
 export var ADD_FIELD = "ADD_FIELD";
+export var SET_SHIP_INDEX = "SET_SHIP_INDEX";
 
 export const setFieldColorAction = (playground, id) => {
     return {
@@ -14,6 +15,13 @@ export const addFieldAction = (playground, field) => {
         type: ADD_FIELD,
         data: field,
         playground: playground
+    }
+};
+
+export const setFieldShipIndexAction = (index) => {
+    return {
+        type: SET_SHIP_INDEX,
+        data: index,
     }
 };
 
