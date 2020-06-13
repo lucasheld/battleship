@@ -1,6 +1,13 @@
 import {DISABLE_SHIP, SELECT_SHIP, DESELECT_SHIP} from "../actions/select-ship-action";
 
-const initialState = [
+export const playgroundType = {
+    PLAYER1FULL: "PLAYER1FULL",
+    PLAYER2FULL: "PLAYER2FULL",
+    PLAYER1PART: "PLAYER1PART",
+    PLAYER2PART: "PLAYER2PART"
+}
+
+const initialStateShips = [
     {
         id: 0,
         name: "Battleship",
@@ -73,38 +80,51 @@ const initialState = [
     }
 ]
 
+const initialState = {
+    PLAYER1FULL: initialStateShips,
+    PLAYER2FULL: initialStateShips,
+    PLAYER1PART: initialStateShips,
+    PLAYER2PART: initialStateShips
+}
+
 export function shipReducer(state = initialState, action) {
     switch (action.type) {
         case SELECT_SHIP:
-            return state.map(ship => {
-                if (ship.id === action.data.id && ship.name === action.data.name) {
-                    return Object.assign({}, ship, {
-                        selected: true,
-                        disabled: false
-                    })
-                }
-                return ship;
-            });
+            return Object.assign({}, state, {
+                [action.playground]: state[action.playground].map(ship => {
+                    if (ship.id === action.data.id && ship.name === action.data.name) {
+                        return Object.assign({}, ship, {
+                            selected: true,
+                            disabled: false
+                        })
+                    }
+                    return ship;
+                })
+            })
         case DESELECT_SHIP:
-            return state.map(ship => {
-                if (ship.id === action.data.id && ship.name === action.data.name) {
-                    return Object.assign({}, ship, {
-                        selected: false,
-                        disabled: false
-                    })
-                }
-                return ship;
-            });
+            return Object.assign({}, state, {
+                [action.playground]: state[action.playground].map(ship => {
+                    if (ship.id === action.data.id && ship.name === action.data.name) {
+                        return Object.assign({}, ship, {
+                            selected: false,
+                            disabled: false
+                        })
+                    }
+                    return ship;
+                })
+            })
         case DISABLE_SHIP:
-            return state.map(ship => {
-                if (ship.id === action.data.id && ship.name === action.data.name) {
-                    return Object.assign({}, ship, {
-                        disabled: true,
-                        selected: false
-                    })
-                }
-                return ship;
-            });
+            return Object.assign({}, state, {
+                [action.playground]: state[action.playground].map(ship => {
+                    if (ship.id === action.data.id && ship.name === action.data.name) {
+                        return Object.assign({}, ship, {
+                            disabled: true,
+                            selected: false
+                        })
+                    }
+                    return ship;
+                })
+            })
         default:
             return state;
     }

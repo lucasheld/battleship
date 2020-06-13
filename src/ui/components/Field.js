@@ -44,7 +44,7 @@ class Field extends Component {
         let ship;
         if (this.props.activeShip != null) {
             let shipInfo = parseShip(this.props.activeShip)
-            ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+            ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
         }
 
         if(this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex)) {
@@ -53,12 +53,12 @@ class Field extends Component {
             }
             // disable ship on the side
             if (ship) {
-                this.props.disableShip(ship);
+                this.props.disableShip(this.props.playground, ship);
             }
         } else {
             // deselect ship in the side
             if (ship && !ship.disabled) {
-                this.props.deselectShip(ship);
+                this.props.deselectShip(this.props.playground, ship);
             }
         }
     };
@@ -89,7 +89,7 @@ class Field extends Component {
 
     fireOnMouseDown = () =>  {
         let shipInfo = parseShip(this.props.id)
-        let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
 
         // do not allow using a ship twice
         if (ship.disabled) {
@@ -97,7 +97,7 @@ class Field extends Component {
         }
 
         this.props.setActiveShip(this.props.id);
-        this.props.selectShip(ship);
+        this.props.selectShip(this.props.playground, ship);
 
         this.paintNextBlocked();
         this.setState({
@@ -124,8 +124,8 @@ class Field extends Component {
             });
             if (this.props.activeShip) {
                 let shipInfo = parseShip(this.props.activeShip);
-                let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
-                this.props.deselectShip(ship);
+                let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
+                this.props.deselectShip(this.props.playground, ship);
                 this.props.setActiveShip(null);
             }
             return;
@@ -189,7 +189,6 @@ class Field extends Component {
 
     getField = () =>  {
         if(this.props.type !== FIELD_TYPES.TEXT) {
-            let x = this.props.fields[this.props.playground];
             this.field = this.props.fields[this.props.playground].filter( field => field.id === this.props.id && field.type === this.props.type)[0];
         }
     };
