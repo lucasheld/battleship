@@ -43,14 +43,14 @@ class Field extends Component {
 
         let ship;
         if (this.props.activeShip != null) {
-            let shipInfo = parseShip(this.props.activeShip)
+            let shipInfo = parseShip(this.props.activeShip);
             ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
         }
 
         if(this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex)) {
             for (let i = startIndex; i < endIndex; i++) {
                 this.props.setFieldColor({id: i, color: "field-blocked"});
-                this.props.setShipFieldIndex({id: i, shipIndex: i - startIndex});
+                this.props.setShipFieldIndex({id: i, shipIndex: this.props.activeShip.slice(0, -1) + (i - startIndex)});
             }
             // disable ship on the side
             if (ship) {
@@ -88,6 +88,7 @@ class Field extends Component {
     };
 
     fireOnMouseDown = () =>  {
+
         let shipInfo = parseShip(this.props.id);
         let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
 
@@ -172,7 +173,7 @@ class Field extends Component {
     };
 
     calculateMiddle = (bounds) => {
-        return (getShipLength(this.props.id) - (Number(this.props.id.slice(-1)))) * 30 - bounds.width - 15;
+        return (getShipLength(this.props.activeShip) - (Number(this.props.activeShip.slice(-1)))) * 30 - bounds.width - 15;
     };
 
     getField = () =>  {
@@ -209,7 +210,9 @@ class Field extends Component {
             this.props.type === FIELD_TYPES.TEXT ?
                 <div className={this.props.className + " field-ship"}>{this.props.text}</div>
                 : this.props.type === FIELD_TYPES.PLAYGROUND ?
-                <div className={this.props.className + " field-ship " + className} id={this.props.id}/>
+                <div className={this.props.className + " field-ship " + className} id={this.props.id} onMouseDown={this.fireOnMouseDown}>
+                    {this.state.renderElement && <Ship id="current" className={this.state.color} ship={copyShip} isCopy={true} />}
+                </div>
                 : // this.props.type equals FIELD_TYPES.SHIP
                 <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown}>
                     {this.state.renderElement && <Ship id="current" className={this.state.color} ship={copyShip} isCopy={true} />}
