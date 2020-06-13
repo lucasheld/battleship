@@ -98,11 +98,11 @@ class Field extends Component {
 
     deleteFromPlayground = (id) => {
         let shipInfo = parseShip(id);
-        this.props.fields.forEach(field => {
+        this.props.fields[this.props.playground].forEach(field => {
             if(isNumber(field.id) && field.shipIndex !== -1) {
                 let otherShipInfo = parseShip(field.shipIndex);
                 if(shipInfo.id === otherShipInfo.id && shipInfo.name === otherShipInfo.name) {
-                    this.props.setFieldColor({id: field.id, color: "field-unused"});
+                    this.props.setFieldColor(this.props.playground, {id: field.id, color: "field-unused"});
                     this.props.setShipFieldIndex(this.props.playground, {id: field.id, shipIndex: -1});
                 }
             }
@@ -113,7 +113,8 @@ class Field extends Component {
         let id = this.props.id;
         let isOnPlayground = false;
         if(isNumber(id)) {
-            id = this.props.fields.filter(field => field.id === id)[0].shipIndex;
+            console.log(this.props.fields)
+            id = this.props.fields[this.props.playground].filter(field => field.id === id)[0].shipIndex;
             if(id === -1) {
                 return;
             }
