@@ -30,22 +30,34 @@ class Field extends Component {
     };
 
     paintPlayground = (id) =>  {
-        let shipIndex = Number(this.props.activeShip.slice(-1));
-        let startIndex = id - shipIndex;
-        let endIndex = startIndex + getShipLength(this.props.activeShip);
+        let startIndex;
+        let endIndex;
+        if (this.props.activeShip == null) {
+            startIndex = id;
+            endIndex = startIndex;
+        } else {
+            let shipIndex = Number(this.props.activeShip.slice(-1));
+            startIndex = id - shipIndex;
+            endIndex = startIndex + getShipLength(this.props.activeShip);
+        }
 
-        let shipInfo = parseShip(this.props.activeShip)
-        let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        let ship;
+        if (this.props.activeShip != null) {
+            let shipInfo = parseShip(this.props.activeShip)
+            ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        }
 
         if(this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex)) {
             for (let i = startIndex; i < endIndex; i++) {
                 this.props.setFieldColor({id: i, color: "field-blocked"});
             }
             // disable ship on the side
-            this.props.disableShip(ship);
+            if (ship) {
+                this.props.disableShip(ship);
+            }
         } else {
             // deselect ship in the side
-            if (!ship.disabled) {
+            if (ship !== null && !ship.disabled) {
                 this.props.deselectShip(ship);
             }
         }
@@ -77,6 +89,13 @@ class Field extends Component {
     fireOnMouseDown = () =>  {
         let shipInfo = parseShip(this.props.id)
         let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+
+        // do not allow using a ship twice
+        if (ship.disabled) {
+            return
+        }
+
+        this.props.setActiveShip(this.props.id);
         this.props.selectShip(ship);
 
         this.paintNextBlocked();
@@ -84,7 +103,6 @@ class Field extends Component {
             renderElement: true,
             renderLength: ship.size,
         });
-        this.props.setActiveShip(this.props.id);
         this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
         fromEvent(document, "mouseup").subscribe(this.fireOnMouseUp);
     };
@@ -106,6 +124,7 @@ class Field extends Component {
         this.setState({
             renderElement: false
         });
+        this.props.setActiveShip(null);
     };
 
     handleMouseMove = (event) => {
