@@ -158,7 +158,6 @@ class Field extends Component {
     };
 
     fireOnMouseUp = (event) => {
-        this.props.openPopup(false);
         this.eventMouseMove.unsubscribe();
         let element = document.elementFromPoint(event.x, event.y);
         if(element === null) {
@@ -181,6 +180,7 @@ class Field extends Component {
         this.setState({
             renderElement: false
         });
+        this.props.openPopup(false);
         this.props.setActiveShip(null);
     };
 
