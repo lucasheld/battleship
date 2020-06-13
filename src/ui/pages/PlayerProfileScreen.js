@@ -60,7 +60,7 @@ class PlayerProfileScreen extends Component {
     };
 
     isSaveDisabled = () => {
-        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length === PIN_LENGTH || this.state.playerName.length < NICK_MIN_LENGTH;
+        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length !== PIN_LENGTH || this.state.playerName.length < NICK_MIN_LENGTH;
     };
 
     getPlayer = () => {
