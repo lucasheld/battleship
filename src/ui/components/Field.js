@@ -25,7 +25,9 @@ class Field extends Component {
 
     isValid = (start, end) => {
         // if ship horizontal
-        return Math.floor((start-1)/10) === Math.floor((end-2)/10);
+        let startFloor = Math.floor((start-1)/10);
+        let endFloor = Math.floor((end-2)/10);
+        return startFloor === endFloor && startFloor !== -1 && endFloor !== -1;
         // TODO implement vertical
     };
 
@@ -43,13 +45,14 @@ class Field extends Component {
 
         let ship;
         if (this.props.activeShip != null) {
-            let shipInfo = parseShip(this.props.activeShip)
+            let shipInfo = parseShip(this.props.activeShip);
             ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
         }
 
         if(this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex)) {
             for (let i = startIndex; i < endIndex; i++) {
                 this.props.setFieldColor({id: i, color: "field-blocked"});
+                this.props.setShipFieldIndex({id: i, shipIndex: this.props.activeShip.slice(0, -1) + (i - startIndex)});
             }
             // disable ship on the side
             if (ship) {
@@ -63,8 +66,13 @@ class Field extends Component {
         }
     };
 
-    paintNextBlocked = () =>  {
-        this.props.fields.filter(field => field.color === "field-blocked").forEach(field => {
+    isNotDraggedFromPlayground = (field, shipInfo) => {
+        let otherShipInfo = parseShip(field.shipIndex);
+        return !(shipInfo.id === otherShipInfo.id && shipInfo.name === otherShipInfo.name);
+    };
+
+    paintNextBlocked = (shipInfo) =>  {
+        this.props.fields.filter(field => field.color === "field-blocked" && field.shipIndex !== -1 && this.isNotDraggedFromPlayground(field, shipInfo)).forEach(field => {
             // if ship horizontal
             if(!(field.id % 10 === 1 && (field.id - 11) % 10 === 0)) this.paintOnlyIfUnused(field.id - 11);
             this.paintOnlyIfUnused(field.id - 10);
@@ -86,19 +94,43 @@ class Field extends Component {
         }
     };
 
-    fireOnMouseDown = () =>  {
-        let shipInfo = parseShip(this.props.id)
-        let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+    deleteFromPlayground = (id) => {
+        let shipInfo = parseShip(id);
+        this.props.fields.forEach(field => {
+            if(isNumber(field.id) && field.shipIndex !== -1) {
+                let otherShipInfo = parseShip(field.shipIndex);
+                if(shipInfo.id === otherShipInfo.id && shipInfo.name === otherShipInfo.name) {
+                    this.props.setFieldColor({id: field.id, color: "field-unused"});
+                    this.props.setShipFieldIndex({id: field.id, shipIndex: -1});
+                }
+            }
+        });
+    };
 
-        // do not allow using a ship twice
-        if (ship.disabled) {
-            return
+    fireOnMouseDown = () =>  {
+        let id = this.props.id;
+        let isOnPlayground = false;
+        if(isNumber(id)) {
+            id = this.props.fields.filter(field => field.id === id)[0].shipIndex;
+            if(id === -1) {
+                return;
+            }
+            isOnPlayground = true;
+            this.deleteFromPlayground(id);
         }
 
-        this.props.setActiveShip(this.props.id);
+        let shipInfo = parseShip(id);
+        let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
+
+        // do not allow using a ship twice
+        if (ship.disabled && !isOnPlayground) {
+            return;
+        }
+
+        this.props.setActiveShip(id);
         this.props.selectShip(ship);
 
-        this.paintNextBlocked();
+        this.paintNextBlocked(shipInfo);
         this.setState({
             renderElement: true,
             renderLength: ship.size,
@@ -121,6 +153,7 @@ class Field extends Component {
             this.setState({
                 renderElement: false
             });
+            this.repaintNextBlocked();
             if (this.props.activeShip) {
                 let shipInfo = parseShip(this.props.activeShip);
                 let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
@@ -158,6 +191,7 @@ class Field extends Component {
         let shipIndex = Number(this.props.activeShip.slice(-1));
         let startIndex = id - shipIndex;
         let endIndex = startIndex + getShipLength(this.props.activeShip);
+        console.log(this.isValid(startIndex, endIndex).toString() + " " + this.noShipsNear(startIndex, endIndex).toString())
         color = this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex) ? "field-valid" : "field-invalid";
         this.setState({
             renderElement: true,
@@ -182,7 +216,7 @@ class Field extends Component {
     };
 
     calculateMiddle = (bounds) => {
-        return (getShipLength(this.props.id) - (Number(this.props.id.slice(-1)))) * 30 - bounds.width - 15;
+        return (getShipLength(this.props.activeShip) - (Number(this.props.activeShip.slice(-1)))) * 30 - bounds.width - 15;
     };
 
     getField = () =>  {
@@ -213,13 +247,15 @@ class Field extends Component {
             size: this.state.renderLength,
             selected: true,
             disabled: false
-        }
+        };
 
         return (
             this.props.type === FIELD_TYPES.TEXT ?
                 <div className={this.props.className + " field-ship"}>{this.props.text}</div>
                 : this.props.type === FIELD_TYPES.PLAYGROUND ?
-                <div className={this.props.className + " field-ship " + className} id={this.props.id}/>
+                <div className={this.props.className + " field-ship " + className} id={this.props.id} onMouseDown={this.fireOnMouseDown}>
+                    {this.state.renderElement && <Ship id="current" className={this.state.color} ship={copyShip} isCopy={true} />}
+                </div>
                 : // this.props.type equals FIELD_TYPES.SHIP
                 <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown}>
                     {this.state.renderElement && <Ship id="current" className={this.state.color} ship={copyShip} isCopy={true} />}
@@ -227,5 +263,7 @@ class Field extends Component {
         )
     }
 }
+
+function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Field);
