@@ -3,6 +3,7 @@ import Field from "./Field";
 import {FIELD_TYPES} from "../../redux/actions/field-action";
 import {Redirect} from "react-router-dom";
 import "./Ship.css";
+import "./Field.css"
 
 export default class Ship extends Component {
     constructor(props) {
@@ -18,14 +19,6 @@ export default class Ship extends Component {
     disabled: marks ship as disabled
     selected: marks ship as selected
      */
-
-    fireOnDragStart = () =>  {
-        console.log("started dragging " + this.props.shipName)
-    };
-
-    fireOnDragEnd = () =>  {
-        console.log(this.props.shipName + " ended")
-    };
 
     render() {
         // define ship background color
@@ -49,7 +42,11 @@ export default class Ship extends Component {
         let cells = [];
         for (let i = 0; i < this.props.shipLength; i++) {
             let key = this.props.id + "-" + i;
-            cells.push(<Field type={FIELD_TYPES.SHIP} key={key} id={key}/>)
+            if(this.props.id === "current") {
+                cells.push(<div className={this.props.className + " field-ship "} key={key}/>)
+            } else {
+                cells.push(<Field type={FIELD_TYPES.SHIP} key={key} id={key}/>)
+            }
         }
 
         if (this.state.reload) {
@@ -76,8 +73,7 @@ export default class Ship extends Component {
                     </div>
                 </div>
                 <div className="column has-text-left">
-                    <div // draggable onDragStart={this.fireOnDragStart} onDragEnd={this.fireOnDragEnd}
-                        id={this.props.id}
+                    <div id={this.props.id}
                         style={{backgroundColor: backgroundColor, display: "flex"}}
                     >{cells}</div>
                 </div>

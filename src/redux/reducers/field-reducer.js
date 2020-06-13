@@ -3,11 +3,6 @@ import {ADD_FIELD, SET_COLOR} from "../actions/field-action";
 export function fieldReducer(state = [], action) {
     switch (action.type) {
         case ADD_FIELD:
-            state.forEach(field => {
-                if(field.id === action.data.id) {
-                    return state;
-                }
-            });
             return [
                 ...state,
                 action.data
@@ -15,7 +10,6 @@ export function fieldReducer(state = [], action) {
         case SET_COLOR:
             return state.map(field => {
                 if (field.id === action.data.id) {
-                        console.log(action.data.color + " " + action.data.id)
                     return Object.assign({}, field, {
                         color: action.data.color
                     })
