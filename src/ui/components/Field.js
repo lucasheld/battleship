@@ -17,6 +17,7 @@ class Field extends Component {
             color: "field-valid"
         };
         this.eventMouseMove = null;
+        this.eventMouseUp = null;
     }
 
     /* props
@@ -105,7 +106,7 @@ class Field extends Component {
             renderLength: ship.size,
         });
         this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
-        fromEvent(document, "mouseup").subscribe(this.fireOnMouseUp);
+        this.eventMouseUp = fromEvent(document, "mouseup").subscribe(this.fireOnMouseUp);
     };
 
     repaintNextBlocked = () =>  {
@@ -199,6 +200,15 @@ class Field extends Component {
                 this.field = new FieldClass(this.props.id, this.props.type);
                 this.props.addField(this.props.playground, this.field);
             }
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.eventMouseUp != null) {
+            this.eventMouseUp.unsubscribe()
+        }
+        if (this.eventMouseMove != null) {
+            this.eventMouseMove.unsubscribe()
         }
     }
 
