@@ -1,4 +1,4 @@
-import {SELECT_SHIP} from "../actions/select-ship-action";
+import {DISABLE_SHIP, SELECT_SHIP, DESELECT_SHIP} from "../actions/select-ship-action";
 
 const initialState = [
     {
@@ -79,7 +79,28 @@ export function shipReducer(state = initialState, action) {
             return state.map(ship => {
                 if (ship.id === action.data.id && ship.name === action.data.name) {
                     return Object.assign({}, ship, {
-                        selected: true
+                        selected: true,
+                        disabled: false
+                    })
+                }
+                return ship;
+            });
+        case DESELECT_SHIP:
+            return state.map(ship => {
+                if (ship.id === action.data.id && ship.name === action.data.name) {
+                    return Object.assign({}, ship, {
+                        selected: false,
+                        disabled: false
+                    })
+                }
+                return ship;
+            });
+        case DISABLE_SHIP:
+            return state.map(ship => {
+                if (ship.id === action.data.id && ship.name === action.data.name) {
+                    return Object.assign({}, ship, {
+                        disabled: true,
+                        selected: false
                     })
                 }
                 return ship;
@@ -92,9 +113,14 @@ export function shipReducer(state = initialState, action) {
 export function parseShip(id) {
     const regex = /^(\S+)-(\d+)-(\d+)$/;
     const match = id.match(regex);
+
+    let shipName = capitalizeFirstLetter(match[1]);
+    let shipId = Number(match[2]);
+    let shipSize = getShipLength(id);
     return {
-        name: capitalizeFirstLetter(match[1]),
-        id: Number(match[2]),
+        name: shipName,
+        id: shipId,
+        size: shipSize,
         index: Number(match[3])
     };
 }

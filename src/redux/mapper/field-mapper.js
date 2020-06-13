@@ -1,7 +1,7 @@
 import {addFieldAction, setFieldColorAction} from "../actions/field-action";
 import {bindActionCreators} from "redux";
 import {setActiveShipAction} from "../actions/active-ship-action";
-import {selectShipAction} from "../actions/select-ship-action";
+import {deselectShipAction, disableShipAction, selectShipAction} from "../actions/select-ship-action";
 
 export function mapStateToProps(state) {
     return {
@@ -16,6 +16,8 @@ export function matchDispatchToProps(dispatch) {
         addField: addFieldAction,
         setFieldColor: setFieldColorAction,
         setActiveShip: setActiveShipAction,
-        selectShip: selectShipAction
+        selectShip: selectShipAction,
+        deselectShip: deselectShipAction,
+        disableShip: disableShipAction
     }, dispatch);
 }

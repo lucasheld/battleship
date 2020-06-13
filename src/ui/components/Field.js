@@ -33,11 +33,21 @@ class Field extends Component {
         let shipIndex = Number(this.props.activeShip.slice(-1));
         let startIndex = id - shipIndex;
         let endIndex = startIndex + getShipLength(this.props.activeShip);
+
+        let shipInfo = parseShip(this.props.activeShip)
+        let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+
         if(this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex)) {
             for (let i = startIndex; i < endIndex; i++) {
                 this.props.setFieldColor({id: i, color: "field-blocked"});
             }
-            // TODO disable ship on the side
+            // disable ship on the side
+            this.props.disableShip(ship);
+        } else {
+            // deselect ship in the side
+            if (!ship.disabled) {
+                this.props.deselectShip(ship);
+            }
         }
     };
 
@@ -65,8 +75,8 @@ class Field extends Component {
     };
 
     fireOnMouseDown = () =>  {
-        const shipInfo = parseShip(this.props.id)
-        const ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        let shipInfo = parseShip(this.props.id)
+        let ship = this.props.ships.filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
         this.props.selectShip(ship);
 
         this.paintNextBlocked();
@@ -76,7 +86,7 @@ class Field extends Component {
         });
         this.props.setActiveShip(this.props.id);
         this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
-        fromEvent(document, "mouseup").subscribe(this.handleMouseUp);
+        fromEvent(document, "mouseup").subscribe(this.fireOnMouseUp);
     };
 
     repaintNextBlocked = () =>  {
@@ -85,12 +95,13 @@ class Field extends Component {
         })
     };
 
-    handleMouseUp = (event) => {
+    fireOnMouseUp = (event) => {
         this.eventMouseMove.unsubscribe();
         if(document.elementFromPoint(event.x, event.y) === null) {
             return;
         }
-        this.paintPlayground(document.elementFromPoint(event.x, event.y).id);
+        let id = Number(document.elementFromPoint(event.x, event.y).id);
+        this.paintPlayground(id);
         this.repaintNextBlocked();
         this.setState({
             renderElement: false
@@ -98,7 +109,7 @@ class Field extends Component {
     };
 
     handleMouseMove = (event) => {
-        const element = document.getElementsByClassName("ship-current")[0];
+        let element = document.getElementsByClassName("ship-current")[0];
         if (!element) {
             this.eventMouseMove.unsubscribe();
             return;
