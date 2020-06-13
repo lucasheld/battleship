@@ -66,34 +66,25 @@ export default class Ship extends Component {
         }
 
         return (
-            <React.Fragment>
-                <div className={"modal" + (this.state.displayPopup === true ? " is-active" : "")}>
-                    <div className="modal-background" onClick={() => this.displayPopup(false)}/>
-                    <div className="modal-content">
-                        <ShipDirectionDialog playground={this.props.playground} ship={this.props.ship} />
-                    </div>
-                </div>
-
-                <div className={"columns is-centered " + className} style={{marginBottom: '1px'}}>
-                    <div className="column has-text-right">
-                        <div className="field">
-                            <div className="control" style={{whiteSpace: "nowrap"}}>
-                                <label className="label"
-                                       style={{
-                                           textDecoration: this.props.ship.disabled ? 'line-through' : '',
-                                           color: labelColor
-                                       }}
-                                >{this.props.ship.name}</label>
-                            </div>
+            <div className={"columns is-centered " + className} style={{marginBottom: '1px'}}>
+                <div className="column has-text-right">
+                    <div className="field">
+                        <div className="control" style={{whiteSpace: "nowrap"}}>
+                            <label className="label"
+                                   style={{
+                                       textDecoration: this.props.ship.disabled ? 'line-through' : '',
+                                       color: labelColor
+                                   }}
+                            >{this.props.ship.name}</label>
                         </div>
                     </div>
-                    <div className="column has-text-left">
-                        <div id={this.props.id}
-                             style={{backgroundColor: backgroundColor, display: "flex"}}
-                        >{cells}</div>
-                    </div>
                 </div>
-            </React.Fragment>
+                <div className="column has-text-left">
+                    <div id={this.props.id}
+                         style={{backgroundColor: backgroundColor, display: "flex"}}
+                    >{cells}</div>
+                </div>
+            </div>
         )
     }
 }

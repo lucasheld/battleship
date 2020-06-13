@@ -4,7 +4,8 @@ import {setPlayerReadyAction} from "../actions/player-action";
 export function mapStateToProps(state) {
     return {
         players: state.playerReducer,
-        ships: state.shipReducer
+        ships: state.shipReducer,
+        popupOpen: state.popupOpenReducer
     }
 }
 

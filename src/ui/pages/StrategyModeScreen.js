@@ -5,6 +5,7 @@ import {Redirect} from "react-router-dom";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/strategy-mode-mapper";
 import {connect} from "react-redux";
 import {playgroundType} from "../../redux/reducers/field-reducer";
+import ShipDirectionDialog from "../components/ShipDirectionDialog";
 
 class StrategyModeScreen extends Component {
     constructor(props) {
@@ -29,6 +30,8 @@ class StrategyModeScreen extends Component {
     };
 
     isButtonDisabled = () => {
+        return false;
+
         let enabledShips = this.props.ships[this.playground].filter(ship => !ship.disabled);
         return enabledShips.length > 0;
     };
@@ -39,24 +42,33 @@ class StrategyModeScreen extends Component {
         }
 
         return (
-            <div className="columns">
-                <div className="column">
-                    <Playground player={this.player} playground={this.playground}  />
-                    <br/>
-                    <div className="control">
-                        <label className="label">
-                            <button className="button is-dark" onClick={this.triggerRedirect} disabled={this.isButtonDisabled()}>Fertig</button>
-                        </label>
+            <React.Fragment>
+                <div className={"modal" + (this.props.popupOpen === true ? " is-active" : "")}>
+                    <div className="modal-background" onClick={() => this.displayPopup(false)}/>
+                    <div className="modal-content">
+                        <ShipDirectionDialog playground={this.playground} />
                     </div>
                 </div>
-                <div className="column">
-                    {this.props.ships[this.playground].map(ship =>
-                        <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered">
-                            <Ship playground={this.playground} id={ship.name.toLowerCase() + "-" + ship.id} ship={ship} />
+
+                <div className="columns">
+                    <div className="column">
+                        <Playground player={this.player} playground={this.playground}  />
+                        <br/>
+                        <div className="control">
+                            <label className="label">
+                                <button className="button is-dark" onClick={this.triggerRedirect} disabled={this.isButtonDisabled()}>Fertig</button>
+                            </label>
                         </div>
-                    )}
+                    </div>
+                    <div className="column">
+                        {this.props.ships[this.playground].map(ship =>
+                            <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered">
+                                <Ship playground={this.playground} id={ship.name.toLowerCase() + "-" + ship.id} ship={ship} />
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }

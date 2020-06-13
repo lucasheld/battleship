@@ -2,6 +2,7 @@ import {addFieldAction, setFieldColorAction, setFieldShipIndexAction} from "../a
 import {bindActionCreators} from "redux";
 import {setActiveShipAction} from "../actions/active-ship-action";
 import {deselectShipAction, disableShipAction, selectShipAction} from "../actions/select-ship-action";
+import {openPopupAction} from "../actions/popup-action";
 
 export function mapStateToProps(state) {
     return {
@@ -19,6 +20,7 @@ export function matchDispatchToProps(dispatch) {
         setShipFieldIndex: setFieldShipIndexAction,
         selectShip: selectShipAction,
         deselectShip: deselectShipAction,
-        disableShip: disableShipAction
+        disableShip: disableShipAction,
+        openPopup: openPopupAction
     }, dispatch);
 }

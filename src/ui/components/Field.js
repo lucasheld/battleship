@@ -110,7 +110,7 @@ class Field extends Component {
         });
     };
 
-    fireOnMouseDown = () =>  {
+    onDragMouseDown = () => {
         let id = this.props.id;
         let isOnPlayground = false;
         if(isNumber(id)) {
@@ -140,6 +140,18 @@ class Field extends Component {
         });
         this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
         this.eventMouseUp = fromEvent(document, "mouseup").subscribe(this.fireOnMouseUp);
+    }
+
+    onPopupMouseDown = () => {
+        this.props.openPopup(true);
+    }
+
+    fireOnMouseDown = () =>  {
+        if (this.props.allowDrag) {
+            this.onDragMouseDown();
+        } else {
+            this.onPopupMouseDown();
+        }
     };
 
     repaintNextBlocked = () =>  {

@@ -8,16 +8,19 @@ export default class ShipDirectionDialog extends Component {
      */
 
     render() {
+        let size = 4;
+        let name = "test";
+
         let rows = [];
 
-        for (let i = 0; i < this.props.ship.size; i++) {
+        for (let i = 0; i < size; i++) {
             let cells = []
-            for (let j = 0; j < this.props.ship.size + 2; j++) {
+            for (let j = 0; j < size + 2; j++) {
                 let className = "";
                 if ((i === 0 && j !== 1) || (i !== 0 && j === 0)) {
                     className = "ship-selected"
                 }
-                cells.push(<Field playground={this.props.playground} key={"popup-" + i + "-" + j} className={className}/>)
+                cells.push(<Field playground={this.props.playground} key={"popup-" + i + "-" + j} className={className} allowDrag={true} />)
             }
             rows.push(<div style={{display: "flex"}}>{cells}</div>)
         }
@@ -25,7 +28,7 @@ export default class ShipDirectionDialog extends Component {
         return (
             <div className="box">
                 <h2 className="subtitle">
-                    {this.props.ship.name}
+                    {name}
                     <br/>
                     (Ausrichtung wählen)
                 </h2>
