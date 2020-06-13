@@ -43,7 +43,7 @@ export default class Ship extends Component {
             if(this.props.id === "current") {
                 cells.push(<div className={this.props.className + " field-ship "} key={key}/>)
             } else {
-                cells.push(<Field type={FIELD_TYPES.SHIP} key={key} id={key}/>)
+                cells.push(<Field playground={this.props.playground} type={FIELD_TYPES.SHIP} key={key} id={key}/>)
             }
         }
 
