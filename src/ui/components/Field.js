@@ -25,7 +25,9 @@ class Field extends Component {
 
     isValid = (start, end) => {
         // if ship horizontal
-        return Math.floor((start-1)/10) === Math.floor((end-2)/10);
+        let startFloor = Math.floor((start-1)/10);
+        let endFloor = Math.floor((end-2)/10);
+        return startFloor === endFloor && startFloor !== -1 && endFloor !== -1;
         // TODO implement vertical
     };
 
@@ -189,6 +191,7 @@ class Field extends Component {
         let shipIndex = Number(this.props.activeShip.slice(-1));
         let startIndex = id - shipIndex;
         let endIndex = startIndex + getShipLength(this.props.activeShip);
+        console.log(this.isValid(startIndex, endIndex).toString() + " " + this.noShipsNear(startIndex, endIndex).toString())
         color = this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex) ? "field-valid" : "field-invalid";
         this.setState({
             renderElement: true,
@@ -244,7 +247,7 @@ class Field extends Component {
             size: this.state.renderLength,
             selected: true,
             disabled: false
-        }
+        };
 
         return (
             this.props.type === FIELD_TYPES.TEXT ?
