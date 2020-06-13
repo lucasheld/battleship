@@ -29,8 +29,6 @@ class StrategyModeScreen extends Component {
     };
 
     isButtonDisabled = () => {
-        return false;
-
         let enabledShips = this.props.ships[this.playground].filter(ship => !ship.disabled);
         return enabledShips.length > 0;
     }
