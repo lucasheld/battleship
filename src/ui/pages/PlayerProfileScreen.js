@@ -102,23 +102,18 @@ class PlayerProfileScreen extends Component {
 
         return (
             <div>
-                <nav className="navbar">
-                    <div className="navbar-menu">
-                        <div className="navbar-start">
-                            <div className="title">Spielerprofil bearbeiten</div>
-                        </div>
+                <div className="columns">
+                    <div className="column is-one-third has-text-left">
+                        <div className="title">Spielerprofil</div>
+                    </div>
+                    <div className="column"/>
+                    <div className="column is-one-third has-text-right">
                         {
                             this.props.match.params.ingame &&
-                            <div className="navbar-end">
-                                <div className="navbar-item">
-                                    <div className="buttons">
-                                        <Link to="/fight-mode" className="button is-dark">Zurück zum Kampfmodus</Link>
-                                    </div>
-                                </div>
-                            </div>
+                            <Link to="/fight-mode" className="button is-dark">Zurück zum Kampfmodus</Link>
                         }
                     </div>
-                </nav>
+                </div>
 
                 <table className="table">
                     <thead>

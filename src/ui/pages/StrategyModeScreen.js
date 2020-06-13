@@ -39,22 +39,33 @@ class StrategyModeScreen extends Component {
         }
 
         return (
-            <div className="columns">
-                <div className="column">
-                    <Playground player={this.player} playground={this.playground}  />
-                    <br/>
-                    <div className="control">
-                        <label className="label">
-                            <button className="button is-dark" onClick={this.triggerRedirect} disabled={this.isButtonDisabled()}>Fertig</button>
-                        </label>
+            <div>
+                <div className="columns">
+                    <div className="column is-one-third has-text-left">
+                        <div className="title">Strategiemodus</div>
                     </div>
+                    <div className="column"/>
+                    <div className="column is-one-third has-text-right"/>
                 </div>
-                <div className="column">
-                    {this.props.ships[this.playground].map(ship =>
-                        <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered">
-                            <Ship id={ship.name.toLowerCase() + "-" + ship.id} ship={ship} playground={this.playground} />
+                <br/>
+
+                <div className="columns">
+                    <div className="column">
+                        <Playground player={this.player} playground={this.playground}  />
+                        <br/>
+                        <div className="control">
+                            <label className="label">
+                                <button className="button is-dark" onClick={this.triggerRedirect} disabled={this.isButtonDisabled()}>Fertig</button>
+                            </label>
                         </div>
-                    )}
+                    </div>
+                    <div className="column">
+                        {this.props.ships[this.playground].map(ship =>
+                            <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered">
+                                <Ship id={ship.name.toLowerCase() + "-" + ship.id} ship={ship} playground={this.playground} />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         );

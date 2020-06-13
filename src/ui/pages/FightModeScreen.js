@@ -62,22 +62,17 @@ class FightModeScreen extends Component {
 
         return (
             <div>
-                <nav className="navbar">
-                    <div className="navbar-menu">
-                        <div className="navbar-start">
-                            <div className="title">Kampfmodus</div>
-                        </div>
-                        <div className="navbar-end">
-                            <div className="navbar-item">
-                                <div className="buttons">
-                                    <Link to={"/player-profile/" + this.myPlayer.id + "/ingame"} className="button is-dark">
-                                        Spielerprofil bearbeiten
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
+                <div className="columns">
+                    <div className="column is-one-third has-text-left">
+                        <div className="title">Kampfmodus</div>
                     </div>
-                </nav>
+                    <div className="column"/>
+                    <div className="column is-one-third has-text-right">
+                        <Link to={"/player-profile/" + this.myPlayer.id + "/ingame"} className="button is-dark">
+                            Spielerprofil bearbeiten
+                        </Link>
+                    </div>
+                </div>
 
                 <h3 className="subtitle">
                     Hallo {this.myPlayer.nick}
