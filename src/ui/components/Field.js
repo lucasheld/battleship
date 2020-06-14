@@ -26,32 +26,6 @@ class Field extends Component {
     playground
      */
 
-    // getOrientation = () => {
-    //     let leftNewRow = (this.props.id-1) % 10 === 0;
-    //     let fieldRight = this.props.fields[this.props.playground].filter(field => (this.props.id-1) === field.id)[0];
-    //     let fieldLeft = this.props.fields[this.props.playground].filter(field => (this.props.id+1) === field.id)[0];
-    //     if(leftNewRow) {
-    //         if(fieldRight) {
-    //             if(fieldRight.color === "field-blocked") {
-    //                 this.setState({
-    //                     orientation: "horizontal"
-    //                 })
-    //             }
-    //         }
-    //     } else {
-    //         if(fieldLeft) {
-    //             if(fieldLeft.color === "field-blocked") {
-    //                 this.setState({
-    //                     orientation: "horizontal"
-    //                 })
-    //             }
-    //         }
-    //     }
-    //     this.setState({
-    //         orientation: "vertical"
-    //     })
-    // };
-
     isValid = (start, index, end) => {
         let shipInfo = parseShip(this.props.activeShip);
         let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
