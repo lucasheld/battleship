@@ -1,11 +1,11 @@
-import {SET_ACTIVE_PLAYER} from "../actions/active-player-action";
+import {SET_ACTIVE_SHIP} from "../actions/active-ship-action";
 import {SET_INITIAL_STATE} from "../actions/initial-state-action";
 
-const initialState = -1;
+const initialState = null;
 
-export function activePlayerReducer(state = initialState, action) {
+export function activeShipReducer(state = initialState, action) {
     switch (action.type) {
-        case SET_ACTIVE_PLAYER:
+        case SET_ACTIVE_SHIP:
             return action.data;
         case SET_INITIAL_STATE:
             return initialState;

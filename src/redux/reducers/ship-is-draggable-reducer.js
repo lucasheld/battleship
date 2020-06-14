@@ -1,11 +1,11 @@
-import {SET_ACTIVE_PLAYER} from "../actions/active-player-action";
+import {SET_SHIP_DRAGGABLE} from "../actions/ship-is-draggable-action";
 import {SET_INITIAL_STATE} from "../actions/initial-state-action";
 
-const initialState = -1;
+const initialState = true;
 
-export function activePlayerReducer(state = initialState, action) {
+export function shipDraggableReducer(state = initialState, action) {
     switch (action.type) {
-        case SET_ACTIVE_PLAYER:
+        case SET_SHIP_DRAGGABLE:
             return action.data;
         case SET_INITIAL_STATE:
             return initialState;

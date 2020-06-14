@@ -1,6 +1,6 @@
 import React from 'react';
 import "bulma/css/bulma.min.css";
-import { MemoryRouter, Route } from 'react-router-dom';
+import {MemoryRouter, Route} from 'react-router-dom';
 import StartScreen from "./pages/StartScreen";
 import PlayerProfileScreen from "./pages/PlayerProfileScreen";
 import FightModeScreen from "./pages/FightModeScreen";

@@ -1,0 +1,16 @@
+.ship-disabled {
+    background-color: #a6a6a6;
+}
+
+.ship-selected {
+    background-color: #9bbb59;
+}
+
+.ship-normal {
+    background-color: #8064a2;
+}
+
+.ship-current {
+    position: absolute;
+    pointer-events: none;
+}

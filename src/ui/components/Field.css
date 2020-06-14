@@ -18,6 +18,10 @@
     background-color: #e5b8b7;
 }
 
+.field-missed {
+    background-color: #4f81bd;
+}
+
 .field-ship {
     border: 1px solid black;
     width: 30px;

@@ -1,14 +1,18 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Identicon from 'react-identicons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
-import { Redirect } from "react-router-dom"
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons'
+import {Link, Redirect} from "react-router-dom"
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/player-profile-mapper";
 import Player from "../../redux/data-classes/player";
 import {player0default, player1default} from "../../redux/reducers/player-reducer";
 
+const NICK_MIN_LENGTH = 3;
+const PIN_LENGTH = 4;
+
 class PlayerProfileScreen extends Component {
+
     constructor(props) {
         super(props);
         this.playerId = Number(this.props.match.params.playerId);
@@ -56,7 +60,7 @@ class PlayerProfileScreen extends Component {
     };
 
     isSaveDisabled = () => {
-        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length < 1 || this.state.playerName.length < 1;
+        return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length !== PIN_LENGTH || this.state.playerName.length < NICK_MIN_LENGTH;
     };
 
     getPlayer = () => {
@@ -77,7 +81,8 @@ class PlayerProfileScreen extends Component {
         if (!this.playerIsDefault) {
             return (
                 <tr>
-                    <th colSpan={2} className="is-vcentered">Old pin: {this.player.pin.replace(/(?<!^).(?!$)/g, '*')}</th>
+                    <th colSpan={2} className="is-vcentered">Old
+                        pin: {this.player.pin.replace(/(?<!^).(?!$)/g, '*')}</th>
                 </tr>
             );
         }
@@ -85,72 +90,98 @@ class PlayerProfileScreen extends Component {
 
     render() {
         if (this.state.redirect) {
+            if (this.props.match.params.ingame) {
+                return this.playerId === 0 ? <Redirect to="/fight-mode/0"/> : <Redirect to="/fight-mode/1"/>;
+            }
+
             if (this.playerId === 0) {
-                return <Redirect to="/player-profile/1" />;
+                return <Redirect to="/player-profile/1"/>;
             } else {
-                return <Redirect to="/setup" />;
+                return <Redirect to="/setup"/>;
             }
         }
 
         return (
-            <table className="table">
-                <thead>
-                <tr>
-                    <th colSpan="2">Spieler {this.playerId + 1}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th className="is-vcentered">Nick</th>
-                    <td>
-                        <div className="field">
-                            <div className="control">
-                                <input className="input" type="text" name="playerName" placeholder="Enter your name" value={this.state.playerName} onChange={this.handleInputChange}/>
+            <div>
+                <div className="columns">
+                    <div className="column is-one-third has-text-left">
+                        <div className="title">Spielerprofil</div>
+                    </div>
+                    <div className="column"/>
+                    <div className="column is-one-third has-text-right">
+                        {
+                            this.props.match.params.ingame &&
+                            (this.playerId === 0 ?
+                                <Link to="/fight-mode/0" className="button is-dark">Zurück zum Kampfmodus</Link>
+                                : <Link to="/fight-mode/1" className="button is-dark">Zurück zum Kampfmodus</Link>)
+                        }
+                    </div>
+                </div>
+
+                <table className="table">
+                    <thead>
+                    <tr>
+                        <th colSpan="2">Spieler {this.playerId + 1}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th className="is-vcentered">Nick</th>
+                        <td>
+                            <div className="field">
+                                <div className="control">
+                                    <input className="input" type="text" name="playerName" placeholder="Enter your name"
+                                           value={this.state.playerName} onChange={this.handleInputChange}/>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                {this.getOldNick()}
-                <tr>
-                    <th className="is-vcentered">Pin</th>
-                    <td>
-                        <div className="field">
-                            <div className="control">
-                                <input className="input" type="password" name="playerPin" placeholder="Enter your pin" value={this.state.playerPin} onChange={this.handleInputChange}/>
+                        </td>
+                    </tr>
+                    {this.getOldNick()}
+                    <tr>
+                        <th className="is-vcentered">Pin</th>
+                        <td>
+                            <div className="field">
+                                <div className="control">
+                                    <input className="input" type="password" name="playerPin"
+                                           placeholder="Enter your pin" value={this.state.playerPin}
+                                           onChange={this.handleInputChange}/>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                {this.getOldPin()}
-                <tr>
-                    <th className="is-vcentered">Avatar</th>
-                    <td>
-                        <Identicon string={this.state.identiconSeed} size="100" />
-                        <div className="columns">
-                            <div className="column is-one-quarter"/>
-                            <div className="column">
-                                <button className="button is-small" onClick={this.decreaseSeed}>
-                                    <FontAwesomeIcon icon={faAngleLeft} />
-                                </button>
+                        </td>
+                    </tr>
+                    {this.getOldPin()}
+                    <tr>
+                        <th className="is-vcentered">Avatar</th>
+                        <td>
+                            <Identicon string={this.state.identiconSeed} size="100"/>
+                            <div className="columns">
+                                <div className="column is-one-quarter"/>
+                                <div className="column">
+                                    <button className="button is-small" onClick={this.decreaseSeed}>
+                                        <FontAwesomeIcon icon={faAngleLeft}/>
+                                    </button>
+                                </div>
+                                <div className="column">
+                                    <button className="button is-small" onClick={this.increaseSeed}>
+                                        <FontAwesomeIcon icon={faAngleRight}/>
+                                    </button>
+                                </div>
+                                <div className="column is-one-quarter"/>
                             </div>
-                            <div className="column">
-                                <button className="button is-small" onClick={this.increaseSeed}>
-                                    <FontAwesomeIcon icon={faAngleRight} />
-                                </button>
-                            </div>
-                            <div className="column is-one-quarter"/>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colSpan="2">
-                        <button className="button is-dark" disabled={this.isSaveDisabled()} onClick={this.triggerRedirect}>Speichern</button>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colSpan="2">
+                            <button className="button is-dark" disabled={this.isSaveDisabled()}
+                                    onClick={this.triggerRedirect}>Speichern
+                            </button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
         );
     }
 

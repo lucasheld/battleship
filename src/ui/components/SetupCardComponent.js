@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Identicon from "react-identicons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCheck, faTimes} from '@fortawesome/free-solid-svg-icons'
-import { Redirect } from "react-router-dom"
+import {Redirect} from "react-router-dom"
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/setup-mapper";
 import {MODES} from "../../redux/actions/mode-action";
@@ -25,7 +25,7 @@ class SetupCardComponent extends Component {
         if (this.state.redirect) {
             this.props.setMode(MODES.STRATEGY);
             this.props.setActivePlayer(this.props.playerId);
-            return <Redirect to="/lock" />;
+            return <Redirect to="/lock"/>;
         }
 
         return (
@@ -38,7 +38,7 @@ class SetupCardComponent extends Component {
                     </div>
                     <div className="card-content">
                         <h1 className="title">{this.props.playerName}</h1>
-                        { this.props.playerReady ? <FontAwesomeIcon icon={faCheck}/> : <FontAwesomeIcon icon={faTimes}/> }
+                        {this.props.playerReady ? <FontAwesomeIcon icon={faCheck}/> : <FontAwesomeIcon icon={faTimes}/>}
                     </div>
                 </div>
             </div>
