@@ -18,7 +18,9 @@ function App() {
                   <div className="has-text-centered">
                       <Route exact path="/" component={StartScreen} />
                       <Route path="/end" component={EndScreen} />
-                      <Route path="/fight-mode" component={FightModeScreen} />
+                      <Route path="/fight-mode/:playerId" render={(props) => (
+                          <FightModeScreen key={props.match.params.playerId} {...props} />)
+                      } />
                       <Route path="/lock" component={LockScreen} />
                       <Route path="/player-profile/:playerId/:ingame?" render={(props) => (
                           <PlayerProfileScreen key={props.match.params.playerId} {...props} />)
