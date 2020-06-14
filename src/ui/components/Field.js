@@ -298,17 +298,13 @@ class Field extends Component {
     };
 
     getField = () => {
-        if (this.props.type !== FIELD_TYPES.TEXT) {
-            this.field = this.props.fields[this.props.playground].filter(field => field.id === this.props.id && field.type === this.props.type)[0];
-        }
+        this.field = this.props.fields[this.props.playground].filter(field => field.id === this.props.id && field.type === this.props.type)[0];
     };
 
     componentDidMount() {
-        if (this.props.type !== FIELD_TYPES.TEXT) {
-            if (this.field === undefined) {
-                this.field = new FieldClass(this.props.id, this.props.type);
-                this.props.addField(this.props.playground, this.field);
-            }
+        if (this.field === undefined) {
+            this.field = new FieldClass(this.props.id, this.props.type);
+            this.props.addField(this.props.playground, this.field);
         }
     }
 
@@ -369,9 +365,7 @@ class Field extends Component {
         }
 
         return (
-            this.props.type === FIELD_TYPES.TEXT ?
-                <div className={this.props.className + " field-ship"}>{this.props.text}</div>
-                : this.props.type === FIELD_TYPES.PLAYGROUND ?
+            this.props.type === FIELD_TYPES.PLAYGROUND ?
                 <div className={this.props.className + " field-ship " + className} id={this.props.id}
                      onMouseDown={this.fireOnMouseDown} onClick={this.fireOnClick}>
                     {this.state.renderElement &&
