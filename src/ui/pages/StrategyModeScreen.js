@@ -4,6 +4,7 @@ import Ship from "../components/Ship";
 import {Redirect} from "react-router-dom";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/strategy-mode-mapper";
 import {connect} from "react-redux";
+import ShipDirectionDialog from "../components/ShipDirectionDialog";
 import {PLAYGROUND_TYPE} from "../../redux/reducers/field-reducer";
 
 class StrategyModeScreen extends Component {
@@ -33,6 +34,12 @@ class StrategyModeScreen extends Component {
         return enabledShips.length > 0;
     };
 
+    onPopupMouseDown = (ship) => {
+        if(!ship.disabled) {
+            this.props.openPopup(true, ship);
+        }
+    };
+
     render() {
         if (this.state.redirect) {
             return <Redirect to="/setup" />;
@@ -60,9 +67,12 @@ class StrategyModeScreen extends Component {
                         </div>
                     </div>
                     <div className="column">
+                        <ShipDirectionDialog playground={this.playground} enabled={this.props.popupOpen.enabled} ship={this.props.popupOpen.ship} index={this.props.popupOpen.index} />
+                    </div>
+                    <div className="column">
                         {this.props.ships[this.playground].map(ship =>
-                            <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered">
-                                <Ship id={ship.name.toLowerCase() + "-" + ship.id} ship={ship} playground={this.playground} />
+                            <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered" onClick={() => this.onPopupMouseDown(ship)}>
+                                <Ship playground={this.playground} id={ship.name.toLowerCase() + "-" + ship.id} ship={ship} />
                             </div>
                         )}
                     </div>

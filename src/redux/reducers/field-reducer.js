@@ -68,11 +68,3 @@ export function fieldReducer(state = initialState, action) {
 //                             11 - 20
 //                             ...
 //                             91 - 100
-
-// unnecessary field ids -> nevertheless I won't push them to this reducer -> so there are no problems either way
-// id from text field upper left corner: 0
-// ids from text fields upper row:    -1,  -2, ..., -10
-// ids from text fields side column: -11, -21, ..., -101
-// they stay negative (or zero) because we never want to change these fields
-
-// ship ids: shipId-index

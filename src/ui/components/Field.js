@@ -23,14 +23,23 @@ class Field extends Component {
 
     /* props
     className: sets the class for selecting the color defined in Field.css
+    playground
      */
 
-    isValid = (start, end) => {
-        // if ship horizontal
-        let startFloor = Math.floor((start-1)/10);
-        let endFloor = Math.floor((end-2)/10);
-        return startFloor === endFloor && startFloor !== -1 && endFloor !== -1;
-        // TODO implement vertical
+    isValid = (start, index, end) => {
+        let shipInfo = parseShip(this.props.activeShip);
+        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        let orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+
+        if(orientation === "horizontal") {
+            let startFloor = Math.floor((start-1)/10);
+            let endFloor = Math.floor((end-2)/10);
+            return startFloor === endFloor && startFloor !== -1 && endFloor !== -1;
+        } else {
+            let s = parseInt(index) - (parseInt(index) - parseInt(start)) * 10;
+            let e = parseInt(index) + (parseInt(end) - parseInt(index) - 1) * 10;
+            return s > 0 && e < 101;
+        }
     };
 
     paintPlayground = (id) =>  {
@@ -47,15 +56,17 @@ class Field extends Component {
 
         let ship;
         if (this.props.activeShip != null) {
-            let shipInfo = parseShip(this.props.activeShip)
+            let shipInfo = parseShip(this.props.activeShip);
             ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
         }
 
-        if(this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex)) {
-            for (let i = startIndex; i < endIndex; i++) {
-                this.props.setFieldColor(this.props.playground, {id: i, color: "field-blocked"});
-                this.props.setShipFieldIndex(this.props.playground, {id: i, shipIndex: this.props.activeShip.slice(0, -1) + (i - startIndex)});
-            }
+        let valid = true;
+        if (this.props.activeShip != null) {
+            valid = this.isValid(startIndex, id, endIndex) && this.noShipsNear(startIndex, id, endIndex)
+        }
+
+        if (valid) {
+            this.paintShip(startIndex, id, endIndex);
             // disable ship on the side
             if (ship) {
                 this.props.disableShip(this.props.playground, ship);
@@ -64,6 +75,29 @@ class Field extends Component {
             // deselect ship in the side
             if (ship && !ship.disabled) {
                 this.props.deselectShip(this.props.playground, ship);
+            }
+        }
+    };
+
+    paintShip = (startIndex, index, endIndex) => {
+        let orientation;
+        if (this.props.activeShip != null) {
+            let shipInfo = parseShip(this.props.activeShip);
+            let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+            orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+        }
+
+        if(orientation === "horizontal") {
+            for (let i = startIndex; i < endIndex; i++) {
+                this.props.setFieldColor(this.props.playground, {id: i, color: "field-blocked"});
+                this.props.setShipFieldIndex(this.props.playground, {id: i, shipIndex: this.props.activeShip.slice(0, -1) + (i - startIndex)});
+            }
+        } else {
+            let start = parseInt(index) - (parseInt(index) - parseInt(startIndex)) * 10;
+            let end = parseInt(index) + (parseInt(endIndex) - parseInt(index) - 1) * 10;
+            for (let i = start, j = startIndex; i < end+1; i += 10, j++) {
+                this.props.setFieldColor(this.props.playground, {id: i, color: "field-blocked"});
+                this.props.setShipFieldIndex(this.props.playground, {id: i, shipIndex: this.props.activeShip.slice(0, -1) + (j - startIndex)});
             }
         }
     };
@@ -84,7 +118,6 @@ class Field extends Component {
             if(!(field.id % 10 === 1 && (field.id + 9) % 10 === 0)) this.paintOnlyIfUnused(field.id + 9);
             this.paintOnlyIfUnused(field.id + 10);
             if(!(field.id % 10 === 0 && (field.id + 11) % 10 === 1)) this.paintOnlyIfUnused(field.id + 11);
-            // TODO implement vertical
         });
     };
 
@@ -110,7 +143,7 @@ class Field extends Component {
         });
     };
 
-    fireOnMouseDown = () =>  {
+    fireOnMouseDown = () => {
         if (!this.props.shipIsDraggable) {
             return;
         }
@@ -128,18 +161,20 @@ class Field extends Component {
         let shipInfo = parseShip(id);
         let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
 
+        if(this.props.orientation) {
+            this.props.setOrient(this.props.playground, this.props.orientation, shipInfo.name, shipInfo.id);
+        }
+
         // do not allow using a ship twice
         if (ship.disabled && !isOnPlayground) {
             return;
         }
-
         this.props.setActiveShip(id);
         this.props.selectShip(this.props.playground, ship);
 
         this.paintNextBlocked(shipInfo);
         this.setState({
-            renderElement: true,
-            renderLength: ship.size,
+            renderElement: true
         });
         this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
         this.eventMouseUp = fromEvent(document, "mouseup").subscribe(this.fireOnMouseUp);
@@ -174,6 +209,7 @@ class Field extends Component {
         this.setState({
             renderElement: false
         });
+        this.props.openPopup(false);
         this.props.setActiveShip(null);
     };
 
@@ -184,9 +220,19 @@ class Field extends Component {
             return;
         }
         let bounds = element.getBoundingClientRect();
-        element.style.left = `${event.clientX + this.calculateMiddle(bounds)}px`;
-        element.style.top = `${event.clientY - bounds.height}px`;
-        if(document.elementFromPoint(event.x, event.y) === null) {
+
+        let shipInfo = parseShip(this.props.activeShip);
+        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        let orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+
+        if (orientation === "horizontal") {
+            element.style.left = `${event.clientX + this.calculateMiddle(bounds, bounds.width)}px`;
+            element.style.top = `${event.clientY - bounds.height}px`;
+        } else {
+            element.style.left = `${event.clientX - bounds.width+15}px`;
+            element.style.top = `${event.clientY + this.calculateMiddle(bounds, bounds.height+15)}px`;
+        }
+        if (document.elementFromPoint(event.x, event.y) === null) {
             return;
         }
         this.renderDraggedShip(document.elementFromPoint(event.x, event.y).id);
@@ -197,32 +243,52 @@ class Field extends Component {
         let shipIndex = Number(this.props.activeShip.slice(-1));
         let startIndex = id - shipIndex;
         let endIndex = startIndex + getShipLength(this.props.activeShip);
-        color = this.isValid(startIndex, endIndex) && this.noShipsNear(startIndex, endIndex) ? "field-valid" : "field-invalid";
+        color = this.isValid(startIndex, id, endIndex) && this.noShipsNear(startIndex, id, endIndex) ? "field-valid" : "field-invalid";
         this.setState({
             renderElement: true,
             color: color
         });
     };
 
-    noShipsNear = (startIndex, endIndex) => {
-        for (let i = startIndex; i < endIndex; i++) {
-            // TODO implement vertical
-            let fields = this.props.fields[this.props.playground];
-            if(fields[i-1] !== undefined) if(fields[i-1].color !== "field-unused") return false;
-            if(!(i % 10 === 1 && (i - 1) % 10 === 0)) if(fields[i-1-1] !== undefined) if(fields[i-1-1].color === "field-blocked") return false;
-            if(!(i % 10 === 0 && (i + 1) % 10 === 1)) if(fields[i-1+1] !== undefined) if(fields[i-1+1].color === "field-blocked") return false;
-            if(!(i % 10 === 1 && (i - 11) % 10 === 0)) if(fields[i-1-11] !== undefined) if(fields[i-1-11].color === "field-blocked") return false;
-            if(fields[i-1-10] !== undefined) if(fields[i-1-10].color === "field-blocked") return false;
-            if(!(i % 10 === 0 && (i - 9) % 10 === 1)) if(fields[i-1-9] !== undefined) if(fields[i-1-9].color === "field-blocked") return false;
-            if(!(i % 10 === 0 && (i + 11) % 10 === 1)) if(fields[i-1+11] !== undefined) if(fields[i-1+10].color === "field-blocked") return false;
-            if(fields[i-1+10] !== undefined) if(fields[i-1+10].color === "field-blocked") return false;
-            if(!(i % 10 === 1 && (i + 9) % 10 === 0)) if(fields[i-1+9].color === "field-blocked") return false;
+    noShipsNear = (startIndex, index, endIndex) => {
+        let shipInfo = parseShip(this.props.activeShip);
+        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        let orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+
+        if (orientation === "horizontal") {
+            for (let i = startIndex; i < endIndex; i++) {
+                if(!this.checkNoShipsNear(i)) {
+                    return false;
+                }
+            }
+        } else {
+            let start = parseInt(index) - (parseInt(index) - parseInt(startIndex)) * 10;
+            let end = parseInt(index) + (parseInt(endIndex) - parseInt(index) - 1) * 10;
+            for (let i = start; i < end+1; i += 10) {
+                if(!this.checkNoShipsNear(i)) {
+                    return false;
+                }
+            }
         }
         return true;
     };
 
-    calculateMiddle = (bounds) => {
-        return (getShipLength(this.props.activeShip) - (Number(this.props.activeShip.slice(-1)))) * 30 - bounds.width - 15;
+    checkNoShipsNear = (i) => {
+        let fields = this.props.fields[this.props.playground];
+        if(fields[i-1] !== undefined) if(fields[i-1].color !== "field-unused") return false;
+        if(!(i % 10 === 1 && (i - 1) % 10 === 0)) if(fields[i-1-1] !== undefined) if(fields[i-1-1].color === "field-blocked") return false;
+        if(!(i % 10 === 0 && (i + 1) % 10 === 1)) if(fields[i-1+1] !== undefined) if(fields[i-1+1].color === "field-blocked") return false;
+        if(!(i % 10 === 1 && (i - 11) % 10 === 0)) if(fields[i-1-11] !== undefined) if(fields[i-1-11].color === "field-blocked") return false;
+        if(fields[i-1-10] !== undefined) if(fields[i-1-10].color === "field-blocked") return false;
+        if(!(i % 10 === 0 && (i - 9) % 10 === 1)) if(fields[i-1-9] !== undefined) if(fields[i-1-9].color === "field-blocked") return false;
+        if(!(i % 10 === 0 && (i + 11) % 10 === 1)) if(fields[i-1+11] !== undefined) if(fields[i-1+10].color === "field-blocked") return false;
+        if(fields[i-1+10] !== undefined) if(fields[i-1+10].color === "field-blocked") return false;
+        if(fields[i-1+9] !== undefined) if(!(i % 10 === 1 && (i + 9) % 10 === 0)) if(fields[i-1+9].color === "field-blocked") return false;
+        return true;
+    };
+
+    calculateMiddle = (bounds, orientation) => {
+        return (getShipLength(this.props.activeShip) - (Number(this.props.activeShip.slice(-1)))) * 30 - orientation - 15;
     };
 
     getField = () =>  {
@@ -283,24 +349,29 @@ class Field extends Component {
             className = this.field.color;
         }
 
-        let copyShip = {
-            id: 100,
-            name: "",
-            size: this.state.renderLength,
-            selected: true,
-            disabled: false
-        };
+        let copyShip = {};
+        if (this.props.activeShip) {
+            let shipInfo = parseShip(this.props.activeShip);
+            let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+            copyShip = {
+                id: ship.id,
+                name: ship.name,
+                size: ship.size,
+                selected: true,
+                disabled: false
+            };
+        }
 
         return (
             this.props.type === FIELD_TYPES.TEXT ?
                 <div className={this.props.className + " field-ship"}>{this.props.text}</div>
                 : this.props.type === FIELD_TYPES.PLAYGROUND ?
                 <div className={this.props.className + " field-ship " + className} id={this.props.id} onMouseDown={this.fireOnMouseDown} onClick={this.fireOnClick}>
-                    {this.state.renderElement && <Ship id="current" className={this.state.color} ship={copyShip} isCopy={true} />}
+                    {this.state.renderElement && <Ship playground={this.props.playground} className={this.state.color} ship={copyShip} isCopy={true} />}
                 </div>
-                : // this.props.type equals FIELD_TYPES.SHIP
+                : // this.props.type === FIELD_TYPES.OVERLAY ?
                 <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown}>
-                    {this.state.renderElement && <Ship id="current" className={this.state.color} ship={copyShip} isCopy={true} />}
+                    {this.state.renderElement && <Ship playground={this.props.playground} className={this.state.color} ship={copyShip} isCopy={true} />}
                 </div>
         )
     }
