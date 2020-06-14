@@ -7,7 +7,5 @@ export function mapStateToProps(state) {
 }
 
 export function matchDispatchToProps(dispatch) {
-    return bindActionCreators({
-
-    }, dispatch);
+    return bindActionCreators({}, dispatch);
 }

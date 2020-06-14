@@ -3,6 +3,7 @@ export default class Field {
     type;
     color;
     shipIndex;
+
     constructor(id, type) {
         this.id = id;
         this.type = type;

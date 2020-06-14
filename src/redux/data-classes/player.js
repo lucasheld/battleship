@@ -3,6 +3,7 @@ export default class Player {
     nick;
     pin;
     avatar;
+
     constructor(id, nick, pin, avatar) {
         this.id = id;
         this.nick = nick;

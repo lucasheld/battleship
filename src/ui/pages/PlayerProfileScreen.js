@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Identicon from 'react-identicons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons'
 import {Link, Redirect} from "react-router-dom"
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/player-profile-mapper";
@@ -81,7 +81,8 @@ class PlayerProfileScreen extends Component {
         if (!this.playerIsDefault) {
             return (
                 <tr>
-                    <th colSpan={2} className="is-vcentered">Old pin: {this.player.pin.replace(/(?<!^).(?!$)/g, '*')}</th>
+                    <th colSpan={2} className="is-vcentered">Old
+                        pin: {this.player.pin.replace(/(?<!^).(?!$)/g, '*')}</th>
                 </tr>
             );
         }
@@ -90,13 +91,13 @@ class PlayerProfileScreen extends Component {
     render() {
         if (this.state.redirect) {
             if (this.props.match.params.ingame) {
-                return this.playerId === 0 ? <Redirect to="/fight-mode/0" /> : <Redirect to="/fight-mode/1" />;
+                return this.playerId === 0 ? <Redirect to="/fight-mode/0"/> : <Redirect to="/fight-mode/1"/>;
             }
 
             if (this.playerId === 0) {
-                return <Redirect to="/player-profile/1" />;
+                return <Redirect to="/player-profile/1"/>;
             } else {
-                return <Redirect to="/setup" />;
+                return <Redirect to="/setup"/>;
             }
         }
 
@@ -129,7 +130,8 @@ class PlayerProfileScreen extends Component {
                         <td>
                             <div className="field">
                                 <div className="control">
-                                    <input className="input" type="text" name="playerName" placeholder="Enter your name" value={this.state.playerName} onChange={this.handleInputChange}/>
+                                    <input className="input" type="text" name="playerName" placeholder="Enter your name"
+                                           value={this.state.playerName} onChange={this.handleInputChange}/>
                                 </div>
                             </div>
                         </td>
@@ -140,7 +142,9 @@ class PlayerProfileScreen extends Component {
                         <td>
                             <div className="field">
                                 <div className="control">
-                                    <input className="input" type="password" name="playerPin" placeholder="Enter your pin" value={this.state.playerPin} onChange={this.handleInputChange}/>
+                                    <input className="input" type="password" name="playerPin"
+                                           placeholder="Enter your pin" value={this.state.playerPin}
+                                           onChange={this.handleInputChange}/>
                                 </div>
                             </div>
                         </td>
@@ -149,17 +153,17 @@ class PlayerProfileScreen extends Component {
                     <tr>
                         <th className="is-vcentered">Avatar</th>
                         <td>
-                            <Identicon string={this.state.identiconSeed} size="100" />
+                            <Identicon string={this.state.identiconSeed} size="100"/>
                             <div className="columns">
                                 <div className="column is-one-quarter"/>
                                 <div className="column">
                                     <button className="button is-small" onClick={this.decreaseSeed}>
-                                        <FontAwesomeIcon icon={faAngleLeft} />
+                                        <FontAwesomeIcon icon={faAngleLeft}/>
                                     </button>
                                 </div>
                                 <div className="column">
                                     <button className="button is-small" onClick={this.increaseSeed}>
-                                        <FontAwesomeIcon icon={faAngleRight} />
+                                        <FontAwesomeIcon icon={faAngleRight}/>
                                     </button>
                                 </div>
                                 <div className="column is-one-quarter"/>
@@ -170,7 +174,9 @@ class PlayerProfileScreen extends Component {
                     <tfoot>
                     <tr>
                         <td colSpan="2">
-                            <button className="button is-dark" disabled={this.isSaveDisabled()} onClick={this.triggerRedirect}>Speichern</button>
+                            <button className="button is-dark" disabled={this.isSaveDisabled()}
+                                    onClick={this.triggerRedirect}>Speichern
+                            </button>
                         </td>
                     </tr>
                     </tfoot>

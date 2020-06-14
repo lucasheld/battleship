@@ -35,14 +35,14 @@ class StrategyModeScreen extends Component {
     };
 
     onPopupMouseDown = (ship) => {
-        if(!ship.disabled) {
+        if (!ship.disabled) {
             this.props.openPopup(true, ship);
         }
     };
 
     render() {
         if (this.state.redirect) {
-            return <Redirect to="/setup" />;
+            return <Redirect to="/setup"/>;
         }
 
         return (
@@ -58,21 +58,26 @@ class StrategyModeScreen extends Component {
 
                 <div className="columns">
                     <div className="column">
-                        <Playground player={this.player} playground={this.playground}  />
+                        <Playground player={this.player} playground={this.playground}/>
                         <br/>
                         <div className="control">
                             <label className="label">
-                                <button className="button is-dark" onClick={this.triggerRedirect} disabled={this.isButtonDisabled()}>Fertig</button>
+                                <button className="button is-dark" onClick={this.triggerRedirect}
+                                        disabled={this.isButtonDisabled()}>Fertig
+                                </button>
                             </label>
                         </div>
                     </div>
                     <div className="column">
-                        <ShipDirectionDialog playground={this.playground} enabled={this.props.popupOpen.enabled} ship={this.props.popupOpen.ship} index={this.props.popupOpen.index} />
+                        <ShipDirectionDialog playground={this.playground} enabled={this.props.popupOpen.enabled}
+                                             ship={this.props.popupOpen.ship} index={this.props.popupOpen.index}/>
                     </div>
                     <div className="column">
                         {this.props.ships[this.playground].map(ship =>
-                            <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered" onClick={() => this.onPopupMouseDown(ship)}>
-                                <Ship playground={this.playground} id={ship.name.toLowerCase() + "-" + ship.id} ship={ship} />
+                            <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered"
+                                 onClick={() => this.onPopupMouseDown(ship)}>
+                                <Ship playground={this.playground} id={ship.name.toLowerCase() + "-" + ship.id}
+                                      ship={ship}/>
                             </div>
                         )}
                     </div>

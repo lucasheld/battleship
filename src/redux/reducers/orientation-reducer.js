@@ -12,14 +12,14 @@ export function orientationReducer(state = initialState, action) {
             let add = false;
             let newState = Object.assign({}, state, {
                 [action.playground]: state[action.playground].map(o => {
-                    if(o.id === action.data.id && o.name === action.data.name) {
+                    if (o.id === action.data.id && o.name === action.data.name) {
                         add = true;
                         return action.data;
                     }
                     return o;
                 })
             });
-            if(add) {
+            if (add) {
                 return newState;
             } else {
                 return Object.assign({}, state, {

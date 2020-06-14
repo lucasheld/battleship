@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom"
+import React, {Component} from "react";
+import {Redirect} from "react-router-dom"
 import {connect} from "react-redux";
 import {mapStateToProps} from "../../redux/mapper/end-mapper";
 
@@ -23,7 +23,7 @@ class EndScreen extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect to="/" />;
+            return <Redirect to="/"/>;
         }
 
         let winnerName = this.getInactivePlayer().nick;

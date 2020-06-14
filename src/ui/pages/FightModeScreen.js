@@ -40,7 +40,7 @@ class FightModeScreen extends Component {
     };
 
     unsetFirstRound = () => {
-        if(this.props.isFirstRound) {
+        if (this.props.isFirstRound) {
             this.props.setFirstRound(false);
         }
     };
@@ -51,10 +51,10 @@ class FightModeScreen extends Component {
     };
 
     render() {
-        if(this.checkWinner()) {
-            return <Redirect to="/end" />;
+        if (this.checkWinner()) {
+            return <Redirect to="/end"/>;
         } else if (this.state.redirect) {
-            return <Redirect to="/lock" />;
+            return <Redirect to="/lock"/>;
         }
 
         let myPlayground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER1FULL : PLAYGROUND_TYPE.PLAYER2FULL;
@@ -85,7 +85,7 @@ class FightModeScreen extends Component {
                         <h4 className="subtitle">
                             Das Meer von {this.otherPlayer.nick}
                         </h4>
-                        <Playground player={this.otherPlayer} playground={otherPlayground} />
+                        <Playground player={this.otherPlayer} playground={otherPlayground}/>
                         <br/>
                     </div>
                     <div className="column">
@@ -93,14 +93,16 @@ class FightModeScreen extends Component {
                             <h4 className="subtitle">
                                 Dein Meer
                             </h4>
-                            <Playground player={this.myPlayer} playground={myPlayground} />
+                            <Playground player={this.myPlayer} playground={myPlayground}/>
                             <br/>
                         </div>
                     </div>
                 </div>
                 <div className="control">
                     <label className="label">
-                        <button className="button is-dark" disabled={!this.props.noFire} onClick={this.triggerRedirect}>Zug beenden</button>
+                        <button className="button is-dark" disabled={!this.props.noFire}
+                                onClick={this.triggerRedirect}>Zug beenden
+                        </button>
                     </label>
                 </div>
 

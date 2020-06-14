@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import "./Ship.css";
 import {Redirect} from "react-router-dom";
-import "./Ship.css";
 import "./Field.css"
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/ship-mapper";
@@ -14,6 +13,7 @@ class Ship extends Component {
             displayPopup: false
         }
     }
+
     /* props
     id: ship id
     ship: the ship object from the reducer
@@ -46,7 +46,7 @@ class Ship extends Component {
         }
 
         if (this.state.reload) {
-            return <Redirect to="/strategy-mode/0" />;
+            return <Redirect to="/strategy-mode/0"/>;
         }
 
         let className;
@@ -78,7 +78,10 @@ class Ship extends Component {
                 </div>
                 <div className="column has-text-left">
                     <div id={this.props.id}
-                        style={{backgroundColor: backgroundColor, display: orientation === "horizontal" || !this.props.isCopy ? "flex" : ""}}
+                         style={{
+                             backgroundColor: backgroundColor,
+                             display: orientation === "horizontal" || !this.props.isCopy ? "flex" : ""
+                         }}
                     >{cells}</div>
                 </div>
             </div>

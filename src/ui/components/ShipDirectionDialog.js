@@ -21,22 +21,24 @@ export default class ShipDirectionDialog extends Component {
             let cells = [];
             for (let j = 0; j < this.props.ship.size + 2; j++) {
                 if (i === 0 && j > 1) {
-                    let id = this.props.ship.name.toLowerCase() + "-" + this.props.ship.id + "-" + (j-2);
-                    cells.push(<Field orientation="horizontal" playground={this.props.playground} id={id} key={++keys} className="ship-selected" type={FIELD_TYPES.OVERLAY} />);
+                    let id = this.props.ship.name.toLowerCase() + "-" + this.props.ship.id + "-" + (j - 2);
+                    cells.push(<Field orientation="horizontal" playground={this.props.playground} id={id} key={++keys}
+                                      className="ship-selected" type={FIELD_TYPES.OVERLAY}/>);
                 } else if (j === 0) {
                     let id = this.props.ship.name.toLowerCase() + "-" + this.props.ship.id + "-" + i;
-                    cells.push(<Field orientation="vertical" playground={this.props.playground} id={id} key={++keys} className="ship-selected" type={FIELD_TYPES.OVERLAY} />);
+                    cells.push(<Field orientation="vertical" playground={this.props.playground} id={id} key={++keys}
+                                      className="ship-selected" type={FIELD_TYPES.OVERLAY}/>);
                 } else {
                     cells.push(<div key={++keys} className="field-ship"/>);
                 }
             }
-            rows.push(<div style={{display: "flex", justifyContent: "center"}} key={++keys} >{cells}</div>)
+            rows.push(<div style={{display: "flex", justifyContent: "center"}} key={++keys}>{cells}</div>)
         }
 
         return (
             <div className="box" style={{backgroundColor: "#eeeeee"}}>
                 <h2 className="subtitle">
-                    {this.props.ship.name !== "Battleship" && this.props.ship.id+1 + "."} {this.props.ship.name}
+                    {this.props.ship.name !== "Battleship" && this.props.ship.id + 1 + "."} {this.props.ship.name}
                     <br/>
                     (Ausrichtung wählen)
                 </h2>

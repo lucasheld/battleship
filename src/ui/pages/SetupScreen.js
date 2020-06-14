@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "./SetupScreen.css";
 import SetupCardComponent from "../components/SetupCardComponent";
-import { Redirect } from "react-router-dom"
+import {Redirect} from "react-router-dom"
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/setup-mapper";
 import {MODES} from "../../redux/actions/mode-action";
@@ -28,7 +28,7 @@ class SetupScreen extends Component {
         if (this.state.redirect) {
             this.props.setMode(MODES.BATTLE);
             this.props.setActivePlayer(Math.round(Math.random()));
-            return <Redirect to="/lock" />;
+            return <Redirect to="/lock"/>;
         }
 
         return (

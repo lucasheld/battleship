@@ -1,4 +1,4 @@
-import {DISABLE_SHIP, SELECT_SHIP, DESELECT_SHIP} from "../actions/select-ship-action";
+import {DESELECT_SHIP, DISABLE_SHIP, SELECT_SHIP} from "../actions/select-ship-action";
 import {SET_INITIAL_STATE} from "../actions/initial-state-action";
 
 const initialStateShips = [
