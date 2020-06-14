@@ -9,6 +9,7 @@ import {activeShipReducer} from "./reducers/active-ship-reducer";
 import {popupOpenReducer} from "./reducers/popup-reducer";
 import {shipDraggableReducer} from "./reducers/ship-is-draggable-reducer";
 import {noFireReducer} from "./reducers/no-fire-reducer";
+import {orientationReducer} from "./reducers/orientation-reducer";
 
 const reducers = combineReducers({
     playerReducer,
@@ -20,7 +21,8 @@ const reducers = combineReducers({
     shipReducer,
     popupOpenReducer,
     shipDraggableReducer,
-    noFireReducer
+    noFireReducer,
+    orientationReducer
 });
 
 export default reducers;

@@ -18,12 +18,6 @@ export default class Ship extends Component {
     isCopy: if this ship is a floating copy
      */
 
-    displayPopup = (status) => {
-        this.setState({
-            displayPopup: status
-        })
-    };
-
     render() {
         // define ship background color
         let backgroundColor;
@@ -74,7 +68,7 @@ export default class Ship extends Component {
                 </div>
                 <div className="column has-text-left">
                     <div id={this.props.id}
-                         style={{backgroundColor: backgroundColor, display: "flex"}}
+                        style={{backgroundColor: backgroundColor, display: this.props.orientation === "horizontal" || !this.props.isCopy ? "flex" : ""}}
                     >{cells}</div>
                 </div>
             </div>
