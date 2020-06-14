@@ -11,8 +11,10 @@ import {player0default, player1default} from "../../redux/reducers/player-reduce
 const NICK_MIN_LENGTH = 3;
 const PIN_LENGTH = 4;
 
+/**
+ * Component for the player profile screen.
+ */
 class PlayerProfileScreen extends Component {
-
     constructor(props) {
         super(props);
         // Player id from the url params
@@ -46,6 +48,9 @@ class PlayerProfileScreen extends Component {
         })
     };
 
+    /**
+     * Is called if the save button is clicked.
+     */
     triggerRedirect = () => {
         this.setPlayer();
         this.setState({
@@ -66,6 +71,10 @@ class PlayerProfileScreen extends Component {
         });
     };
 
+    /**
+     * Saves player changes before redirect.
+     * @returns {*}
+     */
     setPlayer = () => {
         let p = new Player(this.playerId, this.state.playerName, this.state.playerPin, this.state.identiconSeed);
         this.props.changePlayer(p);
@@ -81,6 +90,10 @@ class PlayerProfileScreen extends Component {
         return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length !== PIN_LENGTH || this.state.playerName.length < NICK_MIN_LENGTH;
     };
 
+    /**
+     * Returns the player.
+     * @returns {*}
+     */
     getPlayer = () => {
         return this.props.players.filter(player => player.id === this.playerId)[0];
     };

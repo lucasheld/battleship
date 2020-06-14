@@ -7,6 +7,9 @@ import {connect} from "react-redux";
 import ShipDirectionDialog from "../components/ShipDirectionDialog";
 import {PLAYGROUND_TYPE} from "../../redux/reducers/field-reducer";
 
+/**
+ * Component for the strategy mode screen.
+ */
 class StrategyModeScreen extends Component {
     constructor(props) {
         super(props);
@@ -20,6 +23,9 @@ class StrategyModeScreen extends Component {
         }
     }
 
+    /**
+     * Is called if the finish button is clicked.
+     */
     triggerRedirect = () => {
         // Sets the player ready to battle when he played all his ships
         this.props.setPlayerReady(this.playerId);
@@ -28,6 +34,10 @@ class StrategyModeScreen extends Component {
         })
     };
 
+    /**
+     * Returns the player.
+     * @returns {*}
+     */
     getPlayer = () => {
         return this.props.players.filter(player => player.id === this.playerId)[0];
     };

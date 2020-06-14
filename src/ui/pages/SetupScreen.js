@@ -6,6 +6,9 @@ import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/setup-mapper";
 import {MODES} from "../../redux/actions/mode-action";
 
+/**
+ * Component for the setup screen.
+ */
 class SetupScreen extends Component {
     constructor(props) {
         super(props);
@@ -14,6 +17,9 @@ class SetupScreen extends Component {
         }
     }
 
+    /**
+     * Is called if the start fight button is clicked.
+     */
     triggerRedirect = () => {
         this.setState({
             redirect: true

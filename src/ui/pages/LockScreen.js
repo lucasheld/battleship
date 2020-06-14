@@ -4,6 +4,9 @@ import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/lock-mapper";
 import {MODES} from "../../redux/actions/mode-action";
 
+/**
+ * Component for the lock screen.
+ */
 class LockScreen extends Component {
     constructor(props) {
         super(props);
@@ -16,12 +19,17 @@ class LockScreen extends Component {
         }
     }
 
+    /**
+     * Returns the player.
+     * @returns {*}
+     */
     getPlayer = () => {
         return this.props.players.filter(player => player.id === this.props.activePlayerId)[0];
     };
 
     /**
-     * Only redirects if the pin is correct
+     * Is called if the finish button is clicked.
+     * Only redirects if the pin is correct.
      */
     triggerRedirect = () => {
         let pinCorrect = true;

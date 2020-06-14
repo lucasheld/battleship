@@ -5,6 +5,9 @@ import {connect} from "react-redux";
 import {PLAYGROUND_TYPE} from "../../redux/reducers/field-reducer";
 import {Link, Redirect} from "react-router-dom";
 
+/**
+ * Component for the fight mode screen.
+ */
 class FightModeScreen extends Component {
     constructor(props) {
         super(props);
@@ -32,16 +35,27 @@ class FightModeScreen extends Component {
         this.props.setFieldColorGreen(PLAYGROUND_TYPE.PLAYER2FULL);
     };
 
+    /**
+     * Is called if the finish button is clicked.
+     */
     triggerRedirect = () => {
         this.setState({
             redirect: true
         })
     };
 
+    /**
+     * Returns the own player.
+     * @returns {*}
+     */
     getMyPlayer = () => {
         return this.props.players.filter(player => player.id === this.playerId)[0];
     };
 
+    /**
+     * Returns the other player.
+     * @returns {*}
+     */
     getOtherPlayer = () => {
         return this.props.players.filter(player => player.id !== this.playerId)[0];
     };

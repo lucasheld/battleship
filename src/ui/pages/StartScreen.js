@@ -3,6 +3,9 @@ import {Redirect} from "react-router-dom"
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/start-mapper";
 
+/**
+ * Component for the start screen.
+ */
 class StartScreen extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +16,9 @@ class StartScreen extends Component {
         }
     }
 
+    /**
+     * Is called if the new game button is clicked.
+     */
     triggerRedirect = () => {
         this.setState({
             redirect: true

@@ -3,6 +3,9 @@ import {Redirect} from "react-router-dom"
 import {connect} from "react-redux";
 import {mapStateToProps} from "../../redux/mapper/end-mapper";
 
+/**
+ * Component for the end screen.
+ */
 class EndScreen extends Component {
     constructor(props) {
         super(props);
@@ -11,6 +14,9 @@ class EndScreen extends Component {
         }
     }
 
+    /**
+     * Is called if the new game button is clicked.
+     */
     triggerRedirect = () => {
         this.setState({
             redirect: true
