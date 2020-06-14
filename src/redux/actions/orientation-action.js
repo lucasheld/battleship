@@ -1,8 +1,12 @@
 export const ADD_ORIENTATION = "ADD_ORIENTATION";
 
-export const setOrientationAction = (id) => {
+export const setOrientationAction = (orientation, name, id) => {
     return {
         type: ADD_ORIENTATION,
-        data: id,
+        data: {
+            orientation: orientation,
+            name: name,
+            id: id
+        },
     }
 };

@@ -26,34 +26,38 @@ class Field extends Component {
     playground
      */
 
-    getOrientation = () => {
-        let leftNewRow = (this.props.id-1) % 10 === 0;
-        let fieldRight = this.props.fields[this.props.playground].filter(field => (this.props.id-1) === field.id)[0];
-        let fieldLeft = this.props.fields[this.props.playground].filter(field => (this.props.id+1) === field.id)[0];
-        if(leftNewRow) {
-            if(fieldRight) {
-                if(fieldRight.color === "field-blocked") {
-                    this.setState({
-                        orientation: "horizontal"
-                    })
-                }
-            }
-        } else {
-            if(fieldLeft) {
-                if(fieldLeft.color === "field-blocked") {
-                    this.setState({
-                        orientation: "horizontal"
-                    })
-                }
-            }
-        }
-        this.setState({
-            orientation: "vertical"
-        })
-    };
+    // getOrientation = () => {
+    //     let leftNewRow = (this.props.id-1) % 10 === 0;
+    //     let fieldRight = this.props.fields[this.props.playground].filter(field => (this.props.id-1) === field.id)[0];
+    //     let fieldLeft = this.props.fields[this.props.playground].filter(field => (this.props.id+1) === field.id)[0];
+    //     if(leftNewRow) {
+    //         if(fieldRight) {
+    //             if(fieldRight.color === "field-blocked") {
+    //                 this.setState({
+    //                     orientation: "horizontal"
+    //                 })
+    //             }
+    //         }
+    //     } else {
+    //         if(fieldLeft) {
+    //             if(fieldLeft.color === "field-blocked") {
+    //                 this.setState({
+    //                     orientation: "horizontal"
+    //                 })
+    //             }
+    //         }
+    //     }
+    //     this.setState({
+    //         orientation: "vertical"
+    //     })
+    // };
 
     isValid = (start, index, end) => {
-        if(this.props.orientation === "horizontal") {
+        let shipInfo = parseShip(this.props.activeShip);
+        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        let orientation = this.props.orient.filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+
+        if(orientation === "horizontal") {
             let startFloor = Math.floor((start-1)/10);
             let endFloor = Math.floor((end-2)/10);
             return startFloor === endFloor && startFloor !== -1 && endFloor !== -1;
@@ -82,7 +86,12 @@ class Field extends Component {
             ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
         }
 
-        if(this.isValid(startIndex, id, endIndex) && this.noShipsNear(startIndex, id, endIndex)) {
+        let valid = true;
+        if (this.props.activeShip != null) {
+            valid = this.isValid(startIndex, id, endIndex) && this.noShipsNear(startIndex, id, endIndex)
+        }
+
+        if (valid) {
             this.paintShip(startIndex, id, endIndex);
             // disable ship on the side
             if (ship) {
@@ -97,7 +106,14 @@ class Field extends Component {
     };
 
     paintShip = (startIndex, index, endIndex) => {
-        if(this.props.orientation === "horizontal") {
+        let orientation;
+        if (this.props.activeShip != null) {
+            let shipInfo = parseShip(this.props.activeShip);
+            let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+            orientation = this.props.orient.filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+        }
+
+        if(orientation === "horizontal") {
             for (let i = startIndex; i < endIndex; i++) {
                 this.props.setFieldColor(this.props.playground, {id: i, color: "field-blocked"});
                 this.props.setShipFieldIndex(this.props.playground, {id: i, shipIndex: this.props.activeShip.slice(0, -1) + (i - startIndex)});
@@ -172,7 +188,7 @@ class Field extends Component {
         let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
 
         if(this.props.orientation) {
-            this.props.setOrient({ation: this.props.orientation, name: shipInfo.name, id: shipInfo.id});
+            this.props.setOrient(this.props.orientation, shipInfo.name, shipInfo.id);
         }
 
         // do not allow using a ship twice
@@ -184,8 +200,7 @@ class Field extends Component {
 
         this.paintNextBlocked(shipInfo);
         this.setState({
-            renderElement: true,
-            renderLength: ship.size
+            renderElement: true
         });
         this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
         this.eventMouseUp = fromEvent(document, "mouseup").subscribe(this.fireOnMouseUp);
@@ -231,14 +246,19 @@ class Field extends Component {
             return;
         }
         let bounds = element.getBoundingClientRect();
-        if(this.props.orientation === "horizontal") {
+
+        let shipInfo = parseShip(this.props.activeShip);
+        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        let orientation = this.props.orient.filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+
+        if (orientation === "horizontal") {
             element.style.left = `${event.clientX + this.calculateMiddle(bounds, bounds.width)}px`;
             element.style.top = `${event.clientY - bounds.height}px`;
         } else {
             element.style.left = `${event.clientX - bounds.width+15}px`;
             element.style.top = `${event.clientY + this.calculateMiddle(bounds, bounds.height+15)}px`;
         }
-        if(document.elementFromPoint(event.x, event.y) === null) {
+        if (document.elementFromPoint(event.x, event.y) === null) {
             return;
         }
         this.renderDraggedShip(document.elementFromPoint(event.x, event.y).id);
@@ -257,7 +277,11 @@ class Field extends Component {
     };
 
     noShipsNear = (startIndex, index, endIndex) => {
-        if(this.props.orientation === "horizontal") {
+        let shipInfo = parseShip(this.props.activeShip);
+        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        let orientation = this.props.orient.filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+
+        if (orientation === "horizontal") {
             for (let i = startIndex; i < endIndex; i++) {
                 if(!this.checkNoShipsNear(i)) {
                     return false;
@@ -351,13 +375,18 @@ class Field extends Component {
             className = this.field.color;
         }
 
-        let copyShip = {
-            id: 100,
-            name: "",
-            size: this.state.renderLength,
-            selected: true,
-            disabled: false
-        };
+        let copyShip = {};
+        if (this.props.activeShip) {
+            let shipInfo = parseShip(this.props.activeShip);
+            let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+            copyShip = {
+                id: ship.id,
+                name: ship.name,
+                size: ship.size,
+                selected: true,
+                disabled: false
+            };
+        }
 
         return (
             this.props.type === FIELD_TYPES.TEXT ?
@@ -368,7 +397,7 @@ class Field extends Component {
                 </div>
                 : // this.props.type === FIELD_TYPES.OVERLAY ?
                 <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.fireOnMouseDown}>
-                    {this.state.renderElement && <Ship orientation={this.props.orientation} playground={this.props.playground} className={this.state.color} ship={copyShip} isCopy={true} />}
+                    {this.state.renderElement && <Ship playground={this.props.playground} className={this.state.color} ship={copyShip} isCopy={true} />}
                 </div>
         )
     }

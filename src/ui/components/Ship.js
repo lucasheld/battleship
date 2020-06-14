@@ -3,8 +3,10 @@ import "./Ship.css";
 import {Redirect} from "react-router-dom";
 import "./Ship.css";
 import "./Field.css"
+import {connect} from "react-redux";
+import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/ship-mapper";
 
-export default class Ship extends Component {
+class Ship extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,26 +54,36 @@ export default class Ship extends Component {
             className = "ship-current";
         }
 
+        let orientation = this.props.orient.filter(ship => ship.id === this.props.ship.id && ship.name === this.props.ship.name)[0]
+        if (orientation) {
+            orientation = orientation.orientation;
+        }
+
         return (
             <div className={"columns is-centered " + className} style={{marginBottom: '1px'}}>
                 <div className="column has-text-right">
-                    <div className="field">
-                        <div className="control" style={{whiteSpace: "nowrap"}}>
-                            <label className="label"
-                                   style={{
-                                       textDecoration: this.props.ship.disabled ? 'line-through' : '',
-                                       color: labelColor
-                                   }}
-                            >{this.props.ship.name}</label>
+                    {
+                        !this.props.isCopy &&
+                        <div className="field">
+                            <div className="control" style={{whiteSpace: "nowrap"}}>
+                                <label className="label"
+                                       style={{
+                                           textDecoration: this.props.ship.disabled ? 'line-through' : '',
+                                           color: labelColor
+                                       }}
+                                >{this.props.ship.name}</label>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
                 <div className="column has-text-left">
                     <div id={this.props.id}
-                        style={{backgroundColor: backgroundColor, display: this.props.orientation === "horizontal" || !this.props.isCopy ? "flex" : ""}}
+                        style={{backgroundColor: backgroundColor, display: orientation === "horizontal" || !this.props.isCopy ? "flex" : ""}}
                     >{cells}</div>
                 </div>
             </div>
         )
     }
 }
+
+export default connect(mapStateToProps, matchDispatchToProps)(Ship);
