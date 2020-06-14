@@ -20,13 +20,12 @@ export default class ShipDirectionDialog extends Component {
         for (let i = 0; i < this.props.ship.size; i++) {
             let cells = [];
             for (let j = 0; j < this.props.ship.size + 2; j++) {
-                if (i === 0 && j !== 1) {
-                    let index = (j-2) < 0 ? 0 : (j-2);
-                    let id = this.props.ship.name.toLowerCase() + "-" + this.props.ship.id + "-" + index;
-                    cells.push(<Field playground={this.props.playground} id={id} key={++keys} className="ship-selected" type={FIELD_TYPES.OVERLAY} />);
-                } else if (i !== 0 && j === 0) {
+                if (i === 0 && j > 1) {
+                    let id = this.props.ship.name.toLowerCase() + "-" + this.props.ship.id + "-" + (j-2);
+                    cells.push(<Field orientation="horizontal" playground={this.props.playground} id={id} key={++keys} className="ship-selected" type={FIELD_TYPES.OVERLAY} />);
+                } else if (j === 0) {
                     let id = this.props.ship.name.toLowerCase() + "-" + this.props.ship.id + "-" + i;
-                    cells.push(<Field playground={this.props.playground} id={id} key={++keys} className="ship-selected" type={FIELD_TYPES.OVERLAY} />);
+                    cells.push(<Field orientation="vertical" playground={this.props.playground} id={id} key={++keys} className="ship-selected" type={FIELD_TYPES.OVERLAY} />);
                 } else {
                     cells.push(<div key={++keys} className="field-ship"/>);
                 }
