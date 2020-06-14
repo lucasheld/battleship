@@ -129,7 +129,7 @@ class Field extends Component {
 
     paintOnlyIfUnused = (id) => {
         let fields = this.props.fields[this.props.playground];
-        if (fields[id - 1] !== undefined) {
+        if (fields[id - 1]) {
             if (fields[id - 1].color === "field-unused") {
                 this.props.setFieldColor(this.props.playground, {id: id, color: "field-nextBlocked"});
             }
@@ -281,15 +281,15 @@ class Field extends Component {
 
     checkNoShipsNear = (i) => {
         let fields = this.props.fields[this.props.playground];
-        if (fields[i - 1] !== undefined) if (fields[i - 1].color !== "field-unused") return false;
-        if (!(i % 10 === 1 && (i - 1) % 10 === 0)) if (fields[i - 1 - 1] !== undefined) if (fields[i - 1 - 1].color === "field-blocked") return false;
-        if (!(i % 10 === 0 && (i + 1) % 10 === 1)) if (fields[i - 1 + 1] !== undefined) if (fields[i - 1 + 1].color === "field-blocked") return false;
-        if (!(i % 10 === 1 && (i - 11) % 10 === 0)) if (fields[i - 1 - 11] !== undefined) if (fields[i - 1 - 11].color === "field-blocked") return false;
-        if (fields[i - 1 - 10] !== undefined) if (fields[i - 1 - 10].color === "field-blocked") return false;
-        if (!(i % 10 === 0 && (i - 9) % 10 === 1)) if (fields[i - 1 - 9] !== undefined) if (fields[i - 1 - 9].color === "field-blocked") return false;
-        if (!(i % 10 === 0 && (i + 11) % 10 === 1)) if (fields[i - 1 + 11] !== undefined) if (fields[i - 1 + 10].color === "field-blocked") return false;
-        if (fields[i - 1 + 10] !== undefined) if (fields[i - 1 + 10].color === "field-blocked") return false;
-        if (fields[i - 1 + 9] !== undefined) if (!(i % 10 === 1 && (i + 9) % 10 === 0)) if (fields[i - 1 + 9].color === "field-blocked") return false;
+        if (fields[i - 1]) if (fields[i - 1].color !== "field-unused") return false;
+        if (!(i % 10 === 1 && (i - 1) % 10 === 0)) if (fields[i - 1 - 1]) if (fields[i - 1 - 1].color === "field-blocked") return false;
+        if (!(i % 10 === 0 && (i + 1) % 10 === 1)) if (fields[i - 1 + 1]) if (fields[i - 1 + 1].color === "field-blocked") return false;
+        if (!(i % 10 === 1 && (i - 11) % 10 === 0)) if (fields[i - 1 - 11]) if (fields[i - 1 - 11].color === "field-blocked") return false;
+        if (fields[i - 1 - 10]) if (fields[i - 1 - 10].color === "field-blocked") return false;
+        if (!(i % 10 === 0 && (i - 9) % 10 === 1)) if (fields[i - 1 - 9]) if (fields[i - 1 - 9].color === "field-blocked") return false;
+        if (!(i % 10 === 0 && (i + 11) % 10 === 1)) if (fields[i - 1 + 11]) if (fields[i - 1 + 10].color === "field-blocked") return false;
+        if (fields[i - 1 + 10]) if (fields[i - 1 + 10].color === "field-blocked") return false;
+        if (fields[i - 1 + 9]) if (!(i % 10 === 1 && (i + 9) % 10 === 0)) if (fields[i - 1 + 9].color === "field-blocked") return false;
         return true;
     };
 
@@ -302,7 +302,7 @@ class Field extends Component {
     };
 
     componentDidMount() {
-        if (this.field === undefined) {
+        if (!this.field) {
             this.field = new FieldClass(this.props.id, this.props.type);
             this.props.addField(this.props.playground, this.field);
         }
@@ -347,7 +347,7 @@ class Field extends Component {
     render() {
         this.getField();
         let className = "";
-        if (this.field !== undefined) {
+        if (this.field) {
             className = this.field.color;
         }
 
