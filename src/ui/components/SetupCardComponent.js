@@ -7,6 +7,9 @@ import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/setup-mapper";
 import {MODES} from "../../redux/actions/mode-action";
 
+/**
+ * Component for a setup card.
+ */
 class SetupCardComponent extends Component {
     constructor(props) {
         super(props);
@@ -15,6 +18,9 @@ class SetupCardComponent extends Component {
         };
     }
 
+    /**
+     * Is called if the card is clicked.
+     */
     triggerRedirect = () => {
         this.setState({
             redirect: true

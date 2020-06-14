@@ -3,14 +3,10 @@ import Field from "./Field";
 import {FIELD_TYPES} from "../../redux/actions/field-action";
 import "./Field.css";
 
+/**
+ * Component for a select ship direction dialog.
+ */
 export default class ShipDirectionDialog extends Component {
-    /* props
-    enabled
-    ship
-    index
-    playground
-     */
-
     render() {
         // Do not render anything if popup is closed
         if (this.props.enabled === false) return null;

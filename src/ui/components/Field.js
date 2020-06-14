@@ -9,6 +9,9 @@ import Ship from "./Ship";
 import {getShipLength, parseShip} from "../../redux/reducers/ship-reducer";
 import {PLAYGROUND_TYPE} from "../../redux/reducers/field-reducer";
 
+/**
+ * Component for a field.
+ */
 class Field extends Component {
     constructor(props) {
         super(props);
@@ -22,11 +25,6 @@ class Field extends Component {
         this.eventMouseMove = null;
         this.eventMouseUp = null;
     }
-
-    /* props
-    className: sets the class for selecting the color defined in Field.css
-    playground
-     */
 
     /**
      * Checks if a ship is outside the playground
@@ -435,6 +433,10 @@ class Field extends Component {
         return (getShipLength(this.props.activeShip) - (Number(this.props.activeShip.slice(-1)))) * 30 - orientation - 15;
     };
 
+    /**
+     * Returns the field from the state.
+     * @returns {*}
+     */
     getField = () => {
         this.field = this.props.fields[this.props.playground].filter(field => field.id === this.props.id && field.type === this.props.type)[0];
     };

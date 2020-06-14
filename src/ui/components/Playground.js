@@ -2,6 +2,9 @@ import React, {Component} from "react";
 import Field from "./Field";
 import {FIELD_TYPES} from "../../redux/actions/field-action";
 
+/**
+ * Component for a playground.
+ */
 export default class Playground extends Component {
     render() {
         let rows = [];

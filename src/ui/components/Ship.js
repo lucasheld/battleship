@@ -5,6 +5,9 @@ import "./Field.css"
 import {connect} from "react-redux";
 import {mapStateToProps} from "../../redux/mapper/ship-mapper";
 
+/**
+ * Component for a ship.
+ */
 class Ship extends Component {
     constructor(props) {
         super(props);
@@ -13,12 +16,6 @@ class Ship extends Component {
             displayPopup: false
         }
     }
-
-    /* props
-    id: ship id
-    ship: the ship object from the reducer
-    isCopy: if this ship is a floating copy
-     */
 
     render() {
         // Define ships background color
