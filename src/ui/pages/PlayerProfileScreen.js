@@ -90,7 +90,7 @@ class PlayerProfileScreen extends Component {
     render() {
         if (this.state.redirect) {
             if (this.props.match.params.ingame) {
-                return <Redirect to="/fight-mode" />;
+                return this.playerId === 0 ? <Redirect to="/fight-mode/0" /> : <Redirect to="/fight-mode/1" />;
             }
 
             if (this.playerId === 0) {
@@ -110,7 +110,9 @@ class PlayerProfileScreen extends Component {
                     <div className="column is-one-third has-text-right">
                         {
                             this.props.match.params.ingame &&
-                            <Link to="/fight-mode" className="button is-dark">Zurück zum Kampfmodus</Link>
+                            (this.playerId === 0 ?
+                                <Link to="/fight-mode/0" className="button is-dark">Zurück zum Kampfmodus</Link>
+                                : <Link to="/fight-mode/1" className="button is-dark">Zurück zum Kampfmodus</Link>)
                         }
                     </div>
                 </div>

@@ -8,6 +8,7 @@ import {Link, Redirect} from "react-router-dom";
 class FightModeScreen extends Component {
     constructor(props) {
         super(props);
+        this.playerId = Number(this.props.match.params.playerId);
         this.myPlayer = this.getMyPlayer();
         this.otherPlayer = this.getOtherPlayer();
         this.props.setActivePlayer(this.myPlayer.id === 0 ? 1 : 0);
@@ -31,11 +32,11 @@ class FightModeScreen extends Component {
     };
 
     getMyPlayer = () => {
-        return this.props.players.filter(player => player.id === this.props.activePlayerId)[0];
+        return this.props.players.filter(player => player.id === this.playerId)[0];
     };
 
     getOtherPlayer = () => {
-        return this.props.players.filter(player => player.id !== this.props.activePlayerId)[0];
+        return this.props.players.filter(player => player.id !== this.playerId)[0];
     };
 
     unsetFirstRound = () => {
