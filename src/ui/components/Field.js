@@ -120,7 +120,7 @@ class Field extends Component {
         if (orientation === "horizontal") {
             // Paints ship from left to right and sets every shipIndex to every painted field
             for (let i = startIndex; i < endIndex; i++) {
-                this.props.setFieldColor(this.props.playground, i,"field-blocked");
+                this.props.setFieldColor(this.props.playground, i, "field-blocked");
                 this.props.setShipFieldIndex(
                     this.props.playground,
                     i,
@@ -133,7 +133,7 @@ class Field extends Component {
             let end = parseInt(index) + (parseInt(endIndex) - parseInt(index) - 1) * 10;
             // Paints ship from top to bottom and sets every shipIndex to every painted field
             for (let i = start, j = startIndex; i < end + 1; i += 10, j++) {
-                this.props.setFieldColor(this.props.playground, i,"field-blocked");
+                this.props.setFieldColor(this.props.playground, i, "field-blocked");
                 this.props.setShipFieldIndex(this.props.playground,
                     i,
                     this.props.activeShip.slice(0, -1) + (j - startIndex)
