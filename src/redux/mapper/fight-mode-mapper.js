@@ -1,5 +1,5 @@
 import {setFirstRoundAction} from "../actions/first-round-action";
-import {setShipDraggableAction} from "../actions/ship-is-draggable-action";
+import {setShipsNotDraggableAction} from "../actions/ship-is-draggable-action";
 import {bindActionCreators} from "redux";
 import {setFieldColorGreenAction} from "../actions/field-action";
 import {setActivePlayerAction} from "../actions/active-player-action";
@@ -18,7 +18,7 @@ export function mapStateToProps(state) {
 export function matchDispatchToProps(dispatch) {
     return bindActionCreators({
         setFirstRound: setFirstRoundAction,
-        setShipDraggable: setShipDraggableAction,
+        setShipsNotDraggable: setShipsNotDraggableAction,
         setFieldColorGreen: setFieldColorGreenAction,
         setActivePlayer: setActivePlayerAction
     }, dispatch);

@@ -13,7 +13,7 @@ class FightModeScreen extends Component {
         this.otherPlayer = this.getOtherPlayer();
         this.props.setActivePlayer(this.myPlayer.id === 0 ? 1 : 0);
         this.unsetFirstRound();
-        this.props.setShipDraggable(false);
+        this.props.setShipsNotDraggable();
         this.paintEverythingGreen();
         this.state = {
             redirect: false,

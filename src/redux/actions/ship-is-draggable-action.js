@@ -1,8 +1,11 @@
 export const SET_SHIP_DRAGGABLE = "SET_SHIP_DRAGGABLE";
 
-export const setShipDraggableAction = (isDraggable) => {
+/**
+ * Disallows ships to be draggable.
+ * @returns {{data: *, type: string}}
+ */
+export const setShipsNotDraggableAction = () => {
     return {
         type: SET_SHIP_DRAGGABLE,
-        data: isDraggable
     }
 };

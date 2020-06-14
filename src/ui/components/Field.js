@@ -89,21 +89,21 @@ class Field extends Component {
 
         if (orientation === "horizontal") {
             for (let i = startIndex; i < endIndex; i++) {
-                this.props.setFieldColor(this.props.playground, {id: i, color: "field-blocked"});
-                this.props.setShipFieldIndex(this.props.playground, {
-                    id: i,
-                    shipIndex: this.props.activeShip.slice(0, -1) + (i - startIndex)
-                });
+                this.props.setFieldColor(this.props.playground, i,"field-blocked");
+                this.props.setShipFieldIndex(this.props.playground,
+                    i,
+                    this.props.activeShip.slice(0, -1) + (i - startIndex)
+                );
             }
         } else {
             let start = parseInt(index) - (parseInt(index) - parseInt(startIndex)) * 10;
             let end = parseInt(index) + (parseInt(endIndex) - parseInt(index) - 1) * 10;
             for (let i = start, j = startIndex; i < end + 1; i += 10, j++) {
-                this.props.setFieldColor(this.props.playground, {id: i, color: "field-blocked"});
-                this.props.setShipFieldIndex(this.props.playground, {
-                    id: i,
-                    shipIndex: this.props.activeShip.slice(0, -1) + (j - startIndex)
-                });
+                this.props.setFieldColor(this.props.playground, i,"field-blocked");
+                this.props.setShipFieldIndex(this.props.playground,
+                    i,
+                    this.props.activeShip.slice(0, -1) + (j - startIndex)
+                );
             }
         }
     };
@@ -131,7 +131,7 @@ class Field extends Component {
         let fields = this.props.fields[this.props.playground];
         if (fields[id - 1] !== undefined) {
             if (fields[id - 1].color === "field-unused") {
-                this.props.setFieldColor(this.props.playground, {id: id, color: "field-nextBlocked"});
+                this.props.setFieldColor(this.props.playground, id, "field-nextBlocked");
             }
         }
     };
@@ -142,8 +142,8 @@ class Field extends Component {
             if (isNumber(field.id) && field.shipIndex !== -1) {
                 let otherShipInfo = parseShip(field.shipIndex);
                 if (shipInfo.id === otherShipInfo.id && shipInfo.name === otherShipInfo.name) {
-                    this.props.setFieldColor(this.props.playground, {id: field.id, color: "field-unused"});
-                    this.props.setShipFieldIndex(this.props.playground, {id: field.id, shipIndex: -1});
+                    this.props.setFieldColor(this.props.playground, field.id, "field-unused");
+                    this.props.setShipFieldIndex(this.props.playground, field.id, -1);
                 }
             }
         });
@@ -188,7 +188,7 @@ class Field extends Component {
 
     repaintNextBlocked = () => {
         this.props.fields[this.props.playground].filter(field => field.color === "field-nextBlocked").forEach(field => {
-            this.props.setFieldColor(this.props.playground, {id: field.id, color: "field-unused"});
+            this.props.setFieldColor(this.props.playground, field.id, "field-unused");
         })
     };
 
@@ -335,13 +335,13 @@ class Field extends Component {
         let field = this.props.fields[playground].filter(field => field.id === this.props.id)[0];
         switch (field.color) {
             case "field-unused":
-                this.props.setFieldColor(playground, {id: field.id, color: "field-missed"});
-                this.props.setFieldColor(this.props.playground, {id: this.props.id, color: "field-missed"});
+                this.props.setFieldColor(playground, field.id, "field-missed");
+                this.props.setFieldColor(this.props.playground, this.props.id, "field-missed");
                 this.props.setNoFire(true);
                 break;
             case "field-valid":
-                this.props.setFieldColor(playground, {id: field.id, color: "field-invalid"});
-                this.props.setFieldColor(this.props.playground, {id: this.props.id, color: "field-invalid"});
+                this.props.setFieldColor(playground, field.id, "field-invalid");
+                this.props.setFieldColor(this.props.playground, this.props.id, "field-invalid");
                 break;
             default:
                 console.log("Error!")

@@ -1,8 +1,11 @@
 export const SET_INITIAL_STATE = "SET_INITIAL_STATE";
 
-export const setInitialStateAction = (state) => {
+/**
+ * Resets all states.
+ * @returns {{data: *, type: string}}
+ */
+export const setInitialStateAction = () => {
     return {
-        type: SET_INITIAL_STATE,
-        data: state
+        type: SET_INITIAL_STATE
     }
 };

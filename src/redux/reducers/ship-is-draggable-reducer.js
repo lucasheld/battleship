@@ -6,7 +6,7 @@ const initialState = true;
 export function shipDraggableReducer(state = initialState, action) {
     switch (action.type) {
         case SET_SHIP_DRAGGABLE:
-            return action.data;
+            return false;
         case SET_INITIAL_STATE:
             return initialState;
         default:

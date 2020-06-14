@@ -36,7 +36,7 @@ export function playerReducer(state = initialState, action) {
             });
         case SET_READY:
             return state.map(player => {
-                if (player.id === action.data.id) {
+                if (player.id === action.data) {
                     return Object.assign({}, player, {
                         ready: true
                     })

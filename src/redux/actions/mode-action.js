@@ -1,5 +1,10 @@
 export const SET_MODE = "SET_MODE";
 
+/**
+ * Sets current game mode.
+ * @param id: The mode id
+ * @returns {{data: *, type: string}}
+ */
 export const setModeAction = (id) => {
     return {
         type: SET_MODE,
@@ -7,6 +12,10 @@ export const setModeAction = (id) => {
     }
 };
 
+/**
+ * Types of different game modes.
+ * @type {{BATTLE: number, STRATEGY: number}}
+ */
 export const MODES = {
     STRATEGY: 0,
     BATTLE: 1

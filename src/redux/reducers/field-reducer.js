@@ -51,7 +51,7 @@ export function fieldReducer(state = initialState, action) {
                 [action.playground]: state[action.playground].map(field => {
                     if (field.id === action.data.id) {
                         return Object.assign({}, field, {
-                            shipIndex: action.data.shipIndex
+                            shipIndex: action.data.index
                         })
                     }
                     return field;

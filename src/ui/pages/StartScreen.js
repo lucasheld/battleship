@@ -6,7 +6,7 @@ import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/start-ma
 class StartScreen extends Component {
     constructor(props) {
         super(props);
-        this.props.setInitialState(true);
+        this.props.setInitialState();
         this.state = {
             redirect: false,
         }

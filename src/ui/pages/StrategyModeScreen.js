@@ -19,7 +19,7 @@ class StrategyModeScreen extends Component {
     }
 
     triggerRedirect = () => {
-        this.props.setPlayerReady({id: this.playerId});
+        this.props.setPlayerReady(this.playerId);
         this.setState({
             redirect: true
         })
