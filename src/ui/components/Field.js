@@ -110,7 +110,7 @@ class Field extends Component {
         });
     };
 
-    fireOnMouseDown = () => {console.log(this.props.id)
+    fireOnMouseDown = () => {
         let id = this.props.id;
         let isOnPlayground = false;
         if(isNumber(id)) {
