@@ -41,11 +41,6 @@ class StrategyModeScreen extends Component {
 
         return (
             <React.Fragment>
-                <div className={"modal" + (this.props.popupOpen.enabled === true ? " is-active" : "")} style={{pointerEvents: "none"}}>
-                    <div className="modal-content" style={{pointerEvents: "auto", width: "300px"}} >
-                        <ShipDirectionDialog playground={this.playground} enabled={this.props.popupOpen.enabled} ship={this.props.popupOpen.ship} index={this.props.popupOpen.index} />
-                    </div>
-                </div>
 
                 <div className="columns">
                     <div className="column">
@@ -56,6 +51,9 @@ class StrategyModeScreen extends Component {
                                 <button className="button is-dark" onClick={this.triggerRedirect} disabled={this.isButtonDisabled()}>Fertig</button>
                             </label>
                         </div>
+                    </div>
+                    <div className="column">
+                        <ShipDirectionDialog playground={this.playground} enabled={this.props.popupOpen.enabled} ship={this.props.popupOpen.ship} index={this.props.popupOpen.index} />
                     </div>
                     <div className="column">
                         {this.props.ships[this.playground].map(ship =>

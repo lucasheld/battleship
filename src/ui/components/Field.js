@@ -129,7 +129,6 @@ class Field extends Component {
         if (ship.disabled && !isOnPlayground) {
             return;
         }
-        //this.props.openPopup(false); // TODO verschieben
         this.props.setActiveShip(id);
         this.props.selectShip(this.props.playground, ship);
 
@@ -180,7 +179,7 @@ class Field extends Component {
         this.setState({
             renderElement: false
         });
-        this.props.openPopup(false); // TODO verschieben
+        this.props.openPopup(false);
         this.props.setActiveShip(null);
     };
 
@@ -283,7 +282,7 @@ class Field extends Component {
                     {this.state.renderElement && <Ship playground={this.props.playground} id="current" className={this.state.color} ship={copyShip} isCopy={true} />}
                 </div>
                 : // this.props.type === FIELD_TYPES.SHIP
-                <div className={this.props.className + " field-ship"} id={this.props.id} onMouseDown={this.onPopupMouseDown}/>
+                <div className={this.props.className + " field-ship"} id={this.props.id} onClick={this.onPopupMouseDown}/>
         )
     }
 }
