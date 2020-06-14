@@ -5,4 +5,4 @@ The game battleship in react
 - Lucas Held - 35022624
 - Keanu Stückrad - 35198923
 - Gianluca Voss - 35197942
-- Patrick Michla - 
+- Patrick Michla - 35206231
