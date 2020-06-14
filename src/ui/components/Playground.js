@@ -15,7 +15,7 @@ export default class Playground extends Component {
             cells.push(<Field playground={this.props.playground} key={j} id={j} type={FIELD_TYPES.TEXT}
                               className="field-unused" text={ascii}/>)
         }
-        rows.push(<div style={{display: "flex"}} key={0} id={0}>{cells}</div>);
+        rows.push(<div style={{display: "flex", justifyContent: "center"}} key={0} id={0}>{cells}</div>);
 
         for (let i = 0; i < 10; i++) {
             cells = [];
@@ -28,7 +28,7 @@ export default class Playground extends Component {
                                   className="field-unused"/>;
                 cells.push(cell)
             }
-            rows.push(<div style={{display: "flex"}} key={i + 1} id={i + 1}>{cells}</div>)
+            rows.push(<div style={{display: "flex", justifyContent: "center"}} key={i + 1} id={i + 1}>{cells}</div>)
         }
         return (
             <div id="playground-table">

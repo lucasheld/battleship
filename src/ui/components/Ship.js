@@ -42,7 +42,7 @@ class Ship extends Component {
         let cells = [];
         for (let i = 0; i < this.props.ship.size; i++) {
             let key = this.props.id + "-" + i;
-            cells.push(<div className={this.props.className + " field-ship "} key={key}/>)
+            cells.push(<div className={this.props.className + " field-ship "} style={{backgroundColor: backgroundColor}} key={key}/>)
         }
 
         if (this.state.reload) {
@@ -79,7 +79,6 @@ class Ship extends Component {
                 <div className="column has-text-left">
                     <div id={this.props.id}
                          style={{
-                             backgroundColor: backgroundColor,
                              display: orientation === "horizontal" || !this.props.isCopy ? "flex" : ""
                          }}
                     >{cells}</div>

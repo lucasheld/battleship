@@ -74,7 +74,7 @@ class StrategyModeScreen extends Component {
                     </div>
                     <div className="column">
                         {this.props.ships[this.playground].map(ship =>
-                            <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered"
+                            <div key={ship.name.toLowerCase() + "-" + ship.id}
                                  onClick={() => this.onPopupMouseDown(ship)}>
                                 <Ship playground={this.playground} id={ship.name.toLowerCase() + "-" + ship.id}
                                       ship={ship}/>
