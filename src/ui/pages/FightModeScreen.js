@@ -89,13 +89,11 @@ class FightModeScreen extends Component {
                         <br/>
                     </div>
                     <div className="column">
-                        <div className="column">
-                            <h4 className="subtitle">
-                                Dein Meer
-                            </h4>
-                            <Playground player={this.myPlayer} playground={myPlayground}/>
-                            <br/>
-                        </div>
+                        <h4 className="subtitle">
+                            Dein Meer
+                        </h4>
+                        <Playground player={this.myPlayer} playground={myPlayground}/>
+                        <br/>
                     </div>
                 </div>
                 <div className="control">
