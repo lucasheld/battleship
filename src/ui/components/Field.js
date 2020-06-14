@@ -7,6 +7,7 @@ import FieldClass from "../../redux/data-classes/field";
 import {fromEvent} from "rxjs";
 import Ship from "./Ship";
 import {getShipLength, parseShip} from "../../redux/reducers/ship-reducer";
+import {PLAYGROUND_TYPE} from "../../redux/reducers/field-reducer";
 
 class Field extends Component {
     constructor(props) {
@@ -111,6 +112,9 @@ class Field extends Component {
     };
 
     fireOnMouseDown = () => {
+        if (!this.props.shipIsDraggable) {
+            return;
+        }
         let id = this.props.id;
         let isOnPlayground = false;
         if(isNumber(id)) {
@@ -245,6 +249,33 @@ class Field extends Component {
             this.eventMouseMove.unsubscribe()
         }
     }
+
+    fireOnClick = () => {
+        if (
+            this.props.shipIsDraggable ||
+            this.props.playground === PLAYGROUND_TYPE.PLAYER1FULL ||
+            this.props.playground === PLAYGROUND_TYPE.PLAYER2FULL ||
+            this.field.color !== "field-unused" ||
+            this.props.noFire
+        ) {
+            return;
+        }
+        let playground = this.props.playground === PLAYGROUND_TYPE.PLAYER1PART ? PLAYGROUND_TYPE.PLAYER1FULL : PLAYGROUND_TYPE.PLAYER2FULL;
+        let field = this.props.fields[playground].filter( field => field.id === this.props.id)[0];
+        switch (field.color) {
+            case "field-unused":
+                this.props.setFieldColor(playground, {id: field.id, color: "field-missed"});
+                this.props.setFieldColor(this.props.playground, {id: this.props.id, color: "field-missed"});
+                this.props.setNoFire(true);
+                break;
+            case "field-valid":
+                this.props.setFieldColor(playground, {id: field.id, color: "field-invalid"});
+                this.props.setFieldColor(this.props.playground, {id: this.props.id, color: "field-invalid"});
+                break;
+            default:
+                console.log("Error!")
+        }
+    };
 
     render() {
         this.getField();

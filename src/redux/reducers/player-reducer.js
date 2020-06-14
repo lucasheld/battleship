@@ -1,4 +1,5 @@
 import {CHANGE_PLAYER, SET_READY} from "../actions/player-action";
+import {SET_INITIAL_STATE} from "../actions/initial-state-action";
 
 let identiconSeed = Math.floor((Math.random() * 100) + 1); // random int between 1 and 100
 
@@ -42,6 +43,8 @@ export function playerReducer(state = initialState, action) {
                 }
                 return player;
             });
+        case SET_INITIAL_STATE:
+            return initialState;
         default:
             return state;
     }

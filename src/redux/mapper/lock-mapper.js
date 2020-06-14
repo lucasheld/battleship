@@ -1,3 +1,6 @@
+import {setNoFireAction} from "../actions/no-fire-action";
+import {bindActionCreators} from "redux";
+
 export function mapStateToProps(state) {
     return {
         players: state.playerReducer,
@@ -5,4 +8,10 @@ export function mapStateToProps(state) {
         mode: state.modeReducer,
         isFirstRound: state.firstRoundReducer
     }
+}
+
+export function matchDispatchToProps(dispatch) {
+    return bindActionCreators({
+        setNoFire: setNoFireAction
+    }, dispatch);
 }

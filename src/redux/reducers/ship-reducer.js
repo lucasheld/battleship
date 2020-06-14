@@ -1,11 +1,5 @@
 import {DISABLE_SHIP, SELECT_SHIP, DESELECT_SHIP} from "../actions/select-ship-action";
-
-export const playgroundType = {
-    PLAYER1FULL: "PLAYER1FULL",
-    PLAYER2FULL: "PLAYER2FULL",
-    PLAYER1PART: "PLAYER1PART",
-    PLAYER2PART: "PLAYER2PART"
-}
+import {SET_INITIAL_STATE} from "../actions/initial-state-action";
 
 const initialStateShips = [
     {
@@ -78,14 +72,14 @@ const initialStateShips = [
         selected: false,
         disabled: false
     }
-]
+];
 
 const initialState = {
     PLAYER1FULL: initialStateShips,
     PLAYER2FULL: initialStateShips,
     PLAYER1PART: initialStateShips,
     PLAYER2PART: initialStateShips
-}
+};
 
 export function shipReducer(state = initialState, action) {
     switch (action.type) {
@@ -100,7 +94,7 @@ export function shipReducer(state = initialState, action) {
                     }
                     return ship;
                 })
-            })
+            });
         case DESELECT_SHIP:
             return Object.assign({}, state, {
                 [action.playground]: state[action.playground].map(ship => {
@@ -112,7 +106,7 @@ export function shipReducer(state = initialState, action) {
                     }
                     return ship;
                 })
-            })
+            });
         case DISABLE_SHIP:
             return Object.assign({}, state, {
                 [action.playground]: state[action.playground].map(ship => {
@@ -124,7 +118,9 @@ export function shipReducer(state = initialState, action) {
                     }
                     return ship;
                 })
-            })
+            });
+        case SET_INITIAL_STATE:
+            return initialState;
         default:
             return state;
     }

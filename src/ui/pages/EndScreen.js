@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom"
+import {connect} from "react-redux";
+import {mapStateToProps} from "../../redux/mapper/end-mapper";
 
-export default class EndScreen extends Component {
+class EndScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,17 +17,25 @@ export default class EndScreen extends Component {
         })
     };
 
+    getInactivePlayer = () => {
+        return this.props.players.filter(player => player.id !== this.props.activePlayerId)[0];
+    };
+
     render() {
         if (this.state.redirect) {
-            return <Redirect to="/player-profile/0" />;
+            return <Redirect to="/" />;
         }
+
+        let winnerName = this.getInactivePlayer().nick;
 
         return (
             <div>
                 <h1 className="title">Glückwunsch!</h1>
-                <h2 className="subtitle">Hey {this.props.winner}, du hast gewonnen.</h2>
+                <h2 className="subtitle">Hey {winnerName}, du hast gewonnen.</h2>
                 <button className="button is-dark" onClick={this.triggerRedirect}>Neues Spiel?</button>
             </div>
         );
     }
 }
+
+export default connect(mapStateToProps)(EndScreen);

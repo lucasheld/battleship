@@ -4,15 +4,15 @@ import Ship from "../components/Ship";
 import {Redirect} from "react-router-dom";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/strategy-mode-mapper";
 import {connect} from "react-redux";
-import {playgroundType} from "../../redux/reducers/field-reducer";
 import ShipDirectionDialog from "../components/ShipDirectionDialog";
+import {PLAYGROUND_TYPE} from "../../redux/reducers/field-reducer";
 
 class StrategyModeScreen extends Component {
     constructor(props) {
         super(props);
         this.playerId = Number(this.props.match.params.playerId);
         this.player = this.getPlayer();
-        this.playground = this.playerId === 0 ? playgroundType.PLAYER1FULL : playgroundType.PLAYER2FULL;
+        this.playground = this.playerId === 0 ? PLAYGROUND_TYPE.PLAYER1FULL : PLAYGROUND_TYPE.PLAYER2FULL;
         this.state = {
             redirect: false
         }
@@ -46,7 +46,15 @@ class StrategyModeScreen extends Component {
         }
 
         return (
-            <React.Fragment>
+            <div>
+                <div className="columns">
+                    <div className="column is-one-third has-text-left">
+                        <div className="title">Strategiemodus</div>
+                    </div>
+                    <div className="column"/>
+                    <div className="column is-one-third has-text-right"/>
+                </div>
+                <br/>
 
                 <div className="columns">
                     <div className="column">
@@ -69,7 +77,7 @@ class StrategyModeScreen extends Component {
                         )}
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }

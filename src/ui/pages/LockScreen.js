@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import {Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom/";
 import {connect} from "react-redux";
-import {mapStateToProps} from "../../redux/mapper/lock-mapper";
+import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/lock-mapper";
 import {MODES} from "../../redux/actions/mode-action";
 
 class LockScreen extends Component {
     constructor(props) {
         super(props);
         this.player = this.getPlayer();
+        this.props.setNoFire(false);
         this.state = {
             redirect: false,
             playerPin: ""
@@ -74,4 +75,4 @@ class LockScreen extends Component {
     }
 }
 
-export default connect(mapStateToProps)(LockScreen);
+export default connect(mapStateToProps, matchDispatchToProps)(LockScreen);

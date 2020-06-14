@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom"
 import {connect} from "react-redux";
-import {mapStateToProps} from "../../redux/mapper/start-mapper";
+import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/start-mapper";
 
 class StartScreen extends Component {
     constructor(props) {
         super(props);
+        this.props.setInitialState(true);
         this.state = {
             redirect: false,
         }
@@ -34,4 +35,4 @@ class StartScreen extends Component {
     }
 }
 
-export default connect(mapStateToProps)(StartScreen);
+export default connect(mapStateToProps, matchDispatchToProps)(StartScreen);

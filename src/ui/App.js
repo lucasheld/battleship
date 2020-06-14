@@ -20,7 +20,7 @@ function App() {
                       <Route path="/end" component={EndScreen} />
                       <Route path="/fight-mode" component={FightModeScreen} />
                       <Route path="/lock" component={LockScreen} />
-                      <Route path="/player-profile/:playerId" render={(props) => (
+                      <Route path="/player-profile/:playerId/:ingame?" render={(props) => (
                           <PlayerProfileScreen key={props.match.params.playerId} {...props} />)
                       } />
                       <Route path="/setup" component={SetupScreen} />
