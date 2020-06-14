@@ -11,6 +11,10 @@ import {shipDraggableReducer} from "./reducers/ship-is-draggable-reducer";
 import {noFireReducer} from "./reducers/no-fire-reducer";
 import {orientationReducer} from "./reducers/orientation-reducer";
 
+/**
+ * Summarizes different reducing functions into a single reducing function.
+ * @type {Reducer<CombinedState<unknown>>}
+ */
 const reducers = combineReducers({
     playerReducer,
     fieldReducer,

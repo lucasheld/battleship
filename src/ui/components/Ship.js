@@ -3,7 +3,7 @@ import "./Ship.css";
 import {Redirect} from "react-router-dom";
 import "./Field.css"
 import {connect} from "react-redux";
-import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/ship-mapper";
+import {mapStateToProps} from "../../redux/mapper/ship-mapper";
 
 class Ship extends Component {
     constructor(props) {
@@ -97,4 +97,4 @@ class Ship extends Component {
     }
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(Ship);
+export default connect(mapStateToProps)(Ship);

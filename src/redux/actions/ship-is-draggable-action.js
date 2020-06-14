@@ -1,4 +1,4 @@
-export const SET_SHIP_DRAGGABLE = "SET_SHIP_DRAGGABLE";
+export const SET_SHIPS_NOT_DRAGGABLE = "SET_SHIPS_NOT_DRAGGABLE";
 
 /**
  * Disallows ships to be draggable.
@@ -6,6 +6,6 @@ export const SET_SHIP_DRAGGABLE = "SET_SHIP_DRAGGABLE";
  */
 export const setShipsNotDraggableAction = () => {
     return {
-        type: SET_SHIP_DRAGGABLE,
+        type: SET_SHIPS_NOT_DRAGGABLE,
     }
 };

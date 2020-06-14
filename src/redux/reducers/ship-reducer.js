@@ -1,6 +1,10 @@
 import {DESELECT_SHIP, DISABLE_SHIP, SELECT_SHIP} from "../actions/select-ship-action";
 import {SET_INITIAL_STATE} from "../actions/initial-state-action";
 
+/**
+ * Specifies the initial state for all ships.
+ * @type {({size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean})[]}
+ */
 const initialStateShips = [
     {
         id: 0,
@@ -74,6 +78,10 @@ const initialStateShips = [
     }
 ];
 
+/**
+ * Specifies the initial store state.
+ * @type {{PLAYER1FULL: ({size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean})[], PLAYER1PART: ({size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean})[], PLAYER2FULL: ({size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean})[], PLAYER2PART: ({size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean})[]}}
+ */
 const initialState = {
     PLAYER1FULL: initialStateShips,
     PLAYER2FULL: initialStateShips,
@@ -81,8 +89,17 @@ const initialState = {
     PLAYER2PART: initialStateShips
 };
 
+/**
+ * Specifies how to state changes in response to actions.
+ * @param state: The store state of this reducer
+ * @param action: The payload created by the action
+ * @returns {{PLAYER1FULL: ({size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean})[], PLAYER1PART: ({size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean})[], PLAYER2FULL: ({size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean})[], PLAYER2PART: ({size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean}|{size: number, name: string, disabled: boolean, id: number, selected: boolean})[]}}
+ */
 export function shipReducer(state = initialState, action) {
     switch (action.type) {
+        /**
+         * Handles selectShipAction response.
+         */
         case SELECT_SHIP:
             return Object.assign({}, state, {
                 [action.playground]: state[action.playground].map(ship => {
@@ -95,6 +112,9 @@ export function shipReducer(state = initialState, action) {
                     return ship;
                 })
             });
+        /**
+         * Handles deselectShipAction response.
+         */
         case DESELECT_SHIP:
             return Object.assign({}, state, {
                 [action.playground]: state[action.playground].map(ship => {
@@ -107,6 +127,9 @@ export function shipReducer(state = initialState, action) {
                     return ship;
                 })
             });
+        /**
+         * Handles disableShipAction response.
+         */
         case DISABLE_SHIP:
             return Object.assign({}, state, {
                 [action.playground]: state[action.playground].map(ship => {
@@ -119,6 +142,9 @@ export function shipReducer(state = initialState, action) {
                     return ship;
                 })
             });
+        /**
+         * Handles setInitialStateAction response.
+         */
         case SET_INITIAL_STATE:
             return initialState;
         default:
@@ -126,6 +152,11 @@ export function shipReducer(state = initialState, action) {
     }
 }
 
+/**
+ * Parse a ship by id.
+ * @param id: The ship id
+ * @returns {{size: *, name: *, index: number, id: number}}
+ */
 export function parseShip(id) {
     const regex = /^(\S+)-(\d+)-(\d+)$/;
     const match = id.match(regex);
@@ -141,10 +172,20 @@ export function parseShip(id) {
     };
 }
 
+/**
+ * Capitalizes the first letter of a string.
+ * @param string: The string
+ * @returns {string}
+ */
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/**
+ * Converts a ship id to the ship length.
+ * @param id: The ship id
+ * @returns {number}
+ */
 export function getShipLength(id) {
     let shipSize;
     if (id.startsWith("submarine")) {
