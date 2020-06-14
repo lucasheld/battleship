@@ -7,6 +7,9 @@ import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import reducers from './redux/reducer-list'
 
+/**
+ * The redux store which stores all states in reducers
+ */
 const store = createStore(reducers);
 
 ReactDOM.render(

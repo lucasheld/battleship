@@ -20,13 +20,20 @@ class SetupScreen extends Component {
         })
     };
 
+    /**
+     * Checks if the start button should be disabled (when one player isn't ready)
+     * @returns {boolean}
+     */
     isStartDisabled = () => {
         return this.props.players.filter(player => !player.ready).length !== 0;
     };
 
     render() {
+        // Redirects to lock
+        // Set fight mode to later redirect to fight mode screen
+        // Gets random start player
         if (this.state.redirect) {
-            this.props.setMode(MODES.BATTLE);
+            this.props.setMode(MODES.FIGHT);
             this.props.setActivePlayer(Math.round(Math.random()));
             return <Redirect to="/lock"/>;
         }

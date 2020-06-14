@@ -14,9 +14,9 @@ export const setModeAction = (id) => {
 
 /**
  * Types of different game modes.
- * @type {{BATTLE: number, STRATEGY: number}}
+ * @type {{FIGHT: number, STRATEGY: number}}
  */
 export const MODES = {
     STRATEGY: 0,
-    BATTLE: 1
+    FIGHT: 1
 };

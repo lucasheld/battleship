@@ -8,6 +8,7 @@ class LockScreen extends Component {
     constructor(props) {
         super(props);
         this.player = this.getPlayer();
+        // Makes player able to fire on the field in fight mode (is unset when he hits water)
         this.props.setNoFire(false);
         this.state = {
             redirect: false,
@@ -19,6 +20,9 @@ class LockScreen extends Component {
         return this.props.players.filter(player => player.id === this.props.activePlayerId)[0];
     };
 
+    /**
+     * Only redirects if the pin is correct
+     */
     triggerRedirect = () => {
         let pinCorrect = true;
         if (!pinCorrect) {
@@ -29,6 +33,10 @@ class LockScreen extends Component {
         })
     };
 
+    /**
+     * Handles the pin field inputs and writes them in a state
+     * @param event
+     */
     handleInputChange = (event) => {
         const target = event.target;
         const value = target.value;
@@ -39,6 +47,7 @@ class LockScreen extends Component {
     };
 
     render() {
+        // Redirects to strategy or fight mode and to the right players site
         if (this.state.redirect) {
             if (this.state.redirect) {
                 if (this.props.activePlayerId === 0) {
@@ -57,7 +66,7 @@ class LockScreen extends Component {
             <div className="columns is-centered">
                 <div className="column card is-one-third">
                     <h2 className="subtitle">Hallo {this.player.nick}!</h2>
-                    {(this.props.isFirstRound && this.props.mode === MODES.BATTLE) &&
+                    {(this.props.isFirstRound && this.props.mode === MODES.FIGHT) &&
                     <h2 className="subtitle">Die <span role="img" aria-label="Würfel">&#127922; &#127922;</span> sind
                         gefallen. Du darfst beginnen!</h2>}
                     <h2 className="subtitle">Um fortzufahren, gib hier deinen PIN ein</h2>

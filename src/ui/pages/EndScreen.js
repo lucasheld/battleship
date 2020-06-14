@@ -17,6 +17,11 @@ class EndScreen extends Component {
         })
     };
 
+    /**
+     * Returns the inactive player, because our active player is always changed
+     * in possible end scenarios (in the fight mode screen)
+     * @returns {{id, nick, pin, avatar}}
+     */
     getInactivePlayer = () => {
         return this.props.players.filter(player => player.id !== this.props.activePlayerId)[0];
     };

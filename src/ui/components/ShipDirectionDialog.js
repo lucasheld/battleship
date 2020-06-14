@@ -12,9 +12,16 @@ export default class ShipDirectionDialog extends Component {
      */
 
     render() {
-        // do not render anything if popup closed
+        // Do not render anything if popup is closed
         if (this.props.enabled === false) return null;
 
+        /**
+         * Draws the div-table in the popup
+         * Uses only real "Field" components if there is a ship field/div
+         * (On the left side and right upper corner)
+         * Assignees these fields the ship name, id and the index of the field inside the ship
+         * to make it possible to drag exactly from the indices as anchor points
+         */
         let rows = [];
         let keys = 0;
         for (let i = 0; i < this.props.ship.size; i++) {

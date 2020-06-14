@@ -10,8 +10,10 @@ import {PLAYGROUND_TYPE} from "../../redux/reducers/field-reducer";
 class StrategyModeScreen extends Component {
     constructor(props) {
         super(props);
+        // Player id from the url params
         this.playerId = Number(this.props.match.params.playerId);
         this.player = this.getPlayer();
+        // Gets the playground id from the players id
         this.playground = this.playerId === 0 ? PLAYGROUND_TYPE.PLAYER1FULL : PLAYGROUND_TYPE.PLAYER2FULL;
         this.state = {
             redirect: false
@@ -19,6 +21,7 @@ class StrategyModeScreen extends Component {
     }
 
     triggerRedirect = () => {
+        // Sets the player ready to battle when he played all his ships
         this.props.setPlayerReady(this.playerId);
         this.setState({
             redirect: true
@@ -29,11 +32,19 @@ class StrategyModeScreen extends Component {
         return this.props.players.filter(player => player.id === this.playerId)[0];
     };
 
+    /**
+     * Checks if all ships are set to the playground and disables button finish if not
+     * @returns {boolean}
+     */
     isButtonDisabled = () => {
         let enabledShips = this.props.ships[this.playground].filter(ship => !ship.disabled);
         return enabledShips.length > 0;
     };
 
+    /**
+     * Opens the popup for selecting a ship orientation
+     * @param ship: The ship that was clicked
+     */
     onPopupMouseDown = (ship) => {
         if (!ship.disabled) {
             this.props.openPopup(true, ship);
@@ -45,6 +56,7 @@ class StrategyModeScreen extends Component {
             return <Redirect to="/setup"/>;
         }
 
+        // Ships are drawn within this.props.ships[...].map(...
         return (
             <div>
                 <div className="columns">

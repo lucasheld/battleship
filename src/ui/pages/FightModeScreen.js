@@ -8,11 +8,14 @@ import {Link, Redirect} from "react-router-dom";
 class FightModeScreen extends Component {
     constructor(props) {
         super(props);
+        // Player id from the url params
         this.playerId = Number(this.props.match.params.playerId);
         this.myPlayer = this.getMyPlayer();
         this.otherPlayer = this.getOtherPlayer();
+        // Sets the other player as active
         this.props.setActivePlayer(this.myPlayer.id === 0 ? 1 : 0);
         this.unsetFirstRound();
+        // As we are in fight mode no longer cheating and dragging the ships is allowed!
         this.props.setShipsNotDraggable();
         this.paintEverythingGreen();
         this.state = {
@@ -20,6 +23,10 @@ class FightModeScreen extends Component {
         }
     }
 
+    /**
+     * Repaints the playgrounds from the purple blocked fields from strategy mode
+     * to green valid fields for this mode
+     */
     paintEverythingGreen = () => {
         this.props.setFieldColorGreen(PLAYGROUND_TYPE.PLAYER1FULL);
         this.props.setFieldColorGreen(PLAYGROUND_TYPE.PLAYER2FULL);
@@ -39,12 +46,19 @@ class FightModeScreen extends Component {
         return this.props.players.filter(player => player.id !== this.playerId)[0];
     };
 
+    /**
+     * Prevents the extra text in the lock screen
+     */
     unsetFirstRound = () => {
         if (this.props.isFirstRound) {
             this.props.setFirstRound(false);
         }
     };
 
+    /**
+     * Checks if the playground of the other player has no valid fields anymore
+     * @returns {boolean}
+     */
     checkWinner = () => {
         let playground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER2FULL : PLAYGROUND_TYPE.PLAYER1FULL;
         return !this.props.fields[playground].filter(field => field.color === "field-valid" || field.color === "field-blocked")[0];
@@ -57,7 +71,9 @@ class FightModeScreen extends Component {
             return <Redirect to="/lock"/>;
         }
 
+        // Id of the current players playground
         let myPlayground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER1FULL : PLAYGROUND_TYPE.PLAYER2FULL;
+        // Id of the other players playground copy
         let otherPlayground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER2PART : PLAYGROUND_TYPE.PLAYER1PART;
 
         return (

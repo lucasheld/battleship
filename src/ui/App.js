@@ -10,6 +10,12 @@ import StrategyModeScreen from "./pages/StrategyModeScreen";
 import EndScreen from "./pages/EndScreen";
 import "./App.css";
 
+/**
+ * Memory router as root to select the component for a given route
+ * Always redirects to start screen when site is reloaded to prevent mistakes in our states or flow
+ * @returns {component}
+ * @constructor
+ */
 function App() {
     return (
         <MemoryRouter>
