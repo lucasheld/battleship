@@ -37,6 +37,5 @@ export const setFieldShipIndexAction = (playground, index) => {
 export const FIELD_TYPES = {
     TEXT: 0,
     PLAYGROUND: 1,
-    SHIP: 2,
-    OVERLAY: 3
+    OVERLAY: 2
 };
