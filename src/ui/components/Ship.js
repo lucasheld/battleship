@@ -42,7 +42,8 @@ class Ship extends Component {
         let cells = [];
         for (let i = 0; i < this.props.ship.size; i++) {
             let key = this.props.id + "-" + i;
-            cells.push(<div className={this.props.className + " field-ship "} style={{backgroundColor: backgroundColor}} key={key}/>)
+            let style = this.props.isCopy ? {} : {backgroundColor: backgroundColor};
+            cells.push(<div className={this.props.className + " field-ship "} style={style} key={key}/>);
         }
 
         if (this.state.reload) {
