@@ -1,7 +1,5 @@
 import React, {Component} from "react";
-import Field from "./Field";
 import "./Ship.css";
-import {FIELD_TYPES} from "../../redux/actions/field-action";
 import {Redirect} from "react-router-dom";
 import "./Ship.css";
 import "./Field.css"
@@ -48,11 +46,7 @@ export default class Ship extends Component {
         let cells = [];
         for (let i = 0; i < this.props.ship.size; i++) {
             let key = this.props.id + "-" + i;
-            if(this.props.id === "current") {
-                cells.push(<div className={this.props.className + " field-ship "} key={key}/>)
-            } else {
-                cells.push(<Field playground={this.props.playground} type={FIELD_TYPES.SHIP} key={key} id={key}/>)
-            }
+            cells.push(<div className={this.props.className + " field-ship "} key={key}/>)
         }
 
         if (this.state.reload) {

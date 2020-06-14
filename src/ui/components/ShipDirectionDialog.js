@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Field from "./Field";
 import {FIELD_TYPES} from "../../redux/actions/field-action";
+import "./Field.css";
 
 export default class ShipDirectionDialog extends Component {
     /* props
@@ -19,12 +20,16 @@ export default class ShipDirectionDialog extends Component {
         for (let i = 0; i < this.props.ship.size; i++) {
             let cells = [];
             for (let j = 0; j < this.props.ship.size + 2; j++) {
-                let className = "";
-                if ((i === 0 && j !== 1) || (i !== 0 && j === 0)) {
-                    className = "ship-selected"
+                if (i === 0 && j !== 1) {
+                    let index = (j-2) < 0 ? 0 : (j-2);
+                    let id = this.props.ship.name.toLowerCase() + "-" + this.props.ship.id + "-" + index;
+                    cells.push(<Field playground={this.props.playground} id={id} key={++keys} className="ship-selected" type={FIELD_TYPES.OVERLAY} />);
+                } else if (i !== 0 && j === 0) {
+                    let id = this.props.ship.name.toLowerCase() + "-" + this.props.ship.id + "-" + i;
+                    cells.push(<Field playground={this.props.playground} id={id} key={++keys} className="ship-selected" type={FIELD_TYPES.OVERLAY} />);
+                } else {
+                    cells.push(<div key={++keys} className="field-ship"/>);
                 }
-                let id = this.props.ship.name.toLowerCase() + "-" + this.props.ship.id + "-" + this.props.index;
-                cells.push(<Field playground={this.props.playground} id={id} key={++keys} className={className} type={FIELD_TYPES.OVERLAY} />)
             }
             rows.push(<div style={{display: "flex", justifyContent: "center"}} key={++keys} >{cells}</div>)
         }
@@ -32,7 +37,7 @@ export default class ShipDirectionDialog extends Component {
         return (
             <div className="box" style={{backgroundColor: "#eeeeee"}}>
                 <h2 className="subtitle">
-                    {this.props.ship.name}
+                    {this.props.ship.name !== "Battleship" && this.props.ship.id+1 + "."} {this.props.ship.name}
                     <br/>
                     (Ausrichtung wählen)
                 </h2>

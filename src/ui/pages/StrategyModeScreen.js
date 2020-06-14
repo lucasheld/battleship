@@ -34,6 +34,12 @@ class StrategyModeScreen extends Component {
         return enabledShips.length > 0;
     };
 
+    onPopupMouseDown = (ship) => {
+        if(!ship.disabled) {
+            this.props.openPopup(true, ship);
+        }
+    };
+
     render() {
         if (this.state.redirect) {
             return <Redirect to="/setup" />;
@@ -57,7 +63,7 @@ class StrategyModeScreen extends Component {
                     </div>
                     <div className="column">
                         {this.props.ships[this.playground].map(ship =>
-                            <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered">
+                            <div key={ship.name.toLowerCase() + "-" + ship.id} className="columns is-centered" onClick={() => this.onPopupMouseDown(ship)}>
                                 <Ship playground={this.playground} id={ship.name.toLowerCase() + "-" + ship.id} ship={ship} />
                             </div>
                         )}
