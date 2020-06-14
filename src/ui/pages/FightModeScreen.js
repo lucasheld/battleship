@@ -36,7 +36,7 @@ class FightModeScreen extends Component {
     };
 
     getOtherPlayer = () => {
-        return this.props.players.filter(player => player.id !== this.props.activePlayerId)[0];
+        return this.props.players.filter(player => player.id !== this.playerId)[0];
     };
 
     unsetFirstRound = () => {
