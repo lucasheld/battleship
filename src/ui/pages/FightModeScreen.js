@@ -46,7 +46,6 @@ class FightModeScreen extends Component {
 
     checkWinner = () => {
         let playground = this.myPlayer.id === 0 ? PLAYGROUND_TYPE.PLAYER2FULL : PLAYGROUND_TYPE.PLAYER1FULL;
-        console.log(this.props.fields[playground].filter(field => field.color === "field-valid" || field.color === "field-blocked"))
         return !this.props.fields[playground].filter(field => field.color === "field-valid" || field.color === "field-blocked")[0];
     };
 
