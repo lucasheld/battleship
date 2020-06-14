@@ -15,8 +15,10 @@ class PlayerProfileScreen extends Component {
 
     constructor(props) {
         super(props);
+        // Player id from the url params
         this.playerId = Number(this.props.match.params.playerId);
         this.player = this.getPlayer();
+        // Is true when a player is in initial state of the player reducer
         this.playerIsDefault = this.player === player0default || this.player === player1default;
         this.state = {
             redirect: false,
@@ -26,12 +28,18 @@ class PlayerProfileScreen extends Component {
         };
     }
 
+    /**
+     * Decreases the seed for drawing the identicon
+     */
     decreaseSeed = () => {
         this.setState({
             identiconSeed: this.state.identiconSeed - 1
         })
     };
 
+    /**
+     * Increases the seed for drawing the identicon
+     */
     increaseSeed = () => {
         this.setState({
             identiconSeed: this.state.identiconSeed + 1
@@ -45,6 +53,10 @@ class PlayerProfileScreen extends Component {
         })
     };
 
+    /**
+     * Handles the pin/nick field inputs and writes them in a state
+     * @param event
+     */
     handleInputChange = (event) => {
         const target = event.target;
         const value = target.value;
@@ -59,6 +71,12 @@ class PlayerProfileScreen extends Component {
         this.props.changePlayer(p);
     };
 
+    /**
+     * Save button is disabled as long as there are no inputs
+     * Pin has to be PIN_LENGTH long
+     * Nick has at least to be NICK_MIN_LENGTH long
+     * @returns {boolean}
+     */
     isSaveDisabled = () => {
         return this.state.playerName === "" || this.state.playerPin === "" || this.state.playerPin.length !== PIN_LENGTH || this.state.playerName.length < NICK_MIN_LENGTH;
     };
@@ -67,6 +85,10 @@ class PlayerProfileScreen extends Component {
         return this.props.players.filter(player => player.id === this.playerId)[0];
     };
 
+    /**
+     * Gets the old pin if there is one
+     * @returns {element}
+     */
     getOldNick = () => {
         if (!this.playerIsDefault) {
             return (
@@ -77,6 +99,11 @@ class PlayerProfileScreen extends Component {
         }
     };
 
+    /**
+     * Gets the old pin if there is one
+     * Shows only last and first character and the rest as *
+     * @returns {element}
+     */
     getOldPin = () => {
         if (!this.playerIsDefault) {
             return (
@@ -90,10 +117,11 @@ class PlayerProfileScreen extends Component {
 
     render() {
         if (this.state.redirect) {
+            // When reaching this screen from ingame leave it also to ingame!
             if (this.props.match.params.ingame) {
                 return this.playerId === 0 ? <Redirect to="/fight-mode/0"/> : <Redirect to="/fight-mode/1"/>;
             }
-
+            // Redirect to next player profile or when you are there redirect to setup
             if (this.playerId === 0) {
                 return <Redirect to="/player-profile/1"/>;
             } else {
