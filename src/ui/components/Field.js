@@ -55,7 +55,7 @@ class Field extends Component {
     isValid = (start, index, end) => {
         let shipInfo = parseShip(this.props.activeShip);
         let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
-        let orientation = this.props.orient.filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+        let orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
 
         if(orientation === "horizontal") {
             let startFloor = Math.floor((start-1)/10);
@@ -110,7 +110,7 @@ class Field extends Component {
         if (this.props.activeShip != null) {
             let shipInfo = parseShip(this.props.activeShip);
             let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
-            orientation = this.props.orient.filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+            orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
         }
 
         if(orientation === "horizontal") {
@@ -188,7 +188,7 @@ class Field extends Component {
         let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
 
         if(this.props.orientation) {
-            this.props.setOrient(this.props.orientation, shipInfo.name, shipInfo.id);
+            this.props.setOrient(this.props.playground, this.props.orientation, shipInfo.name, shipInfo.id);
         }
 
         // do not allow using a ship twice
@@ -249,7 +249,7 @@ class Field extends Component {
 
         let shipInfo = parseShip(this.props.activeShip);
         let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
-        let orientation = this.props.orient.filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+        let orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
 
         if (orientation === "horizontal") {
             element.style.left = `${event.clientX + this.calculateMiddle(bounds, bounds.width)}px`;
@@ -279,7 +279,7 @@ class Field extends Component {
     noShipsNear = (startIndex, index, endIndex) => {
         let shipInfo = parseShip(this.props.activeShip);
         let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
-        let orientation = this.props.orient.filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+        let orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
 
         if (orientation === "horizontal") {
             for (let i = startIndex; i < endIndex; i++) {

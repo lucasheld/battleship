@@ -54,7 +54,7 @@ class Ship extends Component {
             className = "ship-current";
         }
 
-        let orientation = this.props.orient.filter(ship => ship.id === this.props.ship.id && ship.name === this.props.ship.name)[0]
+        let orientation = this.props.orient[this.props.playground].filter(ship => ship.id === this.props.ship.id && ship.name === this.props.ship.name)[0]
         if (orientation) {
             orientation = orientation.orientation;
         }
