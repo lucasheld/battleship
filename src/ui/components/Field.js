@@ -209,11 +209,11 @@ class Field extends Component {
      * Is fired when a field is clicked and player is in the strategy mode
      */
     handleDragStartEvent = (event) => {
-        event.preventDefault();
         // If in fight mode return
         if (!this.props.shipIsDraggable) {
             return;
         }
+        event.preventDefault();
         let id = this.props.id;
         let isOnPlayground = false;
         // If a field on the playground is clicked get the actual ship id and not the fields id
