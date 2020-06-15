@@ -213,6 +213,7 @@ class Field extends Component {
         if (!this.props.shipIsDraggable) {
             return;
         }
+        // Prevents scrolling when a field is dragged therefore mobile devices working too!
         event.preventDefault();
         let id = this.props.id;
         let isOnPlayground = false;
@@ -481,6 +482,7 @@ class Field extends Component {
      * Adds field to store
      */
     componentDidMount() {
+        // The listener are added here to set them passive false
         this.fieldRef.addEventListener("mousedown", this.handleDragStartEvent, { passive: false });
         this.fieldRef.addEventListener("touchstart", this.handleDragStartEvent, { passive: false });
         if (!this.field) {
@@ -493,6 +495,7 @@ class Field extends Component {
      * Unsubscribe events if they aren't
      */
     componentWillUnmount() {
+        // Remove the listeners from componentDidMount
         this.fieldRef.removeEventListener("mousedown", this.handleDragStartEvent);
         this.fieldRef.removeEventListener("touchstart", this.handleDragStartEvent);
         if (this.eventMouseUp != null) {
