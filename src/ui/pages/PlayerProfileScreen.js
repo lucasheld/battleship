@@ -119,10 +119,18 @@ class PlayerProfileScreen extends Component {
      */
     getOldPin = () => {
         if (!this.playerIsDefault) {
+            let substring = this.player.pin.substring(1, this.player.pin.length - 1);
+            let hidden = this.player.pin.substring(0, 1);
+            for (let i = 0; i < substring.length; i++) {
+                hidden += "*";
+            }
+            hidden += this.player.pin.substring(this.player.pin.length - 1, this.player.pin.length);
+
             return (
                 <tr>
-                    <th colSpan={2} className="is-vcentered">Old
-                        pin: {this.player.pin.replace(/(?<!^).(?!$)/g, '*')}</th>
+                    <th colSpan={2} className="is-vcentered">
+                        Old pin: {hidden}
+                    </th>
                 </tr>
             );
         }
