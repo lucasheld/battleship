@@ -23,7 +23,9 @@ class Field extends Component {
         };
         // Events for dragging
         this.eventMouseMove = null;
+        this.eventTouchMove = null;
         this.eventMouseUp = null;
+        this.eventTouchEnd = null;
     }
 
     /**
@@ -249,7 +251,9 @@ class Field extends Component {
         });
         // Subscribe to the mousemove and mouseup event of the document
         this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
+        this.eventTouchMove = fromEvent(document, "touchmove").subscribe(this.handleMouseMove);
         this.eventMouseUp = fromEvent(document, "mouseup").subscribe(this.fireOnMouseUp);
+        this.eventTouchEnd = fromEvent(document, "touchend").subscribe(this.fireOnMouseUp);
     };
 
     /**
@@ -269,8 +273,23 @@ class Field extends Component {
     fireOnMouseUp = (event) => {
         // No need to subscribe to mouseMove event when not dragging
         this.eventMouseMove.unsubscribe();
+        this.eventTouchMove.unsubscribe();
         // Get the playground field to which was dragged
-        let element = document.elementFromPoint(event.x, event.y);
+
+        let pageX;
+        let pageY;
+        if (event instanceof TouchEvent) {
+            let changes = event.changedTouches;
+            if (changes.length !== 1) return;
+            event = changes[0];
+            pageX = event.pageX;
+            pageY = event.pageY;
+        } else {
+            pageX = event.x;
+            pageY = event.y;
+        }
+
+        let element = document.elementFromPoint(pageX, pageY);
         // Was this not on the playground?
         if (element === null) {
             // Handle cursor outside window and don't render copy anymore
@@ -315,6 +334,7 @@ class Field extends Component {
         // If there's no return and unsubscribe
         if (!element) {
             this.eventMouseMove.unsubscribe();
+            this.eventTouchMove.unsubscribe();
             return;
         }
         // Gets the ships position on screen
@@ -323,6 +343,20 @@ class Field extends Component {
         let shipInfo = parseShip(this.props.activeShip);
         let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
         let orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation;
+
+        // if the event is a touch event, use the event from the fist finger and adjust the page x and y coordinate
+        let pageX;
+        let pageY;
+        if (event instanceof TouchEvent) {
+            let changes = event.changedTouches;
+            if (changes.length !== 1) return;
+            event = changes[0];
+            pageX = event.pageX;
+            pageY = event.pageY;
+        } else {
+            pageX = event.x;
+            pageY = event.y;
+        }
 
         if (orientation === "horizontal") {
             // Sets horizontal ship to anchor point
@@ -333,11 +367,11 @@ class Field extends Component {
             element.style.left = `${event.clientX - bounds.width + 15}px`;
             element.style.top = `${event.clientY + this.calculateMiddle(bounds, bounds.height + 15)}px`;
         }
-        if (document.elementFromPoint(event.x, event.y) === null) {
+        if (document.elementFromPoint(pageX, pageY) === null) {
             return;
         }
         // Invokes rendering color when dragging
-        this.renderDraggedShip(document.elementFromPoint(event.x, event.y).id);
+        this.renderDraggedShip(document.elementFromPoint(pageX, pageY).id);
     };
 
     /**
@@ -456,10 +490,12 @@ class Field extends Component {
      */
     componentWillUnmount() {
         if (this.eventMouseUp != null) {
-            this.eventMouseUp.unsubscribe()
+            this.eventMouseUp.unsubscribe();
+            this.eventTouchEnd.unsubscribe();
         }
         if (this.eventMouseMove != null) {
-            this.eventMouseMove.unsubscribe()
+            this.eventMouseMove.unsubscribe();
+            this.eventTouchMove.unsubscribe();
         }
     }
 
@@ -530,14 +566,14 @@ class Field extends Component {
         return (
             this.props.type === FIELD_TYPES.PLAYGROUND ?
                 <div className={this.props.className + " field-ship " + className} id={this.props.id}
-                     onMouseDown={this.fireOnMouseDown} onClick={this.fireOnClick}>
+                     onMouseDown={this.fireOnMouseDown} onTouchStart={this.fireOnMouseDown} onClick={this.fireOnClick}>
                     {this.state.renderElement &&
                     <Ship playground={this.props.playground} className={this.state.color} ship={copyShip}
                           isCopy={true}/>}
                 </div>
                 : // this.props.type === FIELD_TYPES.OVERLAY ?
                 <div className={this.props.className + " field-ship"} id={this.props.id}
-                     onMouseDown={this.fireOnMouseDown}>
+                     onMouseDown={this.fireOnMouseDown} onTouchStart={this.fireOnMouseDown}>
                     {this.state.renderElement &&
                     <Ship playground={this.props.playground} className={this.state.color} ship={copyShip}
                           isCopy={true}/>}
