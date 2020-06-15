@@ -213,8 +213,6 @@ class Field extends Component {
         if (!this.props.shipIsDraggable) {
             return;
         }
-        // Prevents scrolling when a field is dragged therefore mobile devices working too!
-        event.preventDefault();
         let id = this.props.id;
         let isOnPlayground = false;
         // If a field on the playground is clicked get the actual ship id and not the fields id
@@ -257,6 +255,8 @@ class Field extends Component {
         this.eventTouchMove = fromEvent(document, "touchmove").subscribe(this.handleMoveEvent);
         this.eventMouseUp = fromEvent(document, "mouseup").subscribe(this.handleDragStopEvent);
         this.eventTouchEnd = fromEvent(document, "touchend").subscribe(this.handleDragStopEvent);
+        // Prevents scrolling when a field is dragged therefore mobile devices working too!
+        event.preventDefault();
     };
 
     /**
