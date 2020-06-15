@@ -281,7 +281,7 @@ class Field extends Component {
 
         let pageX;
         let pageY;
-        if (event instanceof TouchEvent) {
+        if (event.changedTouches) {
             let changes = event.changedTouches;
             if (changes.length !== 1) return;
             event = changes[0];
@@ -350,7 +350,7 @@ class Field extends Component {
         // if the event is a touch event, use the event from the fist finger and adjust the page x and y coordinate
         let pageX;
         let pageY;
-        if (event instanceof TouchEvent) {
+        if (event.changedTouches) {
             let changes = event.changedTouches;
             if (changes.length !== 1) return;
             event = changes[0];
