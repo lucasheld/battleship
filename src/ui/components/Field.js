@@ -207,7 +207,7 @@ class Field extends Component {
     /**
      * Is fired when a field is clicked and player is in the strategy mode
      */
-    fireOnMouseDown = () => {
+    handleDragStartEvent = () => {
         // If in fight mode return
         if (!this.props.shipIsDraggable) {
             return;
@@ -250,10 +250,10 @@ class Field extends Component {
             renderElement: true
         });
         // Subscribe to the mousemove and mouseup event of the document
-        this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMouseMove);
-        this.eventTouchMove = fromEvent(document, "touchmove").subscribe(this.handleMouseMove);
-        this.eventMouseUp = fromEvent(document, "mouseup").subscribe(this.fireOnMouseUp);
-        this.eventTouchEnd = fromEvent(document, "touchend").subscribe(this.fireOnMouseUp);
+        this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMoveEvent);
+        this.eventTouchMove = fromEvent(document, "touchmove").subscribe(this.handleMoveEvent);
+        this.eventMouseUp = fromEvent(document, "mouseup").subscribe(this.handleDragStopEvent);
+        this.eventTouchEnd = fromEvent(document, "touchend").subscribe(this.handleDragStopEvent);
     };
 
     /**
@@ -270,7 +270,7 @@ class Field extends Component {
      * Invokes the paint of the ship on the playground
      * @param event
      */
-    fireOnMouseUp = (event) => {
+    handleDragStopEvent = (event) => {
         // No need to subscribe to mouseMove event when not dragging
         this.eventMouseMove.unsubscribe();
         this.eventTouchMove.unsubscribe();
@@ -328,7 +328,7 @@ class Field extends Component {
      * Does checks if ship could be set to playground and invokes rendering it
      * @param event: Used to get mouse position
      */
-    handleMouseMove = (event) => {
+    handleMoveEvent = (event) => {
         // Gets the copy ship
         let element = document.getElementsByClassName("ship-current")[0];
         // If there's no return and unsubscribe
@@ -566,14 +566,14 @@ class Field extends Component {
         return (
             this.props.type === FIELD_TYPES.PLAYGROUND ?
                 <div className={this.props.className + " field-ship " + className} id={this.props.id}
-                     onMouseDown={this.fireOnMouseDown} onTouchStart={this.fireOnMouseDown} onClick={this.fireOnClick}>
+                     onMouseDown={this.handleDragStartEvent} onTouchStart={this.handleDragStartEvent} onClick={this.fireOnClick}>
                     {this.state.renderElement &&
                     <Ship playground={this.props.playground} className={this.state.color} ship={copyShip}
                           isCopy={true}/>}
                 </div>
                 : // this.props.type === FIELD_TYPES.OVERLAY ?
                 <div className={this.props.className + " field-ship"} id={this.props.id}
-                     onMouseDown={this.fireOnMouseDown} onTouchStart={this.fireOnMouseDown}>
+                     onMouseDown={this.handleDragStartEvent} onTouchStart={this.handleDragStartEvent}>
                     {this.state.renderElement &&
                     <Ship playground={this.props.playground} className={this.state.color} ship={copyShip}
                           isCopy={true}/>}
