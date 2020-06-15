@@ -17,6 +17,7 @@ class Field extends Component {
         super(props);
         // Actual field
         this.field = {};
+        this.fieldRef = null;
         this.state = {
             renderElement: false,
             color: "field-valid"
@@ -207,7 +208,8 @@ class Field extends Component {
     /**
      * Is fired when a field is clicked and player is in the strategy mode
      */
-    handleDragStartEvent = () => {
+    handleDragStartEvent = (event) => {
+        event.preventDefault();
         // If in fight mode return
         if (!this.props.shipIsDraggable) {
             return;
@@ -479,6 +481,8 @@ class Field extends Component {
      * Adds field to store
      */
     componentDidMount() {
+        this.fieldRef.addEventListener("mousedown", this.handleDragStartEvent, { passive: false });
+        this.fieldRef.addEventListener("touchstart", this.handleDragStartEvent, { passive: false });
         if (!this.field) {
             this.field = new FieldClass(this.props.id, this.props.type);
             this.props.addField(this.props.playground, this.field);
@@ -489,6 +493,8 @@ class Field extends Component {
      * Unsubscribe events if they aren't
      */
     componentWillUnmount() {
+        this.fieldRef.removeEventListener("mousedown", this.handleDragStartEvent);
+        this.fieldRef.removeEventListener("touchstart", this.handleDragStartEvent);
         if (this.eventMouseUp != null) {
             this.eventMouseUp.unsubscribe();
         }
@@ -570,14 +576,14 @@ class Field extends Component {
         return (
             this.props.type === FIELD_TYPES.PLAYGROUND ?
                 <div className={this.props.className + " field-ship " + className} id={this.props.id}
-                     onMouseDown={this.handleDragStartEvent} onTouchStart={this.handleDragStartEvent} onClick={this.fireOnClick}>
+                     ref={ref => this.fieldRef = ref} onClick={this.fireOnClick}>
                     {this.state.renderElement &&
                     <Ship playground={this.props.playground} className={this.state.color} ship={copyShip}
                           isCopy={true}/>}
                 </div>
                 : // this.props.type === FIELD_TYPES.OVERLAY ?
                 <div className={this.props.className + " field-ship"} id={this.props.id}
-                     onMouseDown={this.handleDragStartEvent} onTouchStart={this.handleDragStartEvent}>
+                     ref={ref => this.fieldRef = ref} >
                     {this.state.renderElement &&
                     <Ship playground={this.props.playground} className={this.state.color} ship={copyShip}
                           isCopy={true}/>}
