@@ -11,6 +11,6 @@ body {
     user-select: none;
 }
 
-html, body {
+html {
     overscroll-behavior-y: contain;
 }
