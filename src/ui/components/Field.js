@@ -491,10 +491,14 @@ class Field extends Component {
     componentWillUnmount() {
         if (this.eventMouseUp != null) {
             this.eventMouseUp.unsubscribe();
+        }
+        if (this.eventTouchEnd != null) {
             this.eventTouchEnd.unsubscribe();
         }
         if (this.eventMouseMove != null) {
             this.eventMouseMove.unsubscribe();
+        }
+        if (this.eventTouchMove != null) {
             this.eventTouchMove.unsubscribe();
         }
     }
