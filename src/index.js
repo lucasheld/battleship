@@ -12,6 +12,14 @@ import reducers from './redux/reducer-list'
  */
 const store = createStore(reducers);
 
+/**
+ * This event displays a confirmation dialog when the user tries to leave the page.
+ * @returns {string}
+ */
+window.onbeforeunload = function(){
+    return "";
+};
+
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
