@@ -18,7 +18,7 @@ export const setFieldColorAction = (playground, id, color) => {
             color: color
         },
         playground: playground
-    }
+    };
 };
 
 /**
@@ -30,7 +30,7 @@ export const setFieldColorGreenAction = (playground) => {
     return {
         type: SET_COLOR_GREEN,
         playground: playground
-    }
+    };
 };
 
 
@@ -45,7 +45,7 @@ export const addFieldAction = (playground, field) => {
         type: ADD_FIELD,
         data: field,
         playground: playground
-    }
+    };
 };
 
 /**
@@ -63,7 +63,7 @@ export const setShipFieldIndexAction = (playground, id, index) => {
             index: index
         },
         playground: playground
-    }
+    };
 };
 
 /**

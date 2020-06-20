@@ -13,7 +13,7 @@ export const selectShipAction = (playground, ship) => {
         type: SELECT_SHIP,
         data: ship,
         playground: playground
-    }
+    };
 };
 
 /**
@@ -27,7 +27,7 @@ export const deselectShipAction = (playground, ship) => {
         type: DESELECT_SHIP,
         data: ship,
         playground: playground
-    }
+    };
 };
 
 /**
@@ -41,5 +41,5 @@ export const disableShipAction = (playground, ship) => {
         type: DISABLE_SHIP,
         data: ship,
         playground: playground
-    }
+    };
 };

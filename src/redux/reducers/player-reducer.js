@@ -55,7 +55,7 @@ export function playerReducer(state = initialState, action) {
                         nick: action.data.nick,
                         pin: action.data.pin,
                         avatar: action.data.avatar
-                    })
+                    });
                 }
                 return player;
             });
@@ -67,7 +67,7 @@ export function playerReducer(state = initialState, action) {
                 if (player.id === action.data) {
                     return Object.assign({}, player, {
                         ready: true
-                    })
+                    });
                 }
                 return player;
             });

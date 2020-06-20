@@ -17,5 +17,5 @@ export const setOrientationAction = (playground, orientation, name, id) => {
             id: id
         },
         playground: playground
-    }
+    };
 };

@@ -6,5 +6,5 @@
 export function mapStateToProps(state) {
     return {
         orient: state.orientationReducer
-    }
+    };
 }

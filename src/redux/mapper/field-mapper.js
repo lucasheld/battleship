@@ -19,7 +19,7 @@ export function mapStateToProps(state) {
         shipIsDraggable: state.shipDraggableReducer,
         noFire: state.noFireReducer,
         orient: state.orientationReducer
-    }
+    };
 }
 
 /**

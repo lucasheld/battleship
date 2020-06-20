@@ -12,7 +12,7 @@ export function mapStateToProps(state) {
         activePlayerId: state.activePlayerReducer,
         mode: state.modeReducer,
         isFirstRound: state.firstRoundReducer
-    }
+    };
 }
 
 /**

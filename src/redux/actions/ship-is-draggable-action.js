@@ -7,5 +7,5 @@ export const SET_SHIPS_NOT_DRAGGABLE = "SET_SHIPS_NOT_DRAGGABLE";
 export const setShipsNotDraggableAction = () => {
     return {
         type: SET_SHIPS_NOT_DRAGGABLE,
-    }
+    };
 };

@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import Identicon from 'react-identicons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons'
-import {Link, Redirect} from "react-router-dom"
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
+import {Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/player-profile-mapper";
 import Player from "../../redux/data-classes/player";
@@ -36,7 +36,7 @@ class PlayerProfileScreen extends Component {
     decreaseSeed = () => {
         this.setState({
             identiconSeed: this.state.identiconSeed - 1
-        })
+        });
     };
 
     /**
@@ -45,7 +45,7 @@ class PlayerProfileScreen extends Component {
     increaseSeed = () => {
         this.setState({
             identiconSeed: this.state.identiconSeed + 1
-        })
+        });
     };
 
     /**
@@ -55,7 +55,7 @@ class PlayerProfileScreen extends Component {
         this.setPlayer();
         this.setState({
             redirect: true
-        })
+        });
     };
 
     /**

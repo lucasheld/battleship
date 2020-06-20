@@ -12,7 +12,7 @@ export function mapStateToProps(state) {
         players: state.playerReducer,
         ships: state.shipReducer,
         popupOpen: state.popupOpenReducer
-    }
+    };
 }
 
 /**

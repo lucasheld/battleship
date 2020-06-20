@@ -23,7 +23,7 @@ class FightModeScreen extends Component {
         this.paintEverythingGreen();
         this.state = {
             redirect: false,
-        }
+        };
     }
 
     /**
@@ -41,7 +41,7 @@ class FightModeScreen extends Component {
     triggerRedirect = () => {
         this.setState({
             redirect: true
-        })
+        });
     };
 
     /**

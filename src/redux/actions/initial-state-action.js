@@ -7,5 +7,5 @@ export const SET_INITIAL_STATE = "SET_INITIAL_STATE";
 export const setInitialStateAction = () => {
     return {
         type: SET_INITIAL_STATE
-    }
+    };
 };

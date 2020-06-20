@@ -10,7 +10,7 @@ export const changePlayerAction = (player) => {
     return {
         type: CHANGE_PLAYER,
         data: player,
-    }
+    };
 };
 
 /**
@@ -22,5 +22,5 @@ export const setPlayerReadyAction = (id) => {
     return {
         type: SET_READY,
         data: id,
-    }
+    };
 };

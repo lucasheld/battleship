@@ -9,7 +9,7 @@ import {setInitialStateAction} from "../actions/initial-state-action";
 export function mapStateToProps(state) {
     return {
         players: state.playerReducer
-    }
+    };
 }
 
 /**

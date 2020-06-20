@@ -20,7 +20,7 @@ class StrategyModeScreen extends Component {
         this.playground = this.playerId === 0 ? PLAYGROUND_TYPE.PLAYER1FULL : PLAYGROUND_TYPE.PLAYER2FULL;
         this.state = {
             redirect: false
-        }
+        };
     }
 
     /**
@@ -31,7 +31,7 @@ class StrategyModeScreen extends Component {
         this.props.setPlayerReady(this.playerId);
         this.setState({
             redirect: true
-        })
+        });
     };
 
     /**

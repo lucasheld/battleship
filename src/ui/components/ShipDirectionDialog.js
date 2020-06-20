@@ -35,7 +35,7 @@ export default class ShipDirectionDialog extends Component {
                     cells.push(<div key={++keys} className="field-ship"/>);
                 }
             }
-            rows.push(<div style={{display: "flex", justifyContent: "center"}} key={++keys}>{cells}</div>)
+            rows.push(<div style={{display: "flex", justifyContent: "center"}} key={++keys}>{cells}</div>);
         }
 
         return (
@@ -50,6 +50,6 @@ export default class ShipDirectionDialog extends Component {
                     {rows}
                 </div>
             </div>
-        )
+        );
     }
 }

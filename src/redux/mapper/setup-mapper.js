@@ -10,7 +10,7 @@ import {setModeAction} from "../actions/mode-action";
 export function mapStateToProps(state) {
     return {
         players: state.playerReducer
-    }
+    };
 }
 
 /**

@@ -17,7 +17,7 @@ export function mapStateToProps(state) {
         isFirstRound: state.firstRoundReducer,
         fields: state.fieldReducer,
         noFire: state.noFireReducer
-    }
+    };
 }
 
 /**

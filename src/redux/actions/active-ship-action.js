@@ -9,5 +9,5 @@ export const setActiveShipAction = (ship) => {
     return {
         type: SET_ACTIVE_SHIP,
         data: ship,
-    }
+    };
 };

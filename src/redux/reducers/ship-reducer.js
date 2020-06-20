@@ -107,7 +107,7 @@ export function shipReducer(state = initialState, action) {
                         return Object.assign({}, ship, {
                             selected: true,
                             disabled: false
-                        })
+                        });
                     }
                     return ship;
                 })
@@ -122,7 +122,7 @@ export function shipReducer(state = initialState, action) {
                         return Object.assign({}, ship, {
                             selected: false,
                             disabled: false
-                        })
+                        });
                     }
                     return ship;
                 })
@@ -137,7 +137,7 @@ export function shipReducer(state = initialState, action) {
                         return Object.assign({}, ship, {
                             disabled: true,
                             selected: false
-                        })
+                        });
                     }
                     return ship;
                 })
@@ -189,13 +189,13 @@ function capitalizeFirstLetter(string) {
 export function getShipLength(id) {
     let shipSize;
     if (id.startsWith("submarine")) {
-        shipSize = 2
+        shipSize = 2;
     } else if (id.startsWith("destroyer")) {
-        shipSize = 3
+        shipSize = 3;
     } else if (id.startsWith("cruiser")) {
-        shipSize = 4
+        shipSize = 4;
     } else {
-        shipSize = 5
+        shipSize = 5;
     }
     return shipSize;
 }

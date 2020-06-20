@@ -1,5 +1,5 @@
 import {bindActionCreators} from "redux";
-import {changePlayerAction} from "../actions/player-action"
+import {changePlayerAction} from "../actions/player-action";
 
 /**
  * Maps listed states to props
@@ -9,7 +9,7 @@ import {changePlayerAction} from "../actions/player-action"
 export function mapStateToProps(state) {
     return {
         players: state.playerReducer
-    }
+    };
 }
 
 /**

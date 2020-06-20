@@ -16,7 +16,7 @@ class LockScreen extends Component {
         this.state = {
             redirect: false,
             playerPin: ""
-        }
+        };
     }
 
     /**
@@ -38,7 +38,7 @@ class LockScreen extends Component {
         }
         this.setState({
             redirect: true
-        })
+        });
     };
 
     /**

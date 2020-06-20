@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "./Ship.css";
 import {Redirect} from "react-router-dom";
-import "./Field.css"
+import "./Field.css";
 import {connect} from "react-redux";
 import {mapStateToProps} from "../../redux/mapper/ship-mapper";
 
@@ -14,14 +14,14 @@ class Ship extends Component {
         this.state = {
             reload: false,
             displayPopup: false
-        }
+        };
     }
 
     render() {
         // Define ships background color
         let backgroundColor;
         if (this.props.ship.disabled) {
-            backgroundColor = '#a6a6a6'
+            backgroundColor = '#a6a6a6';
         } else if (this.props.ship.selected) {
             backgroundColor = '#9bbb59';
         } else {
@@ -90,7 +90,7 @@ class Ship extends Component {
                     >{cells}</div>
                 </div>
             </div>
-        )
+        );
     }
 }
 

@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {playerReducer} from "./reducers/player-reducer"
+import {playerReducer} from "./reducers/player-reducer";
 import {shipReducer} from "./reducers/ship-reducer";
 import {activePlayerReducer} from "./reducers/active-player-reducer";
 import {modeReducer} from "./reducers/mode-reducer";

@@ -16,7 +16,7 @@ export default class Playground extends Component {
             let number = 64 - j;
             let ascii = String.fromCharCode(number);
             // Top fields with letters A - J
-            cells.push(<div key={j} id={j} className="field-unused field-ship">{ascii}</div>)
+            cells.push(<div key={j} id={j} className="field-unused field-ship">{ascii}</div>);
         }
         // The first row with the fields from above
         rows.push(<div style={{display: "flex", justifyContent: "center"}} key={0} id={0}>{cells}</div>);
@@ -31,16 +31,16 @@ export default class Playground extends Component {
                 // All other fields are actual fields that could be clicked or messed around with in field.js
                 let cell = <Field playground={this.props.playground} key={pos} id={pos} type={FIELD_TYPES.PLAYGROUND}
                                   className="field-unused"/>;
-                cells.push(cell)
+                cells.push(cell);
             }
             // Add always a row from one iteration of the outer for loop
-            rows.push(<div style={{display: "flex", justifyContent: "center"}} key={i + 1} id={i + 1}>{cells}</div>)
+            rows.push(<div style={{display: "flex", justifyContent: "center"}} key={i + 1} id={i + 1}>{cells}</div>);
         }
         // Returns the table that was build above
         return (
             <div id="playground-table">
                 {rows}
             </div>
-        )
+        );
     }
 }

@@ -9,5 +9,5 @@ export const setFirstRoundAction = (isFirstRound) => {
     return {
         type: SET_FIRST_ROUND,
         data: isFirstRound
-    }
+    };
 };

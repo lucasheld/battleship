@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Redirect} from "react-router-dom"
+import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {mapStateToProps} from "../../redux/mapper/end-mapper";
 
@@ -11,7 +11,7 @@ class EndScreen extends Component {
         super(props);
         this.state = {
             redirect: false
-        }
+        };
     }
 
     /**
@@ -20,7 +20,7 @@ class EndScreen extends Component {
     triggerRedirect = () => {
         this.setState({
             redirect: true
-        })
+        });
     };
 
     /**

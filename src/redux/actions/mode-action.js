@@ -9,7 +9,7 @@ export const setModeAction = (id) => {
     return {
         type: SET_MODE,
         data: id,
-    }
+    };
 };
 
 /**

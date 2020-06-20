@@ -50,7 +50,7 @@ export function fieldReducer(state = initialState, action) {
                     if (field.id === action.data.id) {
                         return Object.assign({}, field, {
                             color: action.data.color
-                        })
+                        });
                     }
                     return field;
                 })
@@ -64,7 +64,7 @@ export function fieldReducer(state = initialState, action) {
                     if (field.color === "field-blocked") {
                         return Object.assign({}, field, {
                             color: "field-valid"
-                        })
+                        });
                     }
                     return field;
                 })
@@ -78,7 +78,7 @@ export function fieldReducer(state = initialState, action) {
                     if (field.id === action.data.id) {
                         return Object.assign({}, field, {
                             shipIndex: action.data.index
-                        })
+                        });
                     }
                     return field;
                 })

@@ -34,8 +34,8 @@ class Field extends Component {
     isValid = (start, index, end) => {
         // Gets the orientation
         let shipInfo = parseShip(this.props.activeShip);
-        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
-        let orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
+        let orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation;
         // Actual check
         if (orientation === "horizontal") {
             // Look if it's not in one row
@@ -109,8 +109,8 @@ class Field extends Component {
         let orientation;
         if (this.props.activeShip != null) {
             let shipInfo = parseShip(this.props.activeShip);
-            let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
-            orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+            let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
+            orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation;
         }
 
         if (orientation === "horizontal") {
@@ -221,7 +221,7 @@ class Field extends Component {
         }
 
         let shipInfo = parseShip(id);
-        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
 
         // Sets orientation based on the orientation prop that is given by the <Field ...> from ShipDirectionDialog.js
         if (this.props.orientation) {
@@ -256,7 +256,7 @@ class Field extends Component {
     repaintNextBlocked = () => {
         this.props.fields[this.props.playground].filter(field => field.color === "field-nextBlocked").forEach(field => {
             this.props.setFieldColor(this.props.playground, field.id, "field-unused");
-        })
+        });
     };
 
     /**
@@ -265,7 +265,7 @@ class Field extends Component {
     removeMoveEvent = () => {
         document.removeEventListener("mousemove", this.handleMoveEvent);
         document.removeEventListener("touchmove", this.handleMoveEvent);
-    }
+    };
 
     /**
      * Removes the event listener for drag stop events from the document.
@@ -273,7 +273,7 @@ class Field extends Component {
     removeDragStopEvent = () => {
         document.removeEventListener("mouseup", this.handleDragStopEvent);
         document.removeEventListener("touchend", this.handleDragStopEvent);
-    }
+    };
 
     /**
      * Is fired when the user is dragging and then drops the ship
@@ -415,8 +415,8 @@ class Field extends Component {
     noShipsNear = (startIndex, index, endIndex) => {
         // Gets orientation
         let shipInfo = parseShip(this.props.activeShip);
-        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
-        let orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation
+        let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
+        let orientation = this.props.orient[this.props.playground].filter(orient => orient.id === ship.id && orient.name === ship.name)[0].orientation;
 
         if (orientation === "horizontal") {
             // Checks for other ships from left to right field
@@ -538,7 +538,7 @@ class Field extends Component {
                 this.props.setFieldColor(this.props.playground, this.props.id, "field-invalid");
                 break;
             default:
-                console.log("Error!")
+                console.log("Error!");
         }
     };
 
@@ -555,7 +555,7 @@ class Field extends Component {
         let copyShip = {};
         if (this.props.activeShip) {
             let shipInfo = parseShip(this.props.activeShip);
-            let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0]
+            let ship = this.props.ships[this.props.playground].filter(ship => ship.id === shipInfo.id && ship.name === shipInfo.name)[0];
             copyShip = {
                 id: ship.id,
                 name: ship.name,
@@ -570,7 +570,8 @@ class Field extends Component {
         return (
             this.props.type === FIELD_TYPES.PLAYGROUND ?
                 <div className={this.props.className + " field-ship " + className} id={this.props.id}
-                     onMouseDown={this.handleDragStartEvent} onTouchStart={this.handleDragStartEvent} onClick={this.fireOnClick}>
+                     onMouseDown={this.handleDragStartEvent} onTouchStart={this.handleDragStartEvent}
+                     onClick={this.fireOnClick}>
                     {this.state.renderElement &&
                     <Ship playground={this.props.playground} className={this.state.color} ship={copyShip}
                           isCopy={true}/>}
@@ -582,7 +583,7 @@ class Field extends Component {
                     <Ship playground={this.props.playground} className={this.state.color} ship={copyShip}
                           isCopy={true}/>}
                 </div>
-        )
+        );
     }
 }
 
@@ -592,7 +593,7 @@ class Field extends Component {
  * @returns {boolean}
  */
 function isNumber(n) {
-    return !isNaN(parseFloat(n)) && !isNaN(n - 0)
+    return !isNaN(parseFloat(n)) && !isNaN(n - 0);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Field);

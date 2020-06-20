@@ -9,5 +9,5 @@ export const setActivePlayerAction = (id) => {
     return {
         type: SET_ACTIVE_PLAYER,
         data: id,
-    }
+    };
 };

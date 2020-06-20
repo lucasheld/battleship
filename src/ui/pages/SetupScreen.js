@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "./SetupScreen.css";
 import SetupCardComponent from "../components/SetupCardComponent";
-import {Redirect} from "react-router-dom"
+import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/setup-mapper";
 import {MODES} from "../../redux/actions/mode-action";
@@ -14,7 +14,7 @@ class SetupScreen extends Component {
         super(props);
         this.state = {
             redirect: false
-        }
+        };
     }
 
     /**
@@ -23,7 +23,7 @@ class SetupScreen extends Component {
     triggerRedirect = () => {
         this.setState({
             redirect: true
-        })
+        });
     };
 
     /**
@@ -54,7 +54,7 @@ class SetupScreen extends Component {
                             playerId={player.id}
                             playerReady={player.ready}
                             identiconSeed={player.avatar}
-                        />
+                        />;
                     })}
                 </div>
                 <div className="field">

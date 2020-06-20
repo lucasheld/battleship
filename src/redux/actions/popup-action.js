@@ -13,5 +13,5 @@ export const openPopupAction = (enabled, ship) => {
             enabled: enabled,
             ship: ship
         }
-    }
+    };
 };

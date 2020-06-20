@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Redirect} from "react-router-dom"
+import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/start-mapper";
 
@@ -13,7 +13,7 @@ class StartScreen extends Component {
         this.props.setInitialState();
         this.state = {
             redirect: false,
-        }
+        };
     }
 
     /**
@@ -22,7 +22,7 @@ class StartScreen extends Component {
     triggerRedirect = () => {
         this.setState({
             redirect: true
-        })
+        });
     };
 
     render() {

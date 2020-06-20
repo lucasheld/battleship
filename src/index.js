@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import App from './ui/App';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-import reducers from './redux/reducer-list'
+import reducers from './redux/reducer-list';
 
 /**
  * The redux store which stores all states in reducers
@@ -16,7 +16,7 @@ const store = createStore(reducers);
  * This event displays a confirmation dialog when the user tries to leave the page.
  * @returns {string}
  */
-window.onbeforeunload = function(){
+window.onbeforeunload = function () {
     return "";
 };
 

@@ -8,7 +8,7 @@ const initialState = {
     enabled: false,
     ship: null,
     index: null
-}
+};
 
 /**
  * Specifies how to state changes in response to actions.

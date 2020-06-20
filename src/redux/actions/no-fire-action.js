@@ -9,5 +9,5 @@ export const setNoFireAction = (noFire) => {
     return {
         type: SET_NO_FIRE,
         data: noFire
-    }
+    };
 };
