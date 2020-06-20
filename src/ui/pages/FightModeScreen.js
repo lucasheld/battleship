@@ -126,12 +126,12 @@ class FightModeScreen extends Component {
                         <br/>
                     </div>
                 </div>
-                <div className="control">
-                    <label className="label">
+                <div className="field">
+                    <div className="control">
                         <button className="button is-dark" disabled={!this.props.noFire}
                                 onClick={this.triggerRedirect}>Zug beenden
                         </button>
-                    </label>
+                    </div>
                 </div>
 
             </div>

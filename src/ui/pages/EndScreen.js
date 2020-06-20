@@ -43,7 +43,11 @@ class EndScreen extends Component {
             <div>
                 <h1 className="title">Glückwunsch!</h1>
                 <h2 className="subtitle">Hey {winnerName}, du hast gewonnen.</h2>
-                <button className="button is-dark" onClick={this.triggerRedirect}>Neues Spiel?</button>
+                <div className="field">
+                    <div className="control">
+                        <button className="button is-dark" onClick={this.triggerRedirect}>Neues Spiel?</button>
+                    </div>
+                </div>
             </div>
         );
     }

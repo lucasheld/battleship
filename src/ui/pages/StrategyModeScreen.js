@@ -82,12 +82,12 @@ class StrategyModeScreen extends Component {
                     <div className="column">
                         <Playground player={this.player} playground={this.playground}/>
                         <br/>
-                        <div className="control">
-                            <label className="label">
+                        <div className="field">
+                            <div className="control">
                                 <button className="button is-dark" onClick={this.triggerRedirect}
                                         disabled={this.isButtonDisabled()}>Fertig
                                 </button>
-                            </label>
+                            </div>
                         </div>
                     </div>
                     <div className="column">

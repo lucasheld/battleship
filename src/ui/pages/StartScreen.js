@@ -36,7 +36,11 @@ class StartScreen extends Component {
                 <h2 className="subtitle">Version 20.1.7</h2>
                 <h2>Werde Herrscher(in) über die Meere</h2>
                 <br/>
-                <button className="button is-dark" onClick={this.triggerRedirect}>Neues Spiel</button>
+                <div className="field">
+                    <div className="control">
+                        <button className="button is-dark" onClick={this.triggerRedirect}>Neues Spiel</button>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -57,10 +57,14 @@ class SetupScreen extends Component {
                         />
                     })}
                 </div>
-                <button className="button is-dark is-large"
-                        disabled={this.isStartDisabled()}
-                        onClick={this.triggerRedirect}>Seeschlacht beginnen
-                </button>
+                <div className="field">
+                    <div className="control">
+                        <button className="button is-dark is-large"
+                                disabled={this.isStartDisabled()}
+                                onClick={this.triggerRedirect}>Seeschlacht beginnen
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }

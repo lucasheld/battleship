@@ -206,14 +206,22 @@ class PlayerProfileScreen extends Component {
                             <div className="columns">
                                 <div className="column is-one-quarter"/>
                                 <div className="column">
-                                    <button className="button is-small" onClick={this.decreaseSeed}>
-                                        <FontAwesomeIcon icon={faAngleLeft}/>
-                                    </button>
+                                    <div className="field">
+                                        <div className="control">
+                                            <button className="button is-small" onClick={this.decreaseSeed}>
+                                                <FontAwesomeIcon icon={faAngleLeft}/>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="column">
-                                    <button className="button is-small" onClick={this.increaseSeed}>
-                                        <FontAwesomeIcon icon={faAngleRight}/>
-                                    </button>
+                                    <div className="field">
+                                        <div className="control">
+                                            <button className="button is-small" onClick={this.increaseSeed}>
+                                                <FontAwesomeIcon icon={faAngleRight}/>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="column is-one-quarter"/>
                             </div>
@@ -223,9 +231,13 @@ class PlayerProfileScreen extends Component {
                     <tfoot>
                     <tr>
                         <td colSpan="2">
-                            <button className="button is-dark" disabled={this.isSaveDisabled()}
-                                    onClick={this.triggerRedirect}>Speichern
-                            </button>
+                            <div className="field">
+                                <div className="control">
+                                    <button className="button is-dark" disabled={this.isSaveDisabled()}
+                                            onClick={this.triggerRedirect}>Speichern
+                                    </button>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     </tfoot>
