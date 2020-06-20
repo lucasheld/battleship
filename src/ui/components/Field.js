@@ -4,7 +4,6 @@ import {FIELD_TYPES} from "../../redux/actions/field-action";
 import {connect} from "react-redux";
 import {mapStateToProps, matchDispatchToProps} from "../../redux/mapper/field-mapper";
 import FieldClass from "../../redux/data-classes/field";
-import {fromEvent} from "rxjs";
 import Ship from "./Ship";
 import {getShipLength, parseShip} from "../../redux/reducers/ship-reducer";
 import {PLAYGROUND_TYPE} from "../../redux/reducers/field-reducer";
@@ -21,11 +20,6 @@ class Field extends Component {
             renderElement: false,
             color: "field-valid"
         };
-        // Events for dragging
-        this.eventMouseMove = null;
-        this.eventTouchMove = null;
-        this.eventMouseUp = null;
-        this.eventTouchEnd = null;
     }
 
     /**
@@ -250,10 +244,10 @@ class Field extends Component {
             renderElement: true
         });
         // Subscribe to the mousemove and mouseup event of the document
-        this.eventMouseMove = fromEvent(document, "mousemove").subscribe(this.handleMoveEvent);
-        this.eventTouchMove = fromEvent(document, "touchmove").subscribe(this.handleMoveEvent);
-        this.eventMouseUp = fromEvent(document, "mouseup").subscribe(this.handleDragStopEvent);
-        this.eventTouchEnd = fromEvent(document, "touchend").subscribe(this.handleDragStopEvent);
+        document.addEventListener("mousemove", this.handleMoveEvent);
+        document.addEventListener("touchmove", this.handleMoveEvent);
+        document.addEventListener("mouseup", this.handleDragStopEvent);
+        document.addEventListener("touchend", this.handleDragStopEvent);
     };
 
     /**
@@ -266,16 +260,31 @@ class Field extends Component {
     };
 
     /**
+     * Removes the event listener for move events from the document.
+     */
+    removeMoveEvent = () => {
+        document.removeEventListener("mousemove", this.handleMoveEvent);
+        document.removeEventListener("touchmove", this.handleMoveEvent);
+    }
+
+    /**
+     * Removes the event listener for drag stop events from the document.
+     */
+    removeDragStopEvent = () => {
+        document.removeEventListener("mouseup", this.handleDragStopEvent);
+        document.removeEventListener("touchend", this.handleDragStopEvent);
+    }
+
+    /**
      * Is fired when the user is dragging and then drops the ship
      * Invokes the paint of the ship on the playground
      * @param event
      */
     handleDragStopEvent = (event) => {
-        // No need to subscribe to mouseMove event when not dragging
-        this.eventMouseMove.unsubscribe();
-        this.eventTouchMove.unsubscribe();
-        // Get the playground field to which was dragged
+        // No need to subscribe to move event when not dragging
+        this.removeMoveEvent();
 
+        // Get the playground field to which was dragged
         let pageX;
         let pageY;
         if (event.changedTouches) {
@@ -333,8 +342,8 @@ class Field extends Component {
         let element = document.getElementsByClassName("ship-current")[0];
         // If there's no return and unsubscribe
         if (!element) {
-            this.eventMouseMove.unsubscribe();
-            this.eventTouchMove.unsubscribe();
+            this.removeMoveEvent();
+            this.removeDragStopEvent();
             return;
         }
         // Gets the ships position on screen
@@ -489,18 +498,8 @@ class Field extends Component {
      * Unsubscribe events if they aren't
      */
     componentWillUnmount() {
-        if (this.eventMouseUp != null) {
-            this.eventMouseUp.unsubscribe();
-        }
-        if (this.eventTouchEnd != null) {
-            this.eventTouchEnd.unsubscribe();
-        }
-        if (this.eventMouseMove != null) {
-            this.eventMouseMove.unsubscribe();
-        }
-        if (this.eventTouchMove != null) {
-            this.eventTouchMove.unsubscribe();
-        }
+        this.removeMoveEvent();
+        this.removeDragStopEvent();
     }
 
     /**
