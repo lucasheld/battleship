@@ -281,8 +281,9 @@ class Field extends Component {
      * @param event
      */
     handleDragStopEvent = (event) => {
-        // No need to subscribe to move event when not dragging
+        // No need to subscribe to move or drag stop event when not dragging
         this.removeMoveEvent();
+        this.removeDragStopEvent();
 
         // Get the playground field to which was dragged
         let pageX;
