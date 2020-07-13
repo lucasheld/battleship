@@ -1,12 +1,6 @@
 # battleship
 The game battleship in react
 
-## Contributors
-- Lucas Held - 35022624
-- Keanu Stückrad - 35198923
-- Gianluca Voss - 35197942
-- Patrick Michla - 35206231
-
 ## Usage
 To deploy the application in production, you can use the prebuild docker image.
 ```shell script
